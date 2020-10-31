@@ -1,6 +1,7 @@
 import { Box, Flex } from '@chakra-ui/core';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import { PropsWithChildren, useState } from 'react';
 import Header from '../components/header';
 import Layout from '../components/layout';
 
@@ -32,22 +33,15 @@ const HeartCoffee = styled(Box)`
   }
 `;
 
-const CV = styled(Box)`
-  & {
-    cursor: default;
-
-    &:before {
-      content: 'CV';
-    }
-  }
-  &:hover {
-    &:before {
-      content: 'Curriculum Vitae';
-    }
-  }
-`;
+const Paragraph = (props: PropsWithChildren<unknown>) => (
+  <Box as="p" mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
+    {props.children}
+  </Box>
+);
 
 export default function Home() {
+  const [showCV, setShowCV] = useState(false);
+
   return (
     <Layout>
       <Flex w="100%" direction="column" align="center">
@@ -79,43 +73,48 @@ export default function Home() {
           <Header underlineColor={PURPLE} emoji="🥐">
             Projects
           </Header>
-          <Box mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-          </Box>
+          <Paragraph>
+            Since I&apos;ve started diving into software development I worked on private projects to hone my skills. It
+            didn&apos;t matter if it was a tool which helped me, like a driving licence trainer, or a fully fletched
+            browsergame. I just developed stuff I had fun with. If someone asks me what I can recommend in order to get
+            started with software development I would suggest to start with a private project, something which sparks
+            your inner passion. Those projects made me the software developer I am today.
+          </Paragraph>
+          <Paragraph>Here you can see a list of the bigger projects I&apos;ve done in my free time.</Paragraph>
         </Flex>
         <Flex mt={4} w="100%" align="left" direction="column">
           <Header underlineColor={TURQUOISE} emoji="✌️">
-            <CV />
+            <Box as="span" onMouseEnter={() => setShowCV(true)} onMouseLeave={() => setShowCV(false)}>
+              {showCV ? 'Curriculum Vitae' : 'CV'}
+            </Box>
           </Header>
-          <Box mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-          </Box>
+          <Paragraph>
+            After finishing the technical high school I&apos;ve decided to directly start working in software
+            development professionaly. I knew that this was my passion and as I was already programming in my freetime I
+            really wanted to do this on a daily basis and make a living from it.
+          </Paragraph>
         </Flex>
         <Flex mt={4} w="100%" align="left" direction="column">
           <Header underlineColor={BLUE} emoji="✏️">
             Blog
           </Header>
-          <Box mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
+          <Paragraph>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
             dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
             clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-          </Box>
+          </Paragraph>
         </Flex>
         <Flex mt={4} w="100%" align="left" direction="column">
           <Header underlineColor={GREEN} emoji="📨">
             Contact
           </Header>
-          <Box mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
+          <Paragraph>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
             dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
             clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-          </Box>
+          </Paragraph>
         </Flex>
-        <Box mt={5} textAlign="center">
+        <Box mt={5} mb={2} textAlign="center">
           Website built with <HeartCoffee as="span" /> and nextjs
         </Box>
       </Flex>
