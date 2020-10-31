@@ -1,17 +1,25 @@
 import { Box, Flex } from '@chakra-ui/core';
+import styled from '@emotion/styled';
 import Image from 'next/image';
 import Layout from '../components/layout';
 
 const ORANGE = '#ffa300';
+
+const StyledImageBox = styled(Box)`
+  img {
+    border-radius: 42% 58% 70% 30% / 70% 60% 40% 30%;
+    box-shadow: 0 10px 15px -3px rgb(172 100 0 / 14%), 0 4px 6px -2px rgb(160 86 0 / 10%);
+  }
+`;
 
 export default function Home() {
   return (
     <Layout>
       <Flex w="100%" direction="column" align="center">
         <Flex direction={['column', 'row']}>
-          <Box m="auto" mr={['auto', 4]} mb={[4, 0]}>
-            <Image src="/images/profile-placeholder.png" width={200} height={211} />
-          </Box>
+          <StyledImageBox m="auto" mr={['auto', 4]} mb={[4, 0]}>
+            <Image src="/images/profile-placeholder.png" width={220} height={220} />
+          </StyledImageBox>
           <Flex maxW={400} justify="center" direction="column">
             <Box mb={1} as="h1">
               <Box display="inline-block" position="relative">
