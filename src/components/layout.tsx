@@ -15,7 +15,7 @@ const Layout = (props: PropsWithChildren<unknown>) => {
         />
       </Head>
       <GlobalStyle />
-      <Flex w={['90%', '85%', '80%']} maxW={1200} mx="auto" mt={4}>
+      <Flex w={['90%', '85%', '80%']} maxW={1000} mx="auto" mt={4}>
         {props.children}
       </Flex>
     </>

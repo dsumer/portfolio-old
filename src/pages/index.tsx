@@ -1,9 +1,11 @@
 import { Box, Flex } from '@chakra-ui/core';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import Header from '../components/header';
 import Layout from '../components/layout';
 
-const ORANGE = '#ffa300';
+const ORANGE = '#ff9400';
+const PURPLE = '#ff007a';
 
 const StyledImageBox = styled(Box)`
   img {
@@ -21,13 +23,9 @@ export default function Home() {
             <Image src="/images/profile-placeholder.png" width={220} height={220} />
           </StyledImageBox>
           <Flex maxW={400} justify="center" direction="column">
-            <Box mb={1} as="h1">
-              <Box display="inline-block" position="relative">
-                Hey!
-                <Box position="absolute" bg={ORANGE} w="100%" h={4} bottom={0} zIndex={-1} />
-              </Box>{' '}
-              🙌
-            </Box>
+            <Header underlineColor={ORANGE} emoji="🙌">
+              Hey!
+            </Header>
             <Box mt={0} as="h2" lineHeight={1.5} fontWeight="400">
               My name is{' '}
               <Box as="strong" fontWeight="600">
@@ -43,6 +41,16 @@ export default function Home() {
               </Box>
             </Box>
           </Flex>
+        </Flex>
+        <Flex mt={5} w="100%" align="left" direction="column">
+          <Header underlineColor={PURPLE} emoji="🥐">
+            Projects
+          </Header>
+          <Box mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </Box>
         </Flex>
       </Flex>
     </Layout>
