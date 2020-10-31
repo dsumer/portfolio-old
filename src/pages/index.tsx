@@ -6,11 +6,44 @@ import Layout from '../components/layout';
 
 const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
+const TURQUOISE = '#00e0ff';
+const BLUE = '#0083ff';
+const GREEN = '#38ff00';
 
 const StyledImageBox = styled(Box)`
   img {
     border-radius: 42% 58% 70% 30% / 70% 60% 40% 30%;
     box-shadow: 0 10px 15px -3px rgb(172 100 0 / 14%), 0 4px 6px -2px rgb(160 86 0 / 10%);
+  }
+`;
+
+const HeartCoffee = styled(Box)`
+  & {
+    cursor: default;
+
+    &:before {
+      content: '❤️';
+    }
+  }
+  &:hover {
+    &:before {
+      content: '☕️';
+    }
+  }
+`;
+
+const CV = styled(Box)`
+  & {
+    cursor: default;
+
+    &:before {
+      content: 'CV';
+    }
+  }
+  &:hover {
+    &:before {
+      content: 'Curriculum Vitae';
+    }
   }
 `;
 
@@ -42,7 +75,7 @@ export default function Home() {
             </Box>
           </Flex>
         </Flex>
-        <Flex mt={5} w="100%" align="left" direction="column">
+        <Flex mt={[4, 5]} w="100%" align="left" direction="column">
           <Header underlineColor={PURPLE} emoji="🥐">
             Projects
           </Header>
@@ -52,6 +85,39 @@ export default function Home() {
             clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
           </Box>
         </Flex>
+        <Flex mt={4} w="100%" align="left" direction="column">
+          <Header underlineColor={TURQUOISE} emoji="✌️">
+            <CV />
+          </Header>
+          <Box mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </Box>
+        </Flex>
+        <Flex mt={4} w="100%" align="left" direction="column">
+          <Header underlineColor={BLUE} emoji="✏️">
+            Blog
+          </Header>
+          <Box mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </Box>
+        </Flex>
+        <Flex mt={4} w="100%" align="left" direction="column">
+          <Header underlineColor={GREEN} emoji="📨">
+            Contact
+          </Header>
+          <Box mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </Box>
+        </Flex>
+        <Box mt={5} textAlign="center">
+          Website built with <HeartCoffee as="span" /> and nextjs
+        </Box>
       </Flex>
     </Layout>
   );
