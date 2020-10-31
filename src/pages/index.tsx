@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <Layout>
       <Flex w="100%" direction="column" align="center">
-        <Flex direction="row">
-          <Box mr={4}>
+        <Flex direction={['column', 'row']}>
+          <Box m="auto" mr={['auto', 4]} mb={[4, 0]}>
             <Image src="/images/profile-placeholder.png" width={200} height={211} />
           </Box>
           <Flex maxW={400} justify="center" direction="column">
