@@ -45,7 +45,7 @@ const RoundedImageBox = styled(Box)`
 export default function Home() {
   const { colorMode } = useColorMode();
   const [showCV, setShowCV] = useState(false);
-  const linkColor = useColorModeValue('blue.400', 'blue.500');
+  const linkColor = useColorModeValue('blue.500', 'blue.400');
 
   return (
     <Flex w="100%" direction="column" align="center">
