@@ -189,6 +189,17 @@ export default function Home() {
           professionally. I knew that this was my passion and as I was already programming in my freetime, I really
           wanted to do this on a daily basis and make a living from it.
         </Paragraph>
+        <Box>
+          <Divider my={10} />
+          Untis GmbH
+          <Divider my={10} />
+          Catalysts GmbH (now known as Cloudflight)
+          <Divider my={10} />
+          LieberLieber GmbH
+          <Divider my={10} />
+          HTL Ottakring
+          <Divider my={10} />
+        </Box>
       </Flex>
       <Flex mt={4} w="100%" align="left" direction="column">
         <Header id="blog" underlineColor={BLUE} emoji="✏️">

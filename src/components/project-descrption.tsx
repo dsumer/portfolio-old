@@ -13,7 +13,7 @@ interface Props {
   content: ReactElement;
 }
 const ProjectDescription = (props: Props) => (
-  <Box p={[0, 4, 8]} mx="auto" maxW={900}>
+  <Box py={[2, 6]}>
     <Flex direction={['column', 'column', 'row']} align="center">
       <Link href={props.url} isExternal>
         {props.logo}
