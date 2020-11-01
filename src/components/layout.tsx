@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { PropsWithChildren, useEffect } from 'react';
 import { CSSReset, Flex } from '@chakra-ui/core';
+import { Global, css } from '@emotion/core';
 import ColorModeSwitcher from './color-mode-switcher';
 
 const Layout = (props: PropsWithChildren<unknown>) => {
@@ -20,6 +21,13 @@ const Layout = (props: PropsWithChildren<unknown>) => {
         />
       </Head>
       <CSSReset />
+      <Global
+        styles={css`
+          html {
+            scroll-behavior: smooth;
+          }
+        `}
+      />
       <Flex w={['90%', '85%', '80%']} maxW={1000} mx="auto" pt={8}>
         {props.children}
       </Flex>
