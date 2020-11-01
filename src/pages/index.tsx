@@ -1,7 +1,8 @@
-import { Box, Flex, Link } from '@chakra-ui/core';
+import { Box, Divider, Flex, Link, List, ListItem, ListIcon } from '@chakra-ui/core';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { PropsWithChildren, useState } from 'react';
+import { FaGithub, FaTwitter } from 'react-icons/fa';
 import Header from '../components/header';
 
 const ORANGE = '#ff9400';
@@ -77,6 +78,13 @@ export default function Home() {
           track with new technologies.
         </Paragraph>
         <Paragraph>Here you can see a list of my most impactful projects.</Paragraph>
+        <Box>
+          <Divider />
+          Project1
+          <Divider />
+          Project2
+          <Divider />
+        </Box>
       </Flex>
       <Flex mt={4} w="100%" align="left" direction="column">
         <Header id="cv" underlineColor={TURQUOISE} emoji="✌️">
@@ -95,7 +103,7 @@ export default function Home() {
           Blog
         </Header>
         <Paragraph>
-          Here you can see my latest blog posts. At the moment I am mostly blogging for TrueQ, so I&apos;d recommend you
+          Here you can see my latest blog posts. At the moment I am mostly blogging for TrueQ so I&apos;d recommend you
           to also have a look{' '}
           <Link color="blue.400" href="https://trueq.io/blog" isExternal>
             there
@@ -109,7 +117,25 @@ export default function Home() {
         </Header>
         <Paragraph>
           Do you have any questions or would you like to work together with me on a project? Don&apos;t hesitate to
-          contact me via the form below.
+          write me a{' '}
+          <Link color="blue.400" href="https://twitter.com/messages/compose?recipient_id=798465058061881344" isExternal>
+            DM on Twitter
+          </Link>{' '}
+          or{' '}
+          <Link color="blue.400" href="mailto:domi.sumer@gmail.com" isExternal>
+            send me a mail
+          </Link>
+          .
+        </Paragraph>
+        <Paragraph>
+          You can also check out my profiles on{' '}
+          <Link href="https://twitter.com/dominiksumer" ml={1} isExternal>
+            <Box display="inline-block" as={FaTwitter} color="#1fa1f1" /> Twitter
+          </Link>{' '}
+          or{' '}
+          <Link href="https://github.com/dsumer" ml={1} isExternal>
+            <Box display="inline-block" as={FaGithub} color="black" /> GitHub
+          </Link>
         </Paragraph>
       </Flex>
       <Box mt={16} mb={2} textAlign="center">
