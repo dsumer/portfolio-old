@@ -1,12 +1,12 @@
-import { Badge, Box, Center, Divider, Flex, Link, useColorMode, useColorModeValue } from '@chakra-ui/core';
+import { Badge, Box, Divider, Flex, Link, useColorMode, useColorModeValue } from '@chakra-ui/core';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import Header from '../components/header';
 import Paragraph from '../components/paragraph';
 import TrueQLogo from '../components/trueq-logo';
-import HorizontalScrollFlex from '../components/horizontal-scroll-flex';
+import ProjectDescription from '../components/project-descrption';
 
 const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
@@ -41,41 +41,6 @@ const RoundedImageBox = styled(Box)`
     border-radius: 5px;
   }
 `;
-
-interface Props {
-  linkColor: string;
-  url: string;
-  logo: ReactElement;
-  status: 'ongoing' | 'on hold' | 'finished 🎉';
-  badges: ReactElement;
-  summary: string | ReactElement;
-  content: ReactElement;
-}
-const ProjectDescription = (props: Props) => (
-  <Box p={[0, 4, 8]} mx="auto" maxW={900}>
-    <Flex direction={['column', 'column', 'row']} align="center">
-      <Link href={props.url} isExternal>
-        {props.logo}
-      </Link>
-      <Paragraph as="div" ml={[0, 0, 12]} mt={[6, 6, 0]} maxW={['100%', '100%', '55%', '60%']}>
-        <HorizontalScrollFlex align="center" mb={[4, 2]}>
-          <Badge colorScheme={props.status === 'on hold' ? 'orange' : 'green'}>{props.status}</Badge>
-          <Center mx={2} height="20px">
-            <Divider orientation="vertical" />
-          </Center>
-          {props.badges}
-        </HorizontalScrollFlex>
-        <Box fontSize="lg" mb={4}>
-          <Link color={props.linkColor} href={props.url} isExternal>
-            {props.url}
-          </Link>
-        </Box>
-        {props.summary}
-      </Paragraph>
-    </Flex>
-    {props.content}
-  </Box>
-);
 
 export default function Home() {
   const { colorMode } = useColorMode();
