@@ -121,7 +121,7 @@ export default function Home() {
             linkColor={linkColor}
             url="http://risingfarms-online.com"
             logo={
-              <Box maxW={['auto', 'auto', 250]}>
+              <Box maxW={[300, 300, 250]}>
                 <Image src="/images/rfo.png" width={353} height={95} />
               </Box>
             }
@@ -152,7 +152,7 @@ export default function Home() {
             linkColor={linkColor}
             url="https://lenzcutsquad.com/"
             logo={
-              <RoundedImageBox maxW={['auto', 'auto', 250]}>
+              <RoundedImageBox maxW={[300, 300, 250]}>
                 <Image src="/images/lenzcutsquad.png" width={500} height={96} />
               </RoundedImageBox>
             }
