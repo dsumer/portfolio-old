@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/core';
+import { Box, Flex, Link } from '@chakra-ui/core';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { PropsWithChildren, useState } from 'react';
@@ -97,9 +97,9 @@ export default function Home() {
         <Paragraph>
           Here you can see my latest blog posts. At the moment I am mostly blogging for TrueQ, so I&apos;d recommend you
           to also have a look{' '}
-          <a href="https://trueq.io/blog" target="_blank" rel="noreferrer">
+          <Link color="blue.400" href="https://trueq.io/blog" isExternal>
             there
-          </a>
+          </Link>
           .
         </Paragraph>
       </Flex>
