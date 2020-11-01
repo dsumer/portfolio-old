@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Link, List, ListItem, ListIcon } from '@chakra-ui/core';
+import { Box, Divider, Flex, Link, useColorMode } from '@chakra-ui/core';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { PropsWithChildren, useState } from 'react';
@@ -40,6 +40,7 @@ const Paragraph = (props: PropsWithChildren<unknown>) => (
 );
 
 export default function Home() {
+  const { colorMode } = useColorMode();
   const [showCV, setShowCV] = useState(false);
 
   return (
@@ -94,7 +95,7 @@ export default function Home() {
         </Header>
         <Paragraph>
           After finishing the technical high school I&apos;ve decided to directly start working in software development
-          professionaly. I knew that this was my passion and as I was already programming in my freetime, I really
+          professionally. I knew that this was my passion and as I was already programming in my freetime, I really
           wanted to do this on a daily basis and make a living from it.
         </Paragraph>
       </Flex>
@@ -129,12 +130,13 @@ export default function Home() {
         </Paragraph>
         <Paragraph>
           You can also check out my profiles on{' '}
-          <Link href="https://twitter.com/dominiksumer" ml={1} isExternal>
-            <Box display="inline-block" as={FaTwitter} color="#1fa1f1" /> Twitter
+          <Link href="https://twitter.com/dominiksumer" mx={1} isExternal>
+            <Box display="inline-block" as={FaTwitter} mb="4px" color="#1fa1f1" /> Twitter
           </Link>{' '}
           or{' '}
           <Link href="https://github.com/dsumer" ml={1} isExternal>
-            <Box display="inline-block" as={FaGithub} color="black" /> GitHub
+            <Box display="inline-block" as={FaGithub} mb="4px" color={colorMode === 'dark' ? 'white' : 'black'} />{' '}
+            GitHub
           </Link>
         </Paragraph>
       </Flex>
