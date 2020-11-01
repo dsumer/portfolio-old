@@ -68,7 +68,7 @@ export default function Home() {
         </Flex>
       </Flex>
       <Flex mt={[6, 12]} w="100%" align="left" direction="column">
-        <Header underlineColor={PURPLE} emoji="🥐">
+        <Header id="projects" underlineColor={PURPLE} emoji="🥐">
           Projects
         </Header>
         <Paragraph>
@@ -79,7 +79,7 @@ export default function Home() {
         <Paragraph>Here you can see a list of my most impactful projects.</Paragraph>
       </Flex>
       <Flex mt={4} w="100%" align="left" direction="column">
-        <Header underlineColor={TURQUOISE} emoji="✌️">
+        <Header id="cv" underlineColor={TURQUOISE} emoji="✌️">
           <Box as="span" onMouseEnter={() => setShowCV(true)} onMouseLeave={() => setShowCV(false)}>
             {showCV ? 'Curriculum Vitae' : 'CV'}
           </Box>
@@ -91,7 +91,7 @@ export default function Home() {
         </Paragraph>
       </Flex>
       <Flex mt={4} w="100%" align="left" direction="column">
-        <Header underlineColor={BLUE} emoji="✏️">
+        <Header id="blog" underlineColor={BLUE} emoji="✏️">
           Blog
         </Header>
         <Paragraph>
@@ -104,7 +104,7 @@ export default function Home() {
         </Paragraph>
       </Flex>
       <Flex mt={4} w="100%" align="left" direction="column">
-        <Header underlineColor={GREEN} emoji="📨">
+        <Header id="contact" underlineColor={GREEN} emoji="📨">
           Contact
         </Header>
         <Paragraph>

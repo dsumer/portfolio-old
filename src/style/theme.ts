@@ -10,5 +10,14 @@ const customTheme = {
     ...theme.lineHeights,
     shorter: '1.2em',
   },
+  styles: {
+    ...theme.styles,
+    global: {
+      ...theme.styles.global,
+      html: {
+        scrollBehavior: 'smooth',
+      },
+    },
+  },
 };
 export default customTheme;
