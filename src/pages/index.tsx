@@ -1,7 +1,7 @@
 import { Badge, Box, Center, Divider, Flex, Link, useColorMode, useColorModeValue } from '@chakra-ui/core';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import Header from '../components/header';
 import Paragraph from '../components/paragraph';
@@ -35,6 +35,47 @@ const HeartCoffee = styled(Box)`
     }
   }
 `;
+
+const RoundedImageBox = styled(Box)`
+  img {
+    border-radius: 5px;
+  }
+`;
+
+interface Props {
+  linkColor: string;
+  url: string;
+  logo: ReactElement;
+  status: 'ongoing' | 'on hold' | 'finished 🎉';
+  badges: ReactElement;
+  summary: string | ReactElement;
+  content: ReactElement;
+}
+const ProjectDescription = (props: Props) => (
+  <Box p={[0, 4, 8]} mx="auto" maxW={900}>
+    <Flex direction={['column', 'column', 'row']} align="center">
+      <Link href={props.url} isExternal>
+        {props.logo}
+      </Link>
+      <Paragraph as="div" ml={[0, 0, 12]} mt={[6, 6, 0]} maxW={['100%', '100%', '55%', '60%']}>
+        <HorizontalScrollFlex align="center" mb={[4, 2]}>
+          <Badge colorScheme={props.status === 'on hold' ? 'orange' : 'green'}>{props.status}</Badge>
+          <Center mx={2} height="20px">
+            <Divider orientation="vertical" />
+          </Center>
+          {props.badges}
+        </HorizontalScrollFlex>
+        <Box fontSize="lg" mb={4}>
+          <Link color={props.linkColor} href={props.url} isExternal>
+            {props.url}
+          </Link>
+        </Box>
+        {props.summary}
+      </Paragraph>
+    </Flex>
+    {props.content}
+  </Box>
+);
 
 export default function Home() {
   const { colorMode } = useColorMode();
@@ -79,48 +120,96 @@ export default function Home() {
         <Paragraph>Here you can see a list of my most impactful projects.</Paragraph>
         <Box>
           <Divider my={10} />
-          <Box p={[0, 4, 8]} mx="auto" maxW={800}>
-            <Flex direction={['column', 'column', 'row']} align="center">
-              <Link href="https://trueq.io" isExternal>
-                <TrueQLogo />
-              </Link>
-              <Paragraph as="div" ml={[0, 0, 12]} mt={[6, 6, 0]} maxW={['100%', '100%', '55%', '60%']}>
-                <HorizontalScrollFlex align="center" mb={[4, 2]}>
-                  <Badge colorScheme="green">ongoing</Badge>
-                  <Center mx={2} height="20px">
-                    <Divider orientation="vertical" />
-                  </Center>
-                  <Badge colorScheme="blue">TypeScript</Badge>
-                  <Badge colorScheme="teal" mx={2}>
-                    React
-                  </Badge>
-                  <Badge colorScheme="green">node</Badge>
-                  <Badge ml={2}>nextjs</Badge>
-                </HorizontalScrollFlex>
-                <Box fontSize="lg" mb={4}>
-                  <Link color={linkColor} href="https://trueq.io" isExternal>
-                    https://trueq.io
-                  </Link>
-                </Box>
-                TrueQ is a platform for developers, where they can help each other with their daily problems and build
-                up their personal knowledge base.
+          <ProjectDescription
+            linkColor={linkColor}
+            url="https://trueq.io"
+            logo={<TrueQLogo />}
+            status="ongoing"
+            badges={
+              <>
+                <Badge colorScheme="blue">TypeScript</Badge>
+                <Badge colorScheme="teal" mx={2}>
+                  React
+                </Badge>
+                <Badge colorScheme="green">node</Badge>
+                <Badge ml={2}>nextjs</Badge>
+              </>
+            }
+            summary="TrueQ is a platform for developers, where they can help each other with their daily problems and build up their personal knowledge base."
+            content={
+              <Paragraph>
+                Together with{' '}
+                <Link color={linkColor} href="https://twitter.com/AnkiBatsukh" isExternal>
+                  Anki
+                </Link>{' '}
+                I&apos;ve developed it completely from scratch. I&apos;ve also done the DevOps part, managing the
+                deployment with Ansible and built up a release process via Gitlab CI. Check out the{' '}
+                <Link color={linkColor} href="https://trueq.io/our-journey" isExternal>
+                  blog post about our journey
+                </Link>{' '}
+                for more informations. 😊
               </Paragraph>
-            </Flex>
-            <Paragraph>
-              Together with{' '}
-              <Link color={linkColor} href="https://twitter.com/AnkiBatsukh" isExternal>
-                Anki
-              </Link>{' '}
-              I&apos;ve developed it completely from scratch. I&apos;ve also done the DevOps part, managing the
-              deployment with Ansible and built up a release process via Gitlab CI. Check out the{' '}
-              <Link color={linkColor} href="https://trueq.io/our-journey" isExternal>
-                blog post about our journey
-              </Link>{' '}
-              for more informations. 😊
-            </Paragraph>
-          </Box>
+            }
+          />
           <Divider my={10} />
-          Project2
+          <ProjectDescription
+            linkColor={linkColor}
+            url="http://risingfarms-online.com"
+            logo={
+              <Box maxW={['auto', 'auto', 250]}>
+                <Image src="/images/rfo.png" width={353} height={95} />
+              </Box>
+            }
+            status="on hold"
+            badges={
+              <>
+                <Badge colorScheme="blue">TypeScript</Badge>
+                <Badge colorScheme="teal" mx={2}>
+                  React
+                </Badge>
+                <Badge colorScheme="orange">Kotlin</Badge>
+                <Badge colorScheme="green" ml={2}>
+                  Spring
+                </Badge>
+              </>
+            }
+            summary="Rising Farms Online is a multiplayer 2D online game. It is a mix of RPG and farmsimulation and completely playable in the browser."
+            content={
+              <Paragraph>
+                With Rising Farms Online I started my programming journey. It was a dream to develop my own game and
+                build up a community for it. I learned so many things with RFO and I am insanely thankful for the
+                experience. Sadly I had to put it on hold in 2019 because of a priority shift.
+              </Paragraph>
+            }
+          />
+          <Divider my={10} />
+          <ProjectDescription
+            linkColor={linkColor}
+            url="https://lenzcutsquad.com/"
+            logo={
+              <RoundedImageBox maxW={['auto', 'auto', 250]}>
+                <Image src="/images/lenzcutsquad.png" width={732} height={140} />
+              </RoundedImageBox>
+            }
+            status="finished 🎉"
+            badges={
+              <>
+                <Badge colorScheme="purple">PHP</Badge>
+                <Badge colorScheme="red" mx={2}>
+                  Laravel
+                </Badge>
+                <Badge colorScheme="yellow">jQuery</Badge>
+              </>
+            }
+            summary="A portfolio website for my barber with possibilities for managing a simple online shop."
+            content={
+              <Paragraph>
+                In the summer of 2019 my barber approached me if I have time for a simple portfolio website of himself.
+                I took the chance and made my first footsteps with Laravel. It&apos;s deployed on a private vServer and
+                directly fetched via a GitHub repo.
+              </Paragraph>
+            }
+          />
           <Divider my={10} />
         </Box>
       </Flex>
@@ -141,8 +230,8 @@ export default function Home() {
           Blog
         </Header>
         <Paragraph>
-          Here you can see my latest blog posts. At the moment I am mostly blogging for TrueQ so I&apos;d recommend you
-          to also have a look{' '}
+          In the future I will republish my old blog posts here and probably also create some new ones. At the moment I
+          am mostly blogging for TrueQ so I&apos;d recommend you to also have a look{' '}
           <Link color={linkColor} href="https://trueq.io/blog" isExternal>
             there
           </Link>
