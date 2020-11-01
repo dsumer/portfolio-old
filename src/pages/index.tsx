@@ -84,7 +84,7 @@ export default function Home() {
               <Link href="https://trueq.io" isExternal>
                 <TrueQLogo />
               </Link>
-              <Paragraph ml={[0, 0, 12]} mt={[6, 6, 0]} maxW={['100%', '100%', '55%', '60%']}>
+              <Paragraph as="div" ml={[0, 0, 12]} mt={[6, 6, 0]} maxW={['100%', '100%', '55%', '60%']}>
                 <HorizontalScrollFlex align="center" mb={[4, 2]}>
                   <Badge colorScheme="green">ongoing</Badge>
                   <Center mx={2} height="20px">
