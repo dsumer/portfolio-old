@@ -153,7 +153,7 @@ export default function Home() {
             url="https://lenzcutsquad.com/"
             logo={
               <RoundedImageBox maxW={['auto', 'auto', 250]}>
-                <Image src="/images/lenzcutsquad.png" width={732} height={140} />
+                <Image src="/images/lenzcutsquad.png" width={500} height={96} />
               </RoundedImageBox>
             }
             status="finished 🎉"
