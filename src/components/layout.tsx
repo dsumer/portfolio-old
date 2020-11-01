@@ -25,6 +25,7 @@ const Layout = (props: PropsWithChildren<unknown>) => {
         styles={css`
           html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
           }
         `}
       />

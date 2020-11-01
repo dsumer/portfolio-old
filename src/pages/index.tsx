@@ -1,9 +1,12 @@
-import { Box, Divider, Flex, Link, useColorMode } from '@chakra-ui/core';
+import { Badge, Box, Center, Divider, Flex, Link, useColorMode, useColorModeValue } from '@chakra-ui/core';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import { PropsWithChildren, useState } from 'react';
+import { useState } from 'react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import Header from '../components/header';
+import Paragraph from '../components/paragraph';
+import TrueQLogo from '../components/trueq-logo';
+import HorizontalScrollFlex from '../components/horizontal-scroll-flex';
 
 const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
@@ -33,15 +36,10 @@ const HeartCoffee = styled(Box)`
   }
 `;
 
-const Paragraph = (props: PropsWithChildren<unknown>) => (
-  <Box as="p" mt={0} mb={6} fontSize="1.35em" lineHeight={1.5} fontWeight="400">
-    {props.children}
-  </Box>
-);
-
 export default function Home() {
   const { colorMode } = useColorMode();
   const [showCV, setShowCV] = useState(false);
+  const linkColor = useColorModeValue('blue.400', 'blue.500');
 
   return (
     <Flex w="100%" direction="column" align="center">
@@ -80,11 +78,50 @@ export default function Home() {
         </Paragraph>
         <Paragraph>Here you can see a list of my most impactful projects.</Paragraph>
         <Box>
-          <Divider />
-          Project1
-          <Divider />
+          <Divider my={10} />
+          <Box p={[0, 4, 8]} mx="auto" maxW={800}>
+            <Flex direction={['column', 'column', 'row']} align="center">
+              <Link href="https://trueq.io" isExternal>
+                <TrueQLogo />
+              </Link>
+              <Paragraph ml={[0, 0, 12]} mt={[6, 6, 0]} maxW={['100%', '100%', '55%', '60%']}>
+                <HorizontalScrollFlex align="center" mb={[4, 2]}>
+                  <Badge colorScheme="green">ongoing</Badge>
+                  <Center mx={2} height="20px">
+                    <Divider orientation="vertical" />
+                  </Center>
+                  <Badge colorScheme="blue">TypeScript</Badge>
+                  <Badge colorScheme="teal" mx={2}>
+                    React
+                  </Badge>
+                  <Badge colorScheme="green">node</Badge>
+                  <Badge ml={2}>nextjs</Badge>
+                </HorizontalScrollFlex>
+                <Box fontSize="lg" mb={4}>
+                  <Link color={linkColor} href="https://trueq.io" isExternal>
+                    https://trueq.io
+                  </Link>
+                </Box>
+                TrueQ is a platform for developers, where they can help each other with their daily problems and build
+                up their personal knowledge base.
+              </Paragraph>
+            </Flex>
+            <Paragraph>
+              Together with{' '}
+              <Link color={linkColor} href="https://twitter.com/AnkiBatsukh" isExternal>
+                Anki
+              </Link>{' '}
+              I&apos;ve developed it completely from scratch. I&apos;ve also done the DevOps part, managing the
+              deployment with Ansible and built up a release process via Gitlab CI. Check out the{' '}
+              <Link color={linkColor} href="https://trueq.io/our-journey" isExternal>
+                blog post about our journey
+              </Link>{' '}
+              for more informations. 😊
+            </Paragraph>
+          </Box>
+          <Divider my={10} />
           Project2
-          <Divider />
+          <Divider my={10} />
         </Box>
       </Flex>
       <Flex mt={4} w="100%" align="left" direction="column">
@@ -106,7 +143,7 @@ export default function Home() {
         <Paragraph>
           Here you can see my latest blog posts. At the moment I am mostly blogging for TrueQ so I&apos;d recommend you
           to also have a look{' '}
-          <Link color="blue.400" href="https://trueq.io/blog" isExternal>
+          <Link color={linkColor} href="https://trueq.io/blog" isExternal>
             there
           </Link>
           .
@@ -119,11 +156,15 @@ export default function Home() {
         <Paragraph>
           Do you have any questions or would you like to work together with me on a project? Don&apos;t hesitate to
           write me a{' '}
-          <Link color="blue.400" href="https://twitter.com/messages/compose?recipient_id=798465058061881344" isExternal>
+          <Link
+            color={linkColor}
+            href="https://twitter.com/messages/compose?recipient_id=798465058061881344"
+            isExternal
+          >
             DM on Twitter
           </Link>{' '}
           or{' '}
-          <Link color="blue.400" href="mailto:domi.sumer@gmail.com" isExternal>
+          <Link color={linkColor} href="mailto:domi.sumer@gmail.com" isExternal>
             send me a mail
           </Link>
           .
