@@ -34,7 +34,7 @@ const HeartCoffee = styled(Box)`
 `;
 
 const Paragraph = (props: PropsWithChildren<unknown>) => (
-  <Box as="p" mt={0} fontSize="1.3em" lineHeight={1.5} fontWeight="400">
+  <Box as="p" mt={0} fontSize="1.35em" lineHeight={1.5} fontWeight="400">
     {props.children}
   </Box>
 );
@@ -74,16 +74,11 @@ export default function Home() {
             Projects
           </Header>
           <Paragraph>
-            If someone asks me what I can recommend in order to get started with software development I would suggest to
-            start with a private project, something which sparks your inner passion.
+            Since I&apos;ve started diving into software development I worked on private projects to hone my skills.
+            Those projects made me the software developer I am today and I still love to work on private projects to
+            keep on track with new technologies.
           </Paragraph>
-          <Paragraph>
-            Since I&apos;ve started diving into software development I worked on private projects to hone my skills. It
-            didn&apos;t matter if it was a tool which helped me, or a multiplayer online game, I just developed stuff I
-            had fun with. Those projects made me the software developer I am today and I still love to work on private
-            projects to keep on track with new technologies.
-          </Paragraph>
-          <Paragraph>Here you can see a list of the bigger projects I&apos;ve done in my free time.</Paragraph>
+          <Paragraph>Here you can see a list of my most impactful projects.</Paragraph>
         </Flex>
         <Flex mt={4} w="100%" align="left" direction="column">
           <Header underlineColor={TURQUOISE} emoji="✌️">
@@ -102,9 +97,12 @@ export default function Home() {
             Blog
           </Header>
           <Paragraph>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            Here you can see my latest blog posts. At the moment I am mostly blogging for TrueQ, so I&apos;d recommend
+            you to also have a look{' '}
+            <a href="https://trueq.io/blog" target="_blank" rel="noreferrer">
+              there
+            </a>
+            .
           </Paragraph>
         </Flex>
         <Flex mt={4} w="100%" align="left" direction="column">
@@ -112,9 +110,8 @@ export default function Home() {
             Contact
           </Header>
           <Paragraph>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            Do you have any questions or would you like to work together with me on a project? Don&apos;t hesitate to
+            contact me via the form below.
           </Paragraph>
         </Flex>
         <Box mt={5} mb={2} textAlign="center">
