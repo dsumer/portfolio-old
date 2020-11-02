@@ -50,6 +50,7 @@ export default function Home() {
   const { colorMode } = useColorMode();
   const [showCV, setShowCV] = useState(false);
   const linkColor = useColorModeValue('blue.500', 'blue.400');
+  const lieberLieberLogo = useColorModeValue('LieberLieber_Logo.png', 'LieberLieber_Logo_Dark.png');
 
   return (
     <Flex w="100%" direction="column" align="center">
@@ -219,7 +220,7 @@ export default function Home() {
           <CVDescription
             linkColor={linkColor}
             url="https://lieberlieber.com"
-            logo={<Image src="/images/LieberLieber_Logo.png" width={238} height={37} alt="LieberLieber GmbH" />}
+            logo={<img src={'/images/' + lieberLieberLogo} width={238} height={37} alt="LieberLieber GmbH" />}
             name="LieberLieber GmbH"
             status="past"
             fromTo="March 2014 - August 2015"
