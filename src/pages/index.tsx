@@ -5,8 +5,12 @@ import { useState } from 'react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import Header from '../components/header';
 import Paragraph from '../components/paragraph';
-import TrueQLogo from '../components/trueq-logo';
-import ProjectDescription from '../components/project-descrption';
+import TrueQLogo from '../style/logos/trueq-logo';
+import ProjectDescription from '../components/project-description';
+import CVDescription from '../components/cv-description';
+import UntisLogo from '../style/logos/untis-logo';
+import CatalystsLogo from '../style/logos/catalysts-logo';
+import HtlLogo from '../style/logos/htl-logo';
 
 const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
@@ -51,7 +55,7 @@ export default function Home() {
     <Flex w="100%" direction="column" align="center">
       <Flex direction={['column', 'row']}>
         <StyledImageBox m="auto" mr={['auto', 8]} mb={[16, 0]}>
-          <Image src="/images/profile-placeholder.png" width={220} height={220} />
+          <Image src="/images/profile-placeholder.png" width={220} height={220} alt="Dominik Sumer" />
         </StyledImageBox>
         <Flex maxW={400} justify="center" direction="column">
           <Header underlineColor={ORANGE} emoji="🙌" mt={0}>
@@ -102,7 +106,7 @@ export default function Home() {
             }
             summary="TrueQ is a platform for developers, where they can help each other with their daily problems and build up their personal knowledge base."
             content={
-              <Paragraph>
+              <Paragraph mb={0}>
                 Together with{' '}
                 <Link color={linkColor} href="https://twitter.com/AnkiBatsukh" isExternal>
                   Anki
@@ -122,7 +126,7 @@ export default function Home() {
             url="http://risingfarms-online.com"
             logo={
               <Box maxW={[300, 300, 250]}>
-                <Image src="/images/rfo.png" width={353} height={95} />
+                <Image src="/images/rfo.png" width={353} height={95} alt="Rising Farms Online" />
               </Box>
             }
             status="on hold"
@@ -140,7 +144,7 @@ export default function Home() {
             }
             summary="Rising Farms Online is a multiplayer 2D online game. It is a mix of RPG and farmsimulation and completely playable in the browser."
             content={
-              <Paragraph>
+              <Paragraph mb={0}>
                 With Rising Farms Online I started my programming journey. It was a dream to develop my own game and
                 build up a community for it. I learned so many things with RFO and I am insanely thankful for the
                 experience. Sadly I had to put it on hold in 2019 because of a priority shift.
@@ -153,7 +157,7 @@ export default function Home() {
             url="https://lenzcutsquad.com/"
             logo={
               <RoundedImageBox maxW={[300, 300, 250]}>
-                <Image src="/images/lenzcutsquad.png" width={500} height={96} />
+                <Image src="/images/lenzcutsquad.png" width={500} height={96} alt="LenzCutSquad" />
               </RoundedImageBox>
             }
             status="finished 🎉"
@@ -168,7 +172,7 @@ export default function Home() {
             }
             summary="A portfolio website for my barber with possibilities for managing a simple online shop."
             content={
-              <Paragraph>
+              <Paragraph mb={0}>
                 In the summer of 2019 my barber approached me if I have time for a simple portfolio website of himself.
                 I took the chance and made my first footsteps with Laravel. It&apos;s deployed on a private vServer and
                 directly fetched via a GitHub repo.
@@ -178,7 +182,7 @@ export default function Home() {
           <Divider my={10} />
         </Box>
       </Flex>
-      <Flex mt={4} w="100%" align="left" direction="column">
+      <Flex mt={20} w="100%" align="left" direction="column">
         <Header id="cv" underlineColor={TURQUOISE} emoji="✌️">
           <Box as="span" onMouseEnter={() => setShowCV(true)} onMouseLeave={() => setShowCV(false)}>
             {showCV ? 'Curriculum Vitae' : 'CV'}
@@ -191,17 +195,51 @@ export default function Home() {
         </Paragraph>
         <Box>
           <Divider my={10} />
-          Untis GmbH
+          <CVDescription
+            linkColor={linkColor}
+            url="https://untis.at"
+            logo={<UntisLogo />}
+            name="Untis GmbH"
+            status="ongoing"
+            fromTo="since April 2019"
+            summary="I am employed at Untis as a senior software developer. My responsibilities are the managment of our web-frontend, I do several coordinative tasks and I also find myself implementing stuff in the backend. 😄"
+          />
           <Divider my={10} />
-          Catalysts GmbH (now known as Cloudflight)
+          <CVDescription
+            linkColor={linkColor}
+            url="https://cloudflight.io"
+            logo={<CatalystsLogo />}
+            name="Catalysts GmbH"
+            knownAs="Cloudflight"
+            status="past"
+            fromTo="August 2015 - March 2019"
+            summary="TODO"
+          />
           <Divider my={10} />
-          LieberLieber GmbH
+          <CVDescription
+            linkColor={linkColor}
+            url="https://lieberlieber.com"
+            logo={<Image src="/images/LieberLieber_Logo.png" width={238} height={37} alt="LieberLieber GmbH" />}
+            name="LieberLieber GmbH"
+            status="past"
+            fromTo="March 2014 - August 2015"
+            summary="LieberLieber was my first employer and I had the chance to gain first experiences in professional software development. Most of the time I was busy developing Enterprise Architect Extensions with C#."
+          />
           <Divider my={10} />
-          HTL Ottakring
+          <CVDescription
+            linkColor={linkColor}
+            url="https://htlwienwest.at"
+            logo={<HtlLogo />}
+            name="HTL Ottakring"
+            knownAs="HTL Wien West"
+            status="past"
+            fromTo="until June 2013"
+            summary="TODO"
+          />
           <Divider my={10} />
         </Box>
       </Flex>
-      <Flex mt={4} w="100%" align="left" direction="column">
+      <Flex mt={20} w="100%" align="left" direction="column">
         <Header id="blog" underlineColor={BLUE} emoji="✏️">
           Blog
         </Header>
