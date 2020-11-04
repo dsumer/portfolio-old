@@ -83,7 +83,7 @@ export default function Home() {
           Projects
         </Header>
         <Paragraph>
-          Since I&apos;ve started diving into software development I worked on private projects to hone my skills. Those
+          Since I&apos;ve started diving into software development I worked on private projects to hone my skills. These
           projects made me the software developer I am today and I still love to work on private projects to keep on
           track with new technologies.
         </Paragraph>
@@ -105,7 +105,7 @@ export default function Home() {
                 <Badge ml={2}>nextjs</Badge>
               </>
             }
-            summary="TrueQ is a platform for developers, where they can help each other with their daily problems and build up their personal knowledge base."
+            summary="TrueQ is a platform for developers where they can help each other with their daily problems and build up their personal knowledge base."
             content={
               <Paragraph mb={0}>
                 Together with{' '}
@@ -146,9 +146,9 @@ export default function Home() {
             summary="Rising Farms Online is a multiplayer 2D online game. It is a mix of RPG and farmsimulation and completely playable in the browser."
             content={
               <Paragraph mb={0}>
-                With Rising Farms Online I started my programming journey. It was a dream to develop my own game and
-                build up a community for it. I learned so many things with RFO and I am insanely thankful for the
-                experience. Sadly I had to put it on hold in 2019 because of a priority shift.
+                With Rising Farms Online I started my programming journey back in 2010. It was a dream to develop my own
+                game and build up a community for it. I learned so many things with RFO and I am insanely thankful for
+                the experience. Sadly I had to put it on hold in 2019 because of a priority shift.
               </Paragraph>
             }
           />
@@ -174,8 +174,8 @@ export default function Home() {
             summary="A portfolio website for my barber with possibilities for managing a simple online shop."
             content={
               <Paragraph mb={0}>
-                In the summer of 2019 my barber approached me if I have time for a simple portfolio website of himself.
-                I took the chance and made my first footsteps with Laravel. It&apos;s deployed on a private vServer and
+                In summer of 2019 my barber approached me if I have time for a simple portfolio website of himself. I
+                took the chance and made my first footsteps with Laravel. It&apos;s deployed on a private vServer and
                 directly fetched via a GitHub repo.
               </Paragraph>
             }
@@ -245,8 +245,8 @@ export default function Home() {
           Blog
         </Header>
         <Paragraph>
-          In the future I will republish my old blog posts here and probably also create some new ones. At the moment I
-          am mostly blogging for TrueQ so I&apos;d recommend you to also have a look{' '}
+          In future I am going to republish my old blog posts here and probably also create some new ones. At the moment
+          I am mostly blogging for TrueQ so I&apos;d recommend you to also have a look{' '}
           <Link color={linkColor} href="https://trueq.io/blog" isExternal>
             there
           </Link>
