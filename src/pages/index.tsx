@@ -88,7 +88,7 @@ export default function Home() {
           track with new technologies.
         </Paragraph>
         <Paragraph>Here you can see a list of my most impactful projects.</Paragraph>
-        <Box>
+        <Box px={[4, 8, 12]}>
           <Divider my={10} />
           <ProjectDescription
             linkColor={linkColor}
@@ -194,7 +194,7 @@ export default function Home() {
           professionally. I knew that this was my passion and as I was already programming in my freetime, I really
           wanted to do this on a daily basis and make a living from it.
         </Paragraph>
-        <Box>
+        <Box px={[4, 8, 12]}>
           <Divider my={10} />
           <CVDescription
             linkColor={linkColor}
@@ -214,7 +214,7 @@ export default function Home() {
             knownAs="Cloudflight"
             status="past"
             fromTo="August 2015 - March 2019"
-            summary="TODO"
+            summary="In my time at Catalysts I had the chance to gain so much experience. Of course also in software development, but mostly in project managment, team leading and social skills. I led several projects and did full stack development."
           />
           <Divider my={10} />
           <CVDescription
@@ -235,7 +235,7 @@ export default function Home() {
             knownAs="HTL Wien West"
             status="past"
             fromTo="until June 2013"
-            summary="TODO"
+            summary="My education at the HTL Ottakring encouraged my interests and skills in software development. I finished the information technology branch of the HTL Ottakring."
           />
           <Divider my={10} />
         </Box>
