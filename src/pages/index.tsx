@@ -56,7 +56,7 @@ export default function Home() {
     <Flex w="100%" direction="column" align="center">
       <Flex direction={['column', 'row']}>
         <StyledImageBox m="auto" mr={['auto', 8]} mb={[16, 0]}>
-          <Image src="/images/profile-placeholder.png" width={220} height={220} alt="Dominik Sumer" />
+          <Image loading="eager" src="/images/profile-placeholder.png" width={220} height={220} alt="Dominik Sumer" />
         </StyledImageBox>
         <Flex maxW={400} justify="center" direction="column">
           <Header underlineColor={ORANGE} emoji="🙌" mt={0}>
