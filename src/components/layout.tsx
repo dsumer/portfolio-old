@@ -14,7 +14,7 @@ const Layout = (props: PropsWithChildren<unknown>) => {
     <>
       <Head>
         <title>Dominik Sumer - Web Developer</title>
-        <meta name="robots" content="noindex,nofollow" />
+        <meta name="Description" content="Hey! My name is Dominik and I'm a Web Developer from Austria." />
         <link
           rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🙌</text></svg>"
