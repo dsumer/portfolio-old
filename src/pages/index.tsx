@@ -8,6 +8,7 @@ import Paragraph from '../components/paragraph';
 import TrueQLogo from '../style/logos/trueq-logo';
 import ProjectDescription from '../components/project-description';
 import CVDescription from '../components/cv-description';
+import FadeInSection from '../components/fadein-section';
 import UntisLogo from '../style/logos/untis-logo';
 import CatalystsLogo from '../style/logos/catalysts-logo';
 import HtlLogo from '../style/logos/htl-logo';
@@ -183,108 +184,114 @@ export default function Home() {
           <Divider my={10} />
         </Box>
       </Flex>
-      <Flex mt={20} w="100%" align="left" direction="column">
-        <Header id="cv" underlineColor={TURQUOISE} emoji="✌️">
-          <Box as="span" onMouseEnter={() => setShowCV(true)} onMouseLeave={() => setShowCV(false)}>
-            {showCV ? 'Curriculum Vitae' : 'CV'}
+      <FadeInSection>
+        <Flex mt={20} w="100%" align="left" direction="column">
+          <Header id="cv" underlineColor={TURQUOISE} emoji="✌️">
+            <Box as="span" onMouseEnter={() => setShowCV(true)} onMouseLeave={() => setShowCV(false)}>
+              {showCV ? 'Curriculum Vitae' : 'CV'}
+            </Box>
+          </Header>
+          <Paragraph>
+            After finishing the technical high school I&apos;ve decided to directly start working in software
+            development professionally. I knew that this was my passion and as I was already programming in my freetime,
+            I really wanted to do this on a daily basis and make a living from it.
+          </Paragraph>
+          <Box px={[4, 8, 12]}>
+            <Divider my={10} />
+            <CVDescription
+              linkColor={linkColor}
+              url="https://untis.at"
+              logo={<UntisLogo />}
+              name="Untis GmbH"
+              status="ongoing"
+              fromTo="since April 2019"
+              summary="I am employed at Untis as a senior software developer. My responsibilities are the managment of our web-frontend, I do several coordinative tasks and I also find myself implementing stuff in the backend. 😄"
+            />
+            <Divider my={10} />
+            <CVDescription
+              linkColor={linkColor}
+              url="https://cloudflight.io"
+              logo={<CatalystsLogo />}
+              name="Catalysts GmbH"
+              knownAs="Cloudflight"
+              status="past"
+              fromTo="August 2015 - March 2019"
+              summary="In my time at Catalysts I had the chance to gain so much experience. Of course also in software development, but mostly in project managment, team leading and social skills. I led several projects and did full stack development."
+            />
+            <Divider my={10} />
+            <CVDescription
+              linkColor={linkColor}
+              url="https://lieberlieber.com"
+              logo={<img src={'/images/' + lieberLieberLogo} width={238} height={37} alt="LieberLieber GmbH" />}
+              name="LieberLieber GmbH"
+              status="past"
+              fromTo="March 2014 - August 2015"
+              summary="LieberLieber was my first employer and I had the chance to gain first experiences in professional software development. Most of the time I was busy developing Enterprise Architect Extensions with C#."
+            />
+            <Divider my={10} />
+            <CVDescription
+              linkColor={linkColor}
+              url="https://htlwienwest.at"
+              logo={<HtlLogo />}
+              name="HTL Ottakring"
+              knownAs="HTL Wien West"
+              status="past"
+              fromTo="until June 2013"
+              summary="My education at the HTL Ottakring encouraged my interests and skills in software development. I finished the information technology branch of the HTL Ottakring."
+            />
+            <Divider my={10} />
           </Box>
-        </Header>
-        <Paragraph>
-          After finishing the technical high school I&apos;ve decided to directly start working in software development
-          professionally. I knew that this was my passion and as I was already programming in my freetime, I really
-          wanted to do this on a daily basis and make a living from it.
-        </Paragraph>
-        <Box px={[4, 8, 12]}>
-          <Divider my={10} />
-          <CVDescription
-            linkColor={linkColor}
-            url="https://untis.at"
-            logo={<UntisLogo />}
-            name="Untis GmbH"
-            status="ongoing"
-            fromTo="since April 2019"
-            summary="I am employed at Untis as a senior software developer. My responsibilities are the managment of our web-frontend, I do several coordinative tasks and I also find myself implementing stuff in the backend. 😄"
-          />
-          <Divider my={10} />
-          <CVDescription
-            linkColor={linkColor}
-            url="https://cloudflight.io"
-            logo={<CatalystsLogo />}
-            name="Catalysts GmbH"
-            knownAs="Cloudflight"
-            status="past"
-            fromTo="August 2015 - March 2019"
-            summary="In my time at Catalysts I had the chance to gain so much experience. Of course also in software development, but mostly in project managment, team leading and social skills. I led several projects and did full stack development."
-          />
-          <Divider my={10} />
-          <CVDescription
-            linkColor={linkColor}
-            url="https://lieberlieber.com"
-            logo={<img src={'/images/' + lieberLieberLogo} width={238} height={37} alt="LieberLieber GmbH" />}
-            name="LieberLieber GmbH"
-            status="past"
-            fromTo="March 2014 - August 2015"
-            summary="LieberLieber was my first employer and I had the chance to gain first experiences in professional software development. Most of the time I was busy developing Enterprise Architect Extensions with C#."
-          />
-          <Divider my={10} />
-          <CVDescription
-            linkColor={linkColor}
-            url="https://htlwienwest.at"
-            logo={<HtlLogo />}
-            name="HTL Ottakring"
-            knownAs="HTL Wien West"
-            status="past"
-            fromTo="until June 2013"
-            summary="My education at the HTL Ottakring encouraged my interests and skills in software development. I finished the information technology branch of the HTL Ottakring."
-          />
-          <Divider my={10} />
-        </Box>
-      </Flex>
-      <Flex mt={20} w="100%" align="left" direction="column">
-        <Header id="blog" underlineColor={BLUE} emoji="✏️">
-          Blog
-        </Header>
-        <Paragraph>
-          In future I am going to republish my old blog posts here and probably also create some new ones. At the moment
-          I am mostly blogging for TrueQ so I&apos;d recommend you to also have a look{' '}
-          <Link color={linkColor} href="https://trueq.io/blog" isExternal>
-            there
-          </Link>
-          .
-        </Paragraph>
-      </Flex>
-      <Flex mt={4} w="100%" align="left" direction="column">
-        <Header id="contact" underlineColor={GREEN} emoji="📨">
-          Contact
-        </Header>
-        <Paragraph>
-          Do you have any questions or would you like to work together with me on a project? Don&apos;t hesitate to
-          write me a{' '}
-          <Link
-            color={linkColor}
-            href="https://twitter.com/messages/compose?recipient_id=798465058061881344"
-            isExternal
-          >
-            DM on Twitter
-          </Link>{' '}
-          or{' '}
-          <Link color={linkColor} href="mailto:domi.sumer@gmail.com" isExternal>
-            send me a mail
-          </Link>
-          .
-        </Paragraph>
-        <Paragraph>
-          You can also check out my profiles on{' '}
-          <Link href="https://twitter.com/dominiksumer" mx={1} isExternal>
-            <Box display="inline-block" as={FaTwitter} mb="4px" color="#1fa1f1" /> Twitter
-          </Link>{' '}
-          or{' '}
-          <Link href="https://github.com/dsumer" ml={1} isExternal>
-            <Box display="inline-block" as={FaGithub} mb="4px" color={colorMode === 'dark' ? 'white' : 'black'} />{' '}
-            GitHub
-          </Link>
-        </Paragraph>
-      </Flex>
+        </Flex>
+      </FadeInSection>
+      <FadeInSection>
+        <Flex mt={20} w="100%" align="left" direction="column">
+          <Header id="blog" underlineColor={BLUE} emoji="✏️">
+            Blog
+          </Header>
+          <Paragraph>
+            In future I am going to republish my old blog posts here and probably also create some new ones. At the
+            moment I am mostly blogging for TrueQ so I&apos;d recommend you to also have a look{' '}
+            <Link color={linkColor} href="https://trueq.io/blog" isExternal>
+              there
+            </Link>
+            .
+          </Paragraph>
+        </Flex>
+      </FadeInSection>
+      <FadeInSection>
+        <Flex mt={4} w="100%" align="left" direction="column">
+          <Header id="contact" underlineColor={GREEN} emoji="📨">
+            Contact
+          </Header>
+          <Paragraph>
+            Do you have any questions or would you like to work together with me on a project? Don&apos;t hesitate to
+            write me a{' '}
+            <Link
+              color={linkColor}
+              href="https://twitter.com/messages/compose?recipient_id=798465058061881344"
+              isExternal
+            >
+              DM on Twitter
+            </Link>{' '}
+            or{' '}
+            <Link color={linkColor} href="mailto:domi.sumer@gmail.com" isExternal>
+              send me a mail
+            </Link>
+            .
+          </Paragraph>
+          <Paragraph>
+            You can also check out my profiles on{' '}
+            <Link href="https://twitter.com/dominiksumer" mx={1} isExternal>
+              <Box display="inline-block" as={FaTwitter} mb="4px" color="#1fa1f1" /> Twitter
+            </Link>{' '}
+            or{' '}
+            <Link href="https://github.com/dsumer" ml={1} isExternal>
+              <Box display="inline-block" as={FaGithub} mb="4px" color={colorMode === 'dark' ? 'white' : 'black'} />{' '}
+              GitHub
+            </Link>
+          </Paragraph>
+        </Flex>
+      </FadeInSection>
       <Box mt={16} mb={2} textAlign="center">
         Website built with <HeartCoffee as="span" /> and nextjs
       </Box>
