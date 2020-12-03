@@ -14,6 +14,7 @@ const Layout = (props: PropsWithChildren<unknown>) => {
     <>
       <Head>
         <title>Dominik Sumer - Web Developer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="Description" content="Hey! My name is Dominik and I'm a Web Developer from Austria." />
         <link
           rel="icon"
