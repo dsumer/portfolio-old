@@ -22,7 +22,7 @@ const Layout = (props: PropsWithChildren<unknown>) => {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://dominik.sumer.dev/" />
-        <meta property="og:site_name" content="Dominik Sumer - Web Developer" />
+        <meta property="og:title" content="Dominik Sumer - Web Developer" />
         <meta
           property="og:image"
           itemProp="image primaryImageOfPage"
