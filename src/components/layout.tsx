@@ -28,6 +28,7 @@ const Layout = (props: PropsWithChildren<unknown>) => {
           itemProp="image primaryImageOfPage"
           content="https://dominik.sumer.dev/images/profile-placeholder.png"
         />
+        <script async data-api="/_hive" src="/bee.js" />
       </Head>
       <CSSReset />
       <Global
