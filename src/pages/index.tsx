@@ -55,11 +55,11 @@ export default function Home() {
 
   return (
     <Flex w="100%" direction="column" align="center">
-      <Flex direction={['column', 'row']}>
-        <StyledImageBox m="auto" mr={['auto', 8]} mb={[16, 0]}>
-          <Image loading="eager" src="/images/profile-placeholder.png" width={220} height={220} alt="Dominik Sumer" />
+      <Flex direction={['column', 'column', 'row']}>
+        <StyledImageBox m="auto" mr={['auto', 'auto', 16]} mb={[16, 16, 'auto']}>
+          <Image loading="eager" src="/images/profile.jpg" width={220} height={220} alt="Dominik Sumer" />
         </StyledImageBox>
-        <Flex maxW={400} justify="center" direction="column">
+        <Flex maxW={500} justify="center" direction="column">
           <Header underlineColor={ORANGE} emoji="🙌" mt={0}>
             Hey!
           </Header>
@@ -76,6 +76,23 @@ export default function Home() {
             <Box as="span" whiteSpace="nowrap">
               Austria 🇦🇹
             </Box>
+          </Box>
+          <Box as="h2" fontSize="2xl" fontWeight="400" mt={10}>
+            I regularly post stuff about Web Development on
+            <Link
+              href="https://twitter.com/dominiksumer"
+              ml={2}
+              mr={1}
+              isExternal
+              whiteSpace="nowrap"
+              _hover={{ textDecor: 'none', color: '#1fa1f1' }}
+            >
+              <Box display="inline-block" as={FaTwitter} mb="4px" color="#1fa1f1" />{' '}
+              <Box as="span" borderBottom="2px solid currentColor">
+                Twitter
+              </Box>
+            </Link>{' '}
+            so make sure to follow me if you&apos;re interested. 😊
           </Box>
         </Flex>
       </Flex>
@@ -280,11 +297,7 @@ export default function Home() {
             .
           </Paragraph>
           <Paragraph>
-            You can also check out my profiles on{' '}
-            <Link href="https://twitter.com/dominiksumer" mx={1} isExternal>
-              <Box display="inline-block" as={FaTwitter} mb="4px" color="#1fa1f1" /> Twitter
-            </Link>{' '}
-            or{' '}
+            You can also check out my profile on{' '}
             <Link href="https://github.com/dsumer" ml={1} isExternal>
               <Box display="inline-block" as={FaGithub} mb="4px" color={colorMode === 'dark' ? 'white' : 'black'} />{' '}
               GitHub
