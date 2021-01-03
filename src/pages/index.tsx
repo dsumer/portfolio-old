@@ -22,7 +22,7 @@ const GREEN = '#38ff00';
 const StyledImageBox = styled(Box)`
   img {
     border-radius: 42% 58% 70% 30% / 70% 60% 40% 30%;
-    box-shadow: 0 10px 15px -3px rgb(172 100 0 / 14%), 0 4px 6px -2px rgb(160 86 0 / 10%);
+    border: 3px solid #ededed;
   }
 `;
 
