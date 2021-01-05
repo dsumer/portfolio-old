@@ -27,7 +27,9 @@ function setScript(initialValue: Mode) {
   if (colorMode) {
     const root = document.documentElement;
     root.style.setProperty('--chakra-ui-color-mode', colorMode);
-    document.body.style.background = colorMode === 'dark' ? '#1A202C' : 'white';
+    const isDark = colorMode === 'dark';
+    document.body.style.background = isDark ? '#1A202C' : 'white';
+    document.body.style.color = isDark ? 'white' : 'black';
   }
 }
 
