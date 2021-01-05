@@ -8,7 +8,7 @@ import Avatar from './avatar';
 const Navigation = () => (
   <>
     <NextLink href="/">
-      <Link display="flex" alignItems="center" flexGrow={1}>
+      <Link display="flex" alignItems="center">
         <Avatar size={44} />
         <Box ml={4} display={['none', 'block']}>
           <UnderlinedText color="#ff9400" h="3px" zIndex={0}>
@@ -17,6 +17,7 @@ const Navigation = () => (
         </Box>
       </Link>
     </NextLink>
+    <Box flexGrow={1} />
     <Box>
       <NextLink href="/blog">
         <Link _hover={undefined}>

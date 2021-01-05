@@ -66,7 +66,7 @@ export default function Home() {
           </Box>
         </Flex>
       </Flex>
-      <NewsletterForm mt={14} />
+      <NewsletterForm mt={16} />
       <Flex mt={[6, 12]} w="100%" align="left" direction="column">
         <Header id="projects" underlineColor={PURPLE} emoji="🥐">
           Projects
