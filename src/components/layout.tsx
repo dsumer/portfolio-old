@@ -16,7 +16,6 @@ const Layout = (props: PropsWithChildren<unknown>) => {
     // we need this in order to reset the background from the color-mode-script to avoid flickering
     (document.body.style.background as any) = null;
     (document.body.style.color as any) = null;
-    (document.getElementById('navigation')!.style.background as any) = null;
   }, []);
   const headerBg = useColorModeValue('gray.100', 'gray.700');
 
@@ -41,7 +40,7 @@ const Layout = (props: PropsWithChildren<unknown>) => {
         <script async src="https://cdn.splitbee.io/sb.js" />
       </Head>
       <CSSReset />
-      <Box bg={headerBg} id="navigation">
+      <Box bg={headerBg}>
         <Wrapper py={3} alignItems="center">
           <Navigation />
         </Wrapper>

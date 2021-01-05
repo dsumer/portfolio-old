@@ -30,7 +30,6 @@ function setScript(initialValue: Mode) {
     const isDark = colorMode === 'dark';
     document.body.style.background = isDark ? '#1A202C' : 'white';
     document.body.style.color = isDark ? 'white' : 'black';
-    document.getElementById('navigation')!.style.background = isDark ? 'rgb(45, 55, 72)' : '#EDF2F7';
   }
 }
 
