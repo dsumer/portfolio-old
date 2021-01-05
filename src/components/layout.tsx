@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren } from 'react';
 import { chakra, Box, CSSReset, Flex, useColorModeValue } from '@chakra-ui/react';
 import Navigation from './navigation';
 
@@ -12,11 +12,6 @@ const Wrapper = chakra(Flex, {
 });
 
 const Layout = (props: PropsWithChildren<unknown>) => {
-  useEffect(() => {
-    // we need this in order to reset the background from the color-mode-script to avoid flickering
-    (document.body.style.background as any) = null;
-    (document.body.style.color as any) = null;
-  }, []);
   const headerBg = useColorModeValue('gray.100', 'gray.700');
 
   return (
