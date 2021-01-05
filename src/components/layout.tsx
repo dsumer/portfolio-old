@@ -1,14 +1,22 @@
 import Head from 'next/head';
 import { PropsWithChildren, useEffect } from 'react';
-import { CSSReset, Flex } from '@chakra-ui/core';
-import { Global, css } from '@emotion/core';
-import ColorModeSwitcher from './color-mode-switcher';
+import { chakra, Box, CSSReset, Flex, useColorModeValue } from '@chakra-ui/react';
+import Navigation from './navigation';
+
+const Wrapper = chakra(Flex, {
+  baseStyle: {
+    w: ['90%', '85%', '80%'],
+    maxW: 1000,
+    mx: 'auto',
+  },
+});
 
 const Layout = (props: PropsWithChildren<unknown>) => {
   useEffect(() => {
     // we need this in order to reset the background from the color-mode-script to avoid flickering
     (document.body.style.background as any) = null;
   }, []);
+  const headerBg = useColorModeValue('gray.100', 'gray.700');
 
   return (
     <>
@@ -31,21 +39,28 @@ const Layout = (props: PropsWithChildren<unknown>) => {
         <script async src="https://cdn.splitbee.io/sb.js" />
       </Head>
       <CSSReset />
-      <Global
-        styles={css`
-          html {
-            scroll-behavior: smooth;
-          }
-          html,
-          body {
-            overflow-x: hidden;
-          }
-        `}
-      />
-      <Flex w={['90%', '85%', '80%']} maxW={1000} mx="auto" pt={8}>
-        {props.children}
-      </Flex>
-      <ColorModeSwitcher />
+      <Box bg={headerBg}>
+        <Wrapper py={3} alignItems="center">
+          <Navigation />
+        </Wrapper>
+      </Box>
+      <Wrapper pt={8}>{props.children}</Wrapper>
+      <Box mt={16} mb={[8, 8, 6]} textAlign="center">
+        Website built with{' '}
+        <Box
+          as="span"
+          _before={{
+            cursor: 'default',
+            content: '"❤️"',
+          }}
+          _hover={{
+            _before: {
+              content: '"☕️"',
+            },
+          }}
+        />{' '}
+        and nextjs
+      </Box>
     </>
   );
 };

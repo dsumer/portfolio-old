@@ -1,4 +1,4 @@
-import { ColorMode } from '@chakra-ui/core';
+import { ColorMode } from '@chakra-ui/react';
 
 type Mode = ColorMode | 'system' | undefined;
 
