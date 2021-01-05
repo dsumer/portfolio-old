@@ -9,9 +9,6 @@ const ButtonNavVariant = (props: ButtonProps) => ({
 });
 
 const customTheme = extendTheme({
-  config: {
-    initialColorMode: 'light',
-  },
   styles: {
     global: {
       html: {
