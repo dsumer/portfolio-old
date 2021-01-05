@@ -1,5 +1,4 @@
-import { Badge, Box, Divider, Flex, Link, useColorMode, useColorModeValue } from '@chakra-ui/core';
-import styled from '@emotion/styled';
+import { Badge, Box, Divider, Flex, Link, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
@@ -12,40 +11,13 @@ import FadeInSection from '../components/fadein-section';
 import UntisLogo from '../style/logos/untis-logo';
 import CatalystsLogo from '../style/logos/catalysts-logo';
 import HtlLogo from '../style/logos/htl-logo';
+import Avatar from '../components/avatar';
+import NewsletterForm from '../components/newsletter-form';
 
 const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
 const TURQUOISE = '#00e0ff';
-const BLUE = '#0083ff';
 const GREEN = '#38ff00';
-
-const StyledImageBox = styled(Box)`
-  img {
-    border-radius: 42% 58% 70% 30% / 70% 60% 40% 30%;
-    border: 3px solid #ededed;
-  }
-`;
-
-const HeartCoffee = styled(Box)`
-  & {
-    cursor: default;
-
-    &:before {
-      content: '❤️';
-    }
-  }
-  &:hover {
-    &:before {
-      content: '☕️';
-    }
-  }
-`;
-
-const RoundedImageBox = styled(Box)`
-  img {
-    border-radius: 5px;
-  }
-`;
 
 export default function Home() {
   const { colorMode } = useColorMode();
@@ -56,9 +28,7 @@ export default function Home() {
   return (
     <Flex w="100%" direction="column" align="center">
       <Flex direction={['column', 'column', 'row']}>
-        <StyledImageBox m="auto" mr={['auto', 'auto', 16]} mb={[16, 16, 'auto']}>
-          <Image loading="eager" src="/images/avatar.jpg" width={220} height={220} alt="Dominik Sumer" />
-        </StyledImageBox>
+        <Avatar size={220} m="auto" mr={['auto', 'auto', 16]} mb={[16, 16, 'auto']} border="3px solid #ededed" />
         <Flex maxW={500} justify="center" direction="column">
           <Header underlineColor={ORANGE} emoji="🙌" mt={0}>
             Hey!
@@ -96,6 +66,7 @@ export default function Home() {
           </Box>
         </Flex>
       </Flex>
+      <NewsletterForm mt={16} />
       <Flex mt={[6, 12]} w="100%" align="left" direction="column">
         <Header id="projects" underlineColor={PURPLE} emoji="🥐">
           Projects
@@ -175,9 +146,9 @@ export default function Home() {
             linkColor={linkColor}
             url="https://lenzcutsquad.com/"
             logo={
-              <RoundedImageBox maxW={[300, 300, 250]}>
+              <Box maxW={[300, 300, 250]} sx={{ img: { borderRadius: '5px' } }}>
                 <Image src="/images/lenzcutsquad.png" width={500} height={96} alt="LenzCutSquad" />
-              </RoundedImageBox>
+              </Box>
             }
             status="finished 🎉"
             badges={
@@ -262,21 +233,6 @@ export default function Home() {
       </FadeInSection>
       <FadeInSection>
         <Flex mt={20} w="100%" align="left" direction="column">
-          <Header id="blog" underlineColor={BLUE} emoji="✏️">
-            Blog
-          </Header>
-          <Paragraph>
-            In future I am going to republish my old blog posts here and probably also create some new ones. At the
-            moment I am mostly blogging for TrueQ so I&apos;d recommend you to also have a look{' '}
-            <Link color={linkColor} href="https://trueq.io/blog" isExternal>
-              there
-            </Link>
-            .
-          </Paragraph>
-        </Flex>
-      </FadeInSection>
-      <FadeInSection>
-        <Flex mt={4} w="100%" align="left" direction="column">
           <Header id="contact" underlineColor={GREEN} emoji="📨">
             Contact
           </Header>
@@ -305,9 +261,6 @@ export default function Home() {
           </Paragraph>
         </Flex>
       </FadeInSection>
-      <Box mt={16} mb={2} textAlign="center">
-        Website built with <HeartCoffee as="span" /> and nextjs
-      </Box>
     </Flex>
   );
 }

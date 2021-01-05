@@ -1,4 +1,4 @@
-import { useColorMode, useColorModeValue, IconButton, IconButtonProps } from '@chakra-ui/core';
+import { useColorMode, useColorModeValue, IconButton, IconButtonProps } from '@chakra-ui/react';
 import { FiMoon, FiSun } from 'react-icons/fi';
 
 type ColorModeSwitcherProps = Omit<IconButtonProps, 'aria-label'>;
@@ -10,14 +10,11 @@ const ColorModeSwitcher = (props: ColorModeSwitcherProps) => {
 
   return (
     <IconButton
-      position="absolute"
-      top={2}
-      right={2}
       size="md"
       fontSize="lg"
-      variant="ghost"
+      variant="nav"
       color="current"
-      marginLeft="2"
+      marginLeft="1"
       onClick={toggleColorMode}
       icon={<SwitchIcon />}
       aria-label={`Switch to ${text} mode`}

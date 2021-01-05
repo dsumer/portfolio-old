@@ -4,7 +4,7 @@ import { motion, useAnimation } from 'framer-motion';
 
 const FadeInSection = (props: PropsWithChildren<unknown>) => {
   const controls = useAnimation();
-  const ref = useViewportSpyOnce(() => controls.start('visible'));
+  const ref = useViewportSpyOnce(() => setTimeout(() => controls.start('visible'), 300));
 
   return (
     <motion.div
@@ -13,8 +13,8 @@ const FadeInSection = (props: PropsWithChildren<unknown>) => {
       initial="hidden"
       transition={{ duration: 1 }}
       variants={{
-        visible: { opacity: 1, marginTop: 0 },
-        hidden: { opacity: 0, marginTop: 200 },
+        visible: { opacity: 1 },
+        hidden: { opacity: 0 },
       }}
     >
       {props.children}

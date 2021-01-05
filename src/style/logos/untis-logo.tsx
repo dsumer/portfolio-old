@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 
 const Svg = () => (
   <svg width="221" height="148" viewBox="0 0 331 222">

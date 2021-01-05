@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Badge, Box, Center, Divider, Link, Flex } from '@chakra-ui/core';
+import { Badge, Box, Center, Divider, Link, Flex } from '@chakra-ui/react';
 import Paragraph from './paragraph';
 import HorizontalScrollFlex from './horizontal-scroll-flex';
 

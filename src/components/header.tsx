@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@chakra-ui/core';
+import { Box, BoxProps } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 import UnderlinedText from './underlined-text';
 
