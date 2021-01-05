@@ -12,6 +12,7 @@ import UntisLogo from '../style/logos/untis-logo';
 import CatalystsLogo from '../style/logos/catalysts-logo';
 import HtlLogo from '../style/logos/htl-logo';
 import Avatar from '../components/avatar';
+import NewsletterForm from '../components/newsletter-form';
 
 const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
@@ -65,7 +66,7 @@ export default function Home() {
           </Box>
         </Flex>
       </Flex>
-      <Flex></Flex>
+      <NewsletterForm mt={14} />
       <Flex mt={[6, 12]} w="100%" align="left" direction="column">
         <Header id="projects" underlineColor={PURPLE} emoji="🥐">
           Projects
