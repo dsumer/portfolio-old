@@ -13,10 +13,9 @@ import CatalystsLogo from '../style/logos/catalysts-logo';
 import HtlLogo from '../style/logos/htl-logo';
 import Avatar from '../components/avatar';
 
-export const ORANGE = '#ff9400';
+const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
 const TURQUOISE = '#00e0ff';
-export const BLUE = '#0083ff';
 const GREEN = '#38ff00';
 
 export default function Home() {
