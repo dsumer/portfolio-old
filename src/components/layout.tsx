@@ -34,7 +34,7 @@ const Layout = (props: PropsWithChildren<unknown>) => {
         <meta
           property="og:image"
           itemProp="image primaryImageOfPage"
-          content="https://dominik.sumer.dev/images/profile-placeholder.png"
+          content="https://dominik.sumer.dev/images/avatar.jpg"
         />
         <script async src="https://cdn.splitbee.io/sb.js" />
       </Head>
