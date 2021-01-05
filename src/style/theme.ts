@@ -9,6 +9,10 @@ const ButtonNavVariant = (props: ButtonProps) => ({
 });
 
 const customTheme = extendTheme({
+  config: {
+    useSystemColorMode: false,
+    initialColorMode: 'system',
+  },
   styles: {
     global: {
       html: {
