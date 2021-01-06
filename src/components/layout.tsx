@@ -20,10 +20,8 @@ const Layout = (props: PropsWithChildren<unknown>) => {
         <title>Dominik Sumer - Web Developer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="Description" content="Hey! My name is Dominik and I'm a Web Developer from Austria." />
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🙌</text></svg>"
-        />
+        <link rel="icon" type="image/png" sizes="196x196" href="images/favicon-196.png" />
+        <link rel="apple-touch-icon" href="images/apple-icon-180.png" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://dominik.sumer.dev/" />
         <meta property="og:title" content="Dominik Sumer - Web Developer" />

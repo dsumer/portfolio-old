@@ -11,7 +11,7 @@ const Navigation = () => (
       <Link display="flex" alignItems="center">
         <Avatar size={44} />
         <Box ml={4} display={['none', 'block']}>
-          <UnderlinedText color="#ff9400" h="3px" zIndex={0}>
+          <UnderlinedText color="#ff9400" h="3px">
             <strong>Dominik</strong>
           </UnderlinedText>
         </Box>
