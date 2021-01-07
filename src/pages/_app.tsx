@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 import Layout from '../components/layout';
+import '../style/global.css';
 import customTheme from '../style/theme';
 
 const App = ({ Component, pageProps }: AppProps) => {

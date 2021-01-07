@@ -1,5 +1,5 @@
 import { Text, Flex, Link } from '@chakra-ui/react';
-import NewsletterForm from '../../components/newsletter-form';
+import NewsletterForm from '../components/newsletter-form';
 
 const BlogOverview = () => {
   return (
