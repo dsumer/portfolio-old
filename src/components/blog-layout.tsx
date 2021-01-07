@@ -1,8 +1,11 @@
 import BlogSeo from './blog-seo';
 import { PropsWithChildren } from 'react';
 import { format, parseISO } from 'date-fns';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text, Flex, Link } from '@chakra-ui/react';
 import { websiteUrl } from '../utils/consts';
+import NewsletterForm from './newsletter-form';
+import Avatar from './avatar';
+import { FaTwitter } from 'react-icons/fa';
 
 export default function BlogLayout({ frontMatter, children }: PropsWithChildren<any>) {
   return (
@@ -13,13 +16,52 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
           <Text as="h1" fontSize={['2rem', '2.3rem', '2.8rem']}>
             {frontMatter.title}
           </Text>
-          <Box fontSize="1.2rem" mt={3}>
-            <Text as="span">Published on {format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}</Text>
-            {' • '}
+          <Box fontSize="1.2rem" mt={3} color="gray.500">
+            <Text as="span">{format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}</Text>
+            <Box as="span" mx={3}>
+              •
+            </Box>
             <Text as="span">{frontMatter.readingTime.text}</Text>
           </Box>
         </Box>
         <section>{children}</section>
+        <NewsletterForm my={28} />
+        <Flex direction={['column', 'column', 'row']} mb={12}>
+          <Avatar size={220} m="auto" mr={['auto', 'auto', 16, 0]} mb={[16, 16, 'auto']} border="3px solid #ededed" />
+          <Flex maxW={500} m="auto" justify="center" direction="column">
+            <Box as="h2" fontSize="2xl" fontWeight="400">
+              My name is{' '}
+              <Box as="strong" fontWeight="600">
+                Dominik
+              </Box>{' '}
+              and I&apos;m a{' '}
+              <Box as="span" whiteSpace="nowrap">
+                Web Developer
+              </Box>{' '}
+              from{' '}
+              <Box as="span" whiteSpace="nowrap">
+                Austria 🇦🇹
+              </Box>
+            </Box>
+            <Box as="h2" fontSize="2xl" fontWeight="400" mt={10}>
+              I regularly post stuff about Web Development on
+              <Link
+                href="https://twitter.com/dominiksumer"
+                ml={2}
+                mr={1}
+                isExternal
+                whiteSpace="nowrap"
+                _hover={{ textDecor: 'none', color: '#1fa1f1' }}
+              >
+                <Box display="inline-block" as={FaTwitter} mb="4px" color="#1fa1f1" />{' '}
+                <Box as="span" borderBottom="2px solid currentColor">
+                  Twitter
+                </Box>
+              </Link>{' '}
+              so make sure to follow me if you&apos;re interested. 😊
+            </Box>
+          </Flex>
+        </Flex>
       </Box>
     </>
   );

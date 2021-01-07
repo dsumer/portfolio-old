@@ -24,27 +24,36 @@ const MDXComponents = {
   Image,
   a: CustomLink,
   Tweet,
-  MainImage: function MainImage({ width, height, src }: { width: string; height: string; src: string }) {
+  MainImage: function MainImage({
+    width,
+    height,
+    src,
+    alt,
+  }: {
+    width: string;
+    height: string;
+    src: string;
+    alt: string;
+  }) {
     return (
       <Box
         textAlign="center"
         sx={{
           '> div': { display: 'inline-block' },
           img: {
-            border: '1px solid rgba(255,255,255,0.5)',
             borderRadius: '10px',
           },
         }}
         mb={16}
       >
-        <Image src={src} width={width} height={height} />
+        <Image src={src} width={width} height={height} alt={alt} />
       </Box>
     );
   },
   p: Paragraph,
-  h1: function H1({ children }: PropsWithChildren<unknown>) {
+  h1: function H1({ children, id }: PropsWithChildren<any>) {
     return (
-      <Box as="h1" fontSize={['1.9rem', '2.1rem']} mt={14} mb={4}>
+      <Box id={id} as="h2" fontSize={['1.9rem', '2.1rem']} mt={14} mb={4}>
         {children}
       </Box>
     );
