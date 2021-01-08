@@ -4,7 +4,9 @@ import repng from './repng';
 import OgImage from '../components/og-image';
 
 export async function generateOgImage(fileName: string, title: string, slug: string) {
-  return 'dev';
+  if (process.env.NODE_ENV === 'development') {
+    return 'dev';
+  }
 
   const outputFileName = fileName + '.jpg';
   const outDir = './public/images/og';
