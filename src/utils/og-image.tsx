@@ -4,10 +4,14 @@ import repng from './repng';
 import OgImage from '../components/og-image';
 
 export async function generateOgImage(fileName: string, title: string, slug: string) {
-  const outputFileName = fileName + '.jpg';
+  if (process.env.NODE_ENV === 'development') {
+    return 'dev';
+  }
+
+  const outputFileName = fileName + '.png';
   const outDir = './public/images/og';
   const file = await repng(OgImage, {
-    type: 'jpeg',
+    type: 'png',
     width: 1200,
     height: 630,
     props: { title, slug },
