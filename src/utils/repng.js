@@ -1,38 +1,21 @@
 /* eslint-disable */
 
-const fs = require('fs');
-const { Readable } = require('stream');
 const playwright = require('playwright-aws-lambda');
 const path = require('path');
 const { createElement: h } = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
-const Datauri = require('datauri');
-const resolveCWD = require('resolve-cwd');
 
 const baseCSS = `*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif}`;
 
 const getHtmlData = ({ body, baseCSS, css, styles, webfont }) => {
-  const fontCSS = webfont ? getWebfontCSS(webfont) : '';
   const html = `<!DOCTYPE html>
     <head>
-    <meta charset="utf-8"><style>${baseCSS}${fontCSS}${css}</style>
+    <meta charset="utf-8"><style>${baseCSS}${css}</style>
     ${styles}
     </head>
     <body style="display:inline-block">
     ${body}`;
   return html;
-};
-
-const getWebfontCSS = (fontpath) => {
-  const { content } = new Datauri(fontpath);
-  const [name, ext] = fontpath.split('/').slice(-1)[0].split('.');
-  const css = `@font-face {
-  font-family: '${name}';
-  font-style: normal;
-  font-weight: 400;
-  src: url(${content});
-}`;
-  return css;
 };
 
 module.exports = async (Component, opts = {}) => {
