@@ -24,6 +24,7 @@
     "next": "^10.0.0",
     "next-mdx-remote": "^2.1.0",
     "next-seo": "^4.17.0",
+    "puppeteer-core": "^5.5.0",
     "react": "^16",
     "react-dom": "^16",
     "react-icons": "^3.11.0",

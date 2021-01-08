@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import repng from 'repng';
+import repng from './repng';
 import OgImage from '../components/og-image';
 import chromium from 'chrome-aws-lambda';
 
