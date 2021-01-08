@@ -19,10 +19,10 @@ export async function generateOgImage(fileName: string, title: string, slug: str
   const finalPath = path.join(outDir, outputFileName);
 
   //create the needed directories
-  await fs.promises.mkdir(outDir, { recursive: true });
+  // await fs.promises.mkdir(outDir, { recursive: true });
 
   //write the image file
-  await fs.promises.writeFile(finalPath, file);
+  // await fs.promises.writeFile(finalPath, file);
 
   return '/images/og/' + outputFileName;
 }
