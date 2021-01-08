@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 const fs = require('fs');
-const puppeteer = require('puppeteer-core');
 const { Readable } = require('stream');
 const path = require('path');
 const { createElement: h } = require('react');
@@ -64,7 +63,7 @@ module.exports = async (Component, opts = {}) => {
     webfont,
   });
 
-  const browser = await puppeteer.launch(opts.puppeteer);
+  const browser = await chromium.puppeteer.launch(opts.puppeteer);
   const page = await browser.newPage();
   await page.setContent(html);
 
