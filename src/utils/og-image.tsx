@@ -9,15 +9,10 @@ export async function generateOgImage(fileName: string, title: string, slug: str
   }
 
   let chrome = {} as any;
-  let puppeteer;
 
   if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
     // running on the Vercel platform.
     chrome = require('chrome-aws-lambda');
-    puppeteer = require('puppeteer-core');
-  } else {
-    // running locally.
-    puppeteer = require('puppeteer');
   }
 
   const outputFileName = fileName + '.jpg';
