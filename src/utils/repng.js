@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const { Readable } = require('stream');
+const chromium = require('chrome-aws-lambda');
 const path = require('path');
 const { createElement: h } = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
