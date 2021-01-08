@@ -22,7 +22,7 @@ const BlogOverview = ({ groups }: { groups: GroupedBlogPosts[] }) => {
       </Text>
       <Box>
         {groups.map((g, groupIndex) => (
-          <Box key={g.month} m="auto" w={['100%', '100%', '85%']} mb={12}>
+          <Box key={g.month} m="auto" w={['100%', '100%', '85%']} mb={14}>
             <Text
               fontSize="3xl"
               fontWeight="bold"
@@ -36,7 +36,7 @@ const BlogOverview = ({ groups }: { groups: GroupedBlogPosts[] }) => {
             </Text>
             {g.blogPosts.map((p, index) => (
               <Fragment key={p.slug}>
-                {index > 0 && <Divider mx={[0, 2, 4]} my={8} borderColor={useColorModeValue('gray.300', 'gray.600')} />}
+                {index > 0 && <Divider mx={[0, 2, 4]} my={7} borderColor={useColorModeValue('gray.300', 'gray.600')} />}
                 <BlogCard {...p} />
               </Fragment>
             ))}
