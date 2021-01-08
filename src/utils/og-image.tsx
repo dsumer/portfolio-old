@@ -8,6 +8,18 @@ export async function generateOgImage(fileName: string, title: string, slug: str
     return 'dev';
   }
 
+  let chrome = {} as any;
+  let puppeteer;
+
+  if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+    // running on the Vercel platform.
+    chrome = require('chrome-aws-lambda');
+    puppeteer = require('puppeteer-core');
+  } else {
+    // running locally.
+    puppeteer = require('puppeteer');
+  }
+
   const outputFileName = fileName + '.jpg';
   const outDir = './public/images/og';
   const file = await repng(OgImage, {
@@ -15,6 +27,13 @@ export async function generateOgImage(fileName: string, title: string, slug: str
     width: 1200,
     height: 630,
     props: { title, slug },
+    puppeteer: {
+      args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+      defaultViewport: chrome.defaultViewport,
+      executablePath: await chrome.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
+    },
   });
   const finalPath = path.join(outDir, outputFileName);
 
