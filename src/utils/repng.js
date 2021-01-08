@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const { Readable } = require('stream');
-const chromium = require('chrome-aws-lambda');
+const playwright = require('playwright-aws-lambda');
 const path = require('path');
 const { createElement: h } = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
@@ -64,7 +64,7 @@ module.exports = async (Component, opts = {}) => {
     webfont,
   });
 
-  const browser = await chromium.puppeteer.launch(opts.puppeteer);
+  const browser = await playwright.launchChromium({ headless: true });
   const page = await browser.newPage();
   await page.setContent(html);
 
@@ -76,7 +76,7 @@ module.exports = async (Component, opts = {}) => {
   const width = parseInt(opts.width || rect.width);
   const height = parseInt(opts.height || rect.height);
 
-  await page.setViewport({
+  await page.setViewportSize({
     width,
     height,
   });
