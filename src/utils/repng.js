@@ -36,7 +36,7 @@ module.exports = async (Component, opts = {}) => {
 
   let styles = '';
   const el = h(Component, props);
-  const body = renderToStaticMarkup(el);
+  /*const body = renderToStaticMarkup(el);
 
   const html = getHtmlData({
     body,
@@ -44,7 +44,7 @@ module.exports = async (Component, opts = {}) => {
     css,
     styles,
     webfont,
-  });
+  });*/
 
   /*const browser = await playwright.launchChromium({ headless: true });
   const page = await browser.newPage();
