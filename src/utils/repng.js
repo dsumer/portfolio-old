@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 const playwright = require('playwright-aws-lambda');
-const path = require('path');
 const { createElement: h } = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
 
@@ -47,7 +46,7 @@ module.exports = async (Component, opts = {}) => {
     webfont,
   });
 
-  const browser = await playwright.launchChromium({ headless: true });
+  /*const browser = await playwright.launchChromium({ headless: true });
   const page = await browser.newPage();
   await page.setContent(html);
 
@@ -83,7 +82,7 @@ module.exports = async (Component, opts = {}) => {
     });
   }
 
-  await browser.close();
+  await browser.close();*/
 
-  return result;
+  return undefined;
 };
