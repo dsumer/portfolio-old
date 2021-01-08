@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "postinstall": "node node_modules/puppeteer-core/install.js"
+    "start": "next start"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.1.1",
