@@ -23,7 +23,7 @@ export async function generateOgImage(fileName: string, title: string, slug: str
     height: 630,
     props: { title, slug },
     puppeteer: {
-      args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+      args: ['--hide-scrollbars', '--disable-web-security'],
       defaultViewport: chrome.defaultViewport,
       executablePath: await chrome.executablePath,
       headless: true,
