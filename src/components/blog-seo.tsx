@@ -1,10 +1,10 @@
 import { NextSeo, BlogJsonLd, BreadcrumbJsonLd } from 'next-seo';
 import { websiteUrl } from '../utils/consts';
 
-const BlogSeo = ({ title, summary, publishedAt, url }: any) => {
+const BlogSeo = ({ title, summary, publishedAt, url, ogImage }: any) => {
   const date = new Date(publishedAt).toISOString();
   const featuredImage = {
-    url: `${websiteUrl}images/avatar.jpg`, // TODO: switch with generated image
+    url: ogImage,
     alt: title,
   };
 

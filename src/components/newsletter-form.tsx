@@ -1,18 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { Stack, FormControl, Input, Button, useColorModeValue, Flex, FlexProps, Text, chakra } from '@chakra-ui/react';
-import todoStore from '../stores/newsletter-form-store';
+import { Stack, FormControl, Input, Button, useColorModeValue, Flex, FlexProps, Text } from '@chakra-ui/react';
+import newsletterStore from '../stores/newsletter-form-store';
 import { ChangeEvent, FormEvent } from 'react';
 import { FaCheck } from 'react-icons/fa';
-
-const CustomInput = chakra(Input, {
-  baseStyle: {
-    borderWidth: '1px',
-    color: 'gray.800',
-    _placeholder: {
-      color: 'gray.400',
-    },
-  },
-});
 
 const NewsletterForm = observer((props: FlexProps) => (
   <Flex w="100%" {...props}>
@@ -33,37 +23,42 @@ const NewsletterForm = observer((props: FlexProps) => (
         spacing="12px"
         onSubmit={(e: FormEvent) => {
           e.preventDefault();
-          todoStore.submit();
+          newsletterStore.submit();
         }}
       >
         <FormControl>
-          <CustomInput
+          <Input
             variant="solid"
+            borderWidth="1px"
             borderColor={useColorModeValue('gray.300', 'gray.700')}
+            color="gray.800"
+            _placeholder={{
+              color: 'gray.400',
+            }}
             id="email"
             type="email"
             required
             placeholder="Your Email"
             aria-label="Your Email"
-            value={todoStore.email}
-            disabled={todoStore.state !== 'initial'}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => todoStore.changeEmail(e.target.value)}
+            value={newsletterStore.email}
+            disabled={newsletterStore.state !== 'initial'}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => newsletterStore.changeEmail(e.target.value)}
           />
         </FormControl>
         <FormControl w={['100%', '100%', '40%']}>
           <Button
-            colorScheme={todoStore.state === 'success' ? 'green' : 'blue'}
-            isLoading={todoStore.state === 'submitting'}
+            colorScheme={newsletterStore.state === 'success' ? 'green' : 'blue'}
+            isLoading={newsletterStore.state === 'submitting'}
             w="100%"
-            type={todoStore.state === 'success' ? 'button' : 'submit'}
+            type={newsletterStore.state === 'success' ? 'button' : 'submit'}
           >
-            {todoStore.state === 'success' ? <FaCheck /> : 'Submit'}
+            {newsletterStore.state === 'success' ? <FaCheck /> : 'Submit'}
           </Button>
         </FormControl>
       </Stack>
-      <Text mt={2} textAlign="center" color={todoStore.error ? 'red.500' : 'gray.500'}>
-        {todoStore.error
-          ? todoStore.errorMessage || 'Oh no an error occured! 😢 Please try again later.'
+      <Text mt={2} textAlign="center" color={newsletterStore.error ? 'red.500' : 'gray.500'}>
+        {newsletterStore.error
+          ? newsletterStore.errorMessage || 'Oh no an error occured! 😢 Please try again later.'
           : "You won't receive any spam. Only up to 2 emails per month."}
       </Text>
     </Flex>

@@ -7,10 +7,10 @@ import NewsletterForm from './newsletter-form';
 import Avatar from './avatar';
 import { FaTwitter } from 'react-icons/fa';
 
-export default function BlogLayout({ frontMatter, children }: PropsWithChildren<any>) {
+export default function BlogLayout({ ogImage, frontMatter, children }: PropsWithChildren<any>) {
   return (
     <>
-      <BlogSeo url={`${websiteUrl}blog/${frontMatter.slug}`} {...frontMatter} />
+      <BlogSeo url={`${websiteUrl}blog/${frontMatter.slug}`} ogImage={ogImage} {...frontMatter} />
       <Box as="article" maxW="100%">
         <Box as="header" mb={10}>
           <Text as="h1" fontSize={['2rem', '2.3rem', '2.8rem']}>

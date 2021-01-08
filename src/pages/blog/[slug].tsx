@@ -4,13 +4,18 @@ import hydrate from 'next-mdx-remote/hydrate';
 import { getFiles, getFileBySlug } from '../../utils/mdx';
 import BlogLayout from '../../components/blog-layout';
 import MDXComponents from '../../components/mdx';
+import { generateOgImage } from '../../utils/og-image';
 
-export default function Blog({ mdxSource, frontMatter }: any) {
+export default function Blog({ mdxSource, frontMatter, ogImage }: any) {
   const content = hydrate(mdxSource, {
     components: MDXComponents,
   });
 
-  return <BlogLayout frontMatter={frontMatter}>{content}</BlogLayout>;
+  return (
+    <BlogLayout ogImage={ogImage} frontMatter={frontMatter}>
+      {content}
+    </BlogLayout>
+  );
 }
 
 export async function getStaticPaths() {
@@ -28,6 +33,11 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await getFileBySlug('blog', params?.slug);
+  const ogImage = await generateOgImage(
+    params!.slug! as string,
+    (post.frontMatter as any).title,
+    '/blog/' + params?.slug,
+  );
 
-  return { props: post };
+  return { props: { ...post, ogImage } };
 };
