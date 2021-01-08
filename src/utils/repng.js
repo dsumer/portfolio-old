@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const playwright = require('playwright-aws-lambda');
+//const playwright = require('playwright-aws-lambda');
 /*const { createElement: h } = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');*/
 
