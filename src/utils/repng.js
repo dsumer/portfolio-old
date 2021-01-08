@@ -35,7 +35,7 @@ module.exports = async (Component, opts = {}) => {
   );
 
   let styles = '';
-  const el = h(Component, props);
+  //const el = h(Component, props);
   /*const body = renderToStaticMarkup(el);
 
   const html = getHtmlData({
