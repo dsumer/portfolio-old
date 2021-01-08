@@ -27,8 +27,8 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
         <section>{children}</section>
         <NewsletterForm my={28} />
         <Flex direction={['column', 'column', 'row']} mb={12}>
-          <Avatar size={220} m="auto" mr={['auto', 'auto', 16, 0]} mb={[16, 16, 'auto']} border="3px solid #ededed" />
-          <Flex maxW={500} m="auto" justify="center" direction="column">
+          <Avatar size={220} m="auto" mr={['auto', 'auto', 16]} mb={[16, 16, 'auto']} border="3px solid #ededed" />
+          <Flex maxW={500} m="auto" ml={['auto', 'auto', 0]} justify="center" direction="column">
             <Box as="h2" fontSize="2xl" fontWeight="400">
               My name is{' '}
               <Box as="strong" fontWeight="600">
