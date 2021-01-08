@@ -2,17 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import repng from 'repng';
 import OgImage from '../components/og-image';
+import chromium from 'chrome-aws-lambda';
 
 export async function generateOgImage(fileName: string, title: string, slug: string) {
   if (process.env.NODE_ENV === 'development') {
     return 'dev';
-  }
-
-  let chrome = {} as any;
-
-  if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-    // running on the Vercel platform.
-    chrome = require('chrome-aws-lambda');
   }
 
   const outputFileName = fileName + '.jpg';
@@ -23,9 +17,9 @@ export async function generateOgImage(fileName: string, title: string, slug: str
     height: 630,
     props: { title, slug },
     puppeteer: {
-      args: ['--hide-scrollbars', '--disable-web-security'],
-      defaultViewport: chrome.defaultViewport,
-      executablePath: await chrome.executablePath,
+      args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
       headless: true,
       ignoreHTTPSErrors: true,
     },
