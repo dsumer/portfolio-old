@@ -1,8 +1,8 @@
 /* eslint-disable */
 
 const playwright = require('playwright-aws-lambda');
-const { createElement: h } = require('react');
-const { renderToStaticMarkup } = require('react-dom/server');
+/*const { createElement: h } = require('react');
+const { renderToStaticMarkup } = require('react-dom/server');*/
 
 const baseCSS = `*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif}`;
 
