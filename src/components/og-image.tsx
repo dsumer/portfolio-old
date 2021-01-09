@@ -43,7 +43,7 @@ const OgImage = ({ title, slug }: Props) => {
               </Text>
             </Box>
           </Flex>
-          <Box pos="absolute" right={5} bottom={5} fontSize="2xl">
+          <Box pos="absolute" right={5} bottom={3} fontSize="3xl">
             <Box display="inline-block" as={FaTwitter} mb="4px" color="#1fa1f1" />{' '}
             <Box as="span" color="#1fa1f1">
               @dominiksumer
