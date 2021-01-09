@@ -27,7 +27,7 @@ const OgImage = ({ title, slug }: Props) => {
           <Flex alignItems="center" pos="absolute" left={10} bottom={10}>
             <Box
               as="img"
-              src={`data:image/jpeg;base64,${readFileSync('./public/images/avatar.jpg').toString('base64')}`}
+              src={`data:image/jpeg;base64,${readFileSync('../../public/images/avatar.jpg').toString('base64')}`}
               w="200px"
               h="200px"
               borderRadius="42% 58% 70% 30% / 70% 60% 40% 30%"
