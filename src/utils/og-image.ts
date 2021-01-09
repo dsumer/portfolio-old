@@ -1,7 +1,11 @@
+import playwright from 'playwright-aws-lambda';
+
 export async function generateOgImage() {
   if (process.env.NODE_ENV === 'development') {
     return 'dev';
   }
+
+  console.log(playwright);
 
   /*const outputFileName = fileName + '.jpg';
   const outDir = './public/images/og';
