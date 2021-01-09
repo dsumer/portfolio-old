@@ -15,12 +15,13 @@ const OgImage = ({ title, slug }: Props) => {
         h="630px"
         pos="relative"
         p="15px"
-        bg="gray.200"
+        bg="gray.700"
+        color="white"
         fontFamily={
           '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"'
         }
       >
-        <Box pos="relative" w="100%" h="100%" border="10px solid white" borderRadius="20px">
+        <Box pos="relative" w="100%" h="100%">
           <Box pos="absolute" left={20} top="60px" fontSize="6xl">
             {title}
           </Box>
