@@ -1,6 +1,13 @@
+import fs from 'fs';
+import path from 'path';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { websiteUrl } from '../../utils/consts';
-import { getFiles } from '../../utils/mdx';
+
+const root = process.cwd();
+
+async function getFiles(type: string) {
+  return fs.readdirSync(path.join(root, 'data', type));
+}
 
 export default async (_req: NextApiRequest, res: NextApiResponse) => {
   res.statusCode = 200;
