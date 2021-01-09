@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await getFileBySlug('blog', params?.slug);
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const generateOgImage = require('../../utils/og-image');
+  const { generateOgImage } = require('../../utils/og-image');
   const ogImage = await generateOgImage(
     params!.slug! as string,
     (post.frontMatter as any).title,
