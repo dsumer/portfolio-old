@@ -23,6 +23,7 @@
     "next": "^10.0.0",
     "next-mdx-remote": "^2.1.0",
     "next-seo": "^4.17.0",
+    "playwright-aws-lambda": "^0.6.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^3.11.0",
