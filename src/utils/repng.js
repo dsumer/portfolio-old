@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-const chrome = require('playwright-aws-lambda');
-/*const { createElement: h } = require('react');
-const { renderToStaticMarkup } = require('react-dom/server');*/
+const playwright = require('playwright-aws-lambda');
+const { createElement: h } = require('react');
+const { renderToStaticMarkup } = require('react-dom/server');
 
 const baseCSS = `*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif}`;
 
@@ -35,8 +35,8 @@ module.exports = async (Component, opts = {}) => {
   );
 
   let styles = '';
-  //const el = h(Component, props);
-  /*const body = renderToStaticMarkup(el);
+  const el = h(Component, props);
+  const body = renderToStaticMarkup(el);
 
   const html = getHtmlData({
     body,
@@ -44,9 +44,9 @@ module.exports = async (Component, opts = {}) => {
     css,
     styles,
     webfont,
-  });*/
+  });
 
-  /*const browser = await playwright.launchChromium({ headless: true });
+  const browser = await playwright.launchChromium({ headless: true });
   const page = await browser.newPage();
   await page.setContent(html);
 
@@ -82,7 +82,7 @@ module.exports = async (Component, opts = {}) => {
     });
   }
 
-  await browser.close();*/
+  await browser.close();
 
-  return undefined;
+  return result;
 };
