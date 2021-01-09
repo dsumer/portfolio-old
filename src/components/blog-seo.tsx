@@ -1,10 +1,13 @@
 import { NextSeo, BlogJsonLd, BreadcrumbJsonLd } from 'next-seo';
 import { websiteUrl } from '../utils/consts';
 
-const BlogSeo = ({ title, summary, publishedAt, url, ogImage }: any) => {
+const BlogSeo = ({ title, summary, publishedAt, url, slug }: any) => {
   const date = new Date(publishedAt).toISOString();
+  // TODO: change to website url
   const featuredImage = {
-    url: ogImage,
+    url: `https://portfolio-git-blog.dsumer.vercel.app/api/og-image?title=${encodeURIComponent(
+      title,
+    )}&slug=/blog/${slug}`,
     alt: title,
   };
 
