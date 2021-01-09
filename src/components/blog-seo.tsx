@@ -4,7 +4,9 @@ import { websiteUrl } from '../utils/consts';
 const BlogSeo = ({ title, summary, publishedAt, url, slug }: any) => {
   const date = new Date(publishedAt).toISOString();
   const featuredImage = {
-    url: `${websiteUrl}api/og-image?title=${encodeURIComponent(title)}&slug=/blog/${slug}`,
+    url: `https://portfolio-git-blog.dsumer.vercel.app/api/og-image?title=${encodeURIComponent(
+      title,
+    )}&slug=/blog/${slug}`,
     alt: title,
     width: 1200,
     height: 630,
