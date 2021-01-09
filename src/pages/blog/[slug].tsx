@@ -4,7 +4,6 @@ import hydrate from 'next-mdx-remote/hydrate';
 import { getFiles, getFileBySlug } from '../../utils/mdx';
 import BlogLayout from '../../components/blog-layout';
 import MDXComponents from '../../components/mdx';
-import { generateOgImage } from '../../utils/og-image';
 
 export default function Blog({ mdxSource, frontMatter, ogImage }: any) {
   const content = hydrate(mdxSource, {
@@ -33,6 +32,9 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await getFileBySlug('blog', params?.slug);
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const generateOgImage = require('../../utils/og-image');
   const ogImage = await generateOgImage(
     params!.slug! as string,
     (post.frontMatter as any).title,
