@@ -18,10 +18,15 @@ const getHtmlData = ({ body, baseCSS }: { body: string; baseCSS: string }) => {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {
-    query: { title, slug },
+    query: { title, slug, rt, date },
   } = req;
 
-  const el = createElement(OgImage, { title: title as string, slug: slug as string });
+  const el = createElement(OgImage, {
+    title: title as string,
+    slug: slug as string,
+    rt: rt as string,
+    date: date as string,
+  });
   const body = renderToStaticMarkup(el);
 
   const html = getHtmlData({

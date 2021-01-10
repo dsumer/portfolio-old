@@ -5,9 +5,11 @@ const avatar = `/9j/2wCEAAQDAwMDAwQDAwQGBAMEBgcFBAQFBwgGBgcGBggKCAkJCQkICgoMDAwM
 interface Props {
   title: string;
   slug: string;
+  rt: string;
+  date: string;
 }
 
-const OgImage = ({ title, slug }: Props) => {
+const OgImage = ({ title, slug, rt, date }: Props) => {
   return (
     <ChakraProvider>
       <Box
@@ -22,15 +24,24 @@ const OgImage = ({ title, slug }: Props) => {
         }
       >
         <Box pos="relative" w="100%" h="100%">
-          <Box pos="absolute" left={20} top="60px" fontSize="6xl">
-            {title}
-          </Box>
+          <Flex pos="absolute" left="50px" top="5px" fontSize="6xl" alignItems="center" height="350px">
+            <Box>
+              <Box>{title}</Box>
+              <Box fontSize="3xl" color="whiteAlpha.500" w="100%">
+                <Text as="span">{date}</Text>
+                <Box as="span" mx={3}>
+                  •
+                </Box>
+                <Text as="span">{rt}</Text>
+              </Box>
+            </Box>
+          </Flex>
           <Flex alignItems="center" pos="absolute" left={10} bottom={10}>
             <Box
               as="img"
               src={`data:image/jpeg;base64,${avatar}`}
-              w="200px"
-              h="200px"
+              w="170px"
+              h="170px"
               borderRadius="42% 58% 70% 30% / 70% 60% 40% 30%"
               border="3px solid #ededed"
               mr={'50px'}

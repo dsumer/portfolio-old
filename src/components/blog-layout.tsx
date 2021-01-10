@@ -8,16 +8,18 @@ import Avatar from './avatar';
 import { FaTwitter } from 'react-icons/fa';
 
 export default function BlogLayout({ frontMatter, children }: PropsWithChildren<any>) {
+  const date = format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy');
+
   return (
     <>
-      <BlogSeo url={`${websiteUrl}blog/${frontMatter.slug}`} {...frontMatter} />
+      <BlogSeo url={`${websiteUrl}blog/${frontMatter.slug}`} date={date} {...frontMatter} />
       <Box as="article" maxW="100%">
         <Box as="header" mb={10}>
           <Text as="h1" fontSize={['2rem', '2.3rem', '2.8rem']}>
             {frontMatter.title}
           </Text>
           <Box fontSize="1.2rem" mt={3} color="gray.500">
-            <Text as="span">{format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}</Text>
+            <Text as="span">{date}</Text>
             <Box as="span" mx={3}>
               •
             </Box>

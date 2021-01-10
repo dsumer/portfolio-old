@@ -1,10 +1,12 @@
 import { NextSeo, BlogJsonLd, BreadcrumbJsonLd } from 'next-seo';
 import { websiteUrl } from '../utils/consts';
 
-const BlogSeo = ({ title, summary, publishedAt, url, slug }: any) => {
-  const date = new Date(publishedAt).toISOString();
+const BlogSeo = ({ title, summary, publishedAt, url, slug, readingTime, date }: any) => {
+  const isoDate = new Date(publishedAt).toISOString();
   const featuredImage = {
-    url: `${websiteUrl}api/og-image?title=${encodeURIComponent(title)}&slug=/blog/${slug}`,
+    url: `${websiteUrl}api/og-image?title=${encodeURIComponent(title)}&slug=/blog/${slug}&date=${encodeURIComponent(
+      date,
+    )}&rt=${encodeURIComponent(readingTime.text)}`,
     alt: title,
     width: 1200,
     height: 630,
@@ -19,7 +21,7 @@ const BlogSeo = ({ title, summary, publishedAt, url, slug }: any) => {
         openGraph={{
           type: 'article',
           article: {
-            publishedTime: date,
+            publishedTime: isoDate,
           },
           url,
           title,
@@ -47,8 +49,8 @@ const BlogSeo = ({ title, summary, publishedAt, url, slug }: any) => {
       />
       <BlogJsonLd
         authorName="Dominik Sumer"
-        dateModified={date}
-        datePublished={date}
+        dateModified={isoDate}
+        datePublished={isoDate}
         description={summary}
         images={[featuredImage.url]}
         title={title}
