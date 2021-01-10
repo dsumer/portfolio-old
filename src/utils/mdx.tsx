@@ -4,8 +4,10 @@ import mdxPrism from 'mdx-prism';
 import path from 'path';
 import readingTime from 'reading-time';
 import renderToString from 'next-mdx-remote/render-to-string';
+import { ChakraProvider } from '@chakra-ui/react';
 
 import MDXComponents from '../components/mdx';
+import customTheme from '../style/theme';
 
 const root = process.cwd();
 
@@ -21,6 +23,7 @@ export async function getFileBySlug(type: string, slug?: string | string[]) {
   const { data, content } = matter(source);
   const mdxSource = await renderToString(content, {
     components: MDXComponents,
+    provider: { component: ChakraProvider, props: { theme: customTheme } },
     mdxOptions: {
       remarkPlugins: [require('remark-autolink-headings'), require('remark-slug'), require('remark-code-titles')],
       rehypePlugins: [mdxPrism],
