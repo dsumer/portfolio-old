@@ -29,15 +29,18 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
         </Box>
         <section>
           <Box
-            textAlign="center"
             sx={{
               '> div': { display: 'inline-block' },
               img: {
                 borderRadius: '10px',
-                bg: frontMatter.bannerBg,
               },
             }}
+            m="auto"
             mb={16}
+            borderRadius="10px"
+            bg={frontMatter.bannerBg}
+            maxW="800px"
+            maxH="300px"
           >
             <Image src={frontMatter.banner} width="800" height="300" alt={frontMatter.title} />
           </Box>

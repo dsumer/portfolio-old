@@ -25,10 +25,14 @@ const BlogCard = ({ slug, banner, bannerBg, title, summary, publishedAt, reading
           '> div': { display: 'inline-block' },
           img: {
             borderRadius: '10px',
-            bg: bannerBg,
           },
         }}
+        m="auto"
         mb={3}
+        borderRadius="10px"
+        bg={bannerBg}
+        maxW="800px"
+        maxH="300px"
       >
         <Image src={banner} width="800" height="300" />
       </Box>
