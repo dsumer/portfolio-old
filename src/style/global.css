@@ -49,7 +49,7 @@ code[class*='language-'] *::selection {
 
 pre[class*='language-'] {
   padding: 1em;
-  margin: 0.5em 0;
+  margin: 0 0 2rem 0;
   overflow: auto;
 }
 .remark-code-title {

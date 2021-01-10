@@ -1,14 +1,18 @@
 import NextLink from 'next/link';
 import Image from 'next/image';
 import Tweet from 'react-tweet-embed';
-import { Box, Link } from '@chakra-ui/react';
+import { Box, Link, useColorModeValue } from '@chakra-ui/react';
 import Paragraph from './paragraph';
 import { PropsWithChildren } from 'react';
 
 const CustomLink = (props: { href: string }) => {
   const href = props.href;
   const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
-  const linkProps = { ...props, borderBottom: '3px solid #0060ff70', _hover: { bg: '#0060ff30' } };
+
+  const linkBorderColor = useColorModeValue('#0060ff70', '#38ff0070');
+  const linkBgColor = useColorModeValue('#0060ff30', '#38ff0030');
+
+  const linkProps = { ...props, borderBottom: '3px solid ' + linkBorderColor, _hover: { bg: linkBgColor } };
 
   if (isInternalLink) {
     return (
