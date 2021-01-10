@@ -1,4 +1,5 @@
 import BlogSeo from './blog-seo';
+import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 import { format, parseISO } from 'date-fns';
 import { Box, Text, Flex, Link } from '@chakra-ui/react';
@@ -26,7 +27,21 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
             <Text as="span">{frontMatter.readingTime.text}</Text>
           </Box>
         </Box>
-        <section>{children}</section>
+        <section>
+          <Box
+            textAlign="center"
+            sx={{
+              '> div': { display: 'inline-block' },
+              img: {
+                borderRadius: '10px',
+              },
+            }}
+            mb={16}
+          >
+            <Image src={frontMatter.banner} width="800" height="300" alt={frontMatter.title} />
+          </Box>
+          {children}
+        </section>
         <NewsletterForm my={[20, 28]} />
         <Flex direction={['column', 'column', 'row']} mb={12}>
           <Avatar size={220} m="auto" mr={['auto', 'auto', 16]} mb={[16, 16, 'auto']} border="3px solid #ededed" />

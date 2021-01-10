@@ -1,55 +1,30 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import Image from 'next/image';
 import Tweet from 'react-tweet-embed';
-import { Box } from '@chakra-ui/react';
+import { Box, Link } from '@chakra-ui/react';
 import Paragraph from './paragraph';
 import { PropsWithChildren } from 'react';
 
 const CustomLink = (props: { href: string }) => {
   const href = props.href;
   const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
+  const linkProps = { ...props, borderBottom: '3px solid #0060ff70', _hover: { bg: '#0060ff30' } };
 
   if (isInternalLink) {
     return (
-      <Link href={href}>
-        <a {...props} />
-      </Link>
+      <NextLink href={href}>
+        <Link {...linkProps} />
+      </NextLink>
     );
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+  return <Link isExternal {...linkProps} />;
 };
 
 const MDXComponents = {
   Image,
   a: CustomLink,
   Tweet,
-  MainImage: function MainImage({
-    width,
-    height,
-    src,
-    alt,
-  }: {
-    width: string;
-    height: string;
-    src: string;
-    alt: string;
-  }) {
-    return (
-      <Box
-        textAlign="center"
-        sx={{
-          '> div': { display: 'inline-block' },
-          img: {
-            borderRadius: '10px',
-          },
-        }}
-        mb={16}
-      >
-        <Image src={src} width={width} height={height} alt={alt} />
-      </Box>
-    );
-  },
   p: Paragraph,
   h1: function H1({ children, id }: PropsWithChildren<any>) {
     return (

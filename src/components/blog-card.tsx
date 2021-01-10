@@ -1,15 +1,17 @@
 import NextLink from 'next/link';
+import Image from 'next/image';
 import { format, parseISO } from 'date-fns';
 import { Link, Box, Text, useColorModeValue } from '@chakra-ui/react';
 
 interface Props {
   slug: string;
+  banner: string;
   title: string;
   summary: string;
   publishedAt: string;
   readingTime: any;
 }
-const BlogCard = ({ slug, title, summary, publishedAt, readingTime }: Props) => (
+const BlogCard = ({ slug, banner, title, summary, publishedAt, readingTime }: Props) => (
   <Box
     as="article"
     w="100%"
@@ -17,6 +19,17 @@ const BlogCard = ({ slug, title, summary, publishedAt, readingTime }: Props) => 
     _hover={{ bg: useColorModeValue('blackAlpha.100', 'whiteAlpha.100'), borderRadius: '10px' }}
   >
     <Box pointerEvents="none" p={[0, 2, 4]} borderRadius="5px">
+      <Box
+        sx={{
+          '> div': { display: 'inline-block' },
+          img: {
+            borderRadius: '10px',
+          },
+        }}
+        mb={3}
+      >
+        <Image src={banner} width="800" height="300" />
+      </Box>
       <Text as="h2" fontSize="1.8rem">
         {title}
       </Text>
