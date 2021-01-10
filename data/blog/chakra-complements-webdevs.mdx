@@ -1,7 +1,7 @@
 ---
 title: 'How ChakraUI complements your existing web development skills'
 publishedAt: '2021-01-10'
-summary: Chakra brings awesome new paradigms on the plate and at the same time complement the skills you've built up over the last 10 years as a web developer.
+summary: Chakra brings awesome new paradigms on the plate and at the same time complements the skills you've built up over the last 10 years as a web developer.
 banner: '/images/blog/chakra.png'
 ---
 
@@ -23,15 +23,15 @@ const YourComponent = () => (
 );
 ```
 
-As you’re applying those properties to your components, ChakraUI takes care of generating CSS classes containing those styles. Chakra provides you different components and you're able to apply those styles to basically all of them. Of course some are restricted to specific types (e.g. flexbox attributes to the Flex component).
+As you’re applying those properties to your components, ChakraUI takes care of generating CSS classes containing those styles. Chakra provides you different components and you're able to apply those styles to basically all of them. Of course some are restricted to specific types (e.g. flexbox properties to the `Flex` component).
 
-In addition to all known CSS properties, ChakraUI gives you some abbreviations which map to CSS properties in order to increase readability of your code. For example `w` maps to `width`, `m` maps to `margin`, `pos` maps to `position` and so on. Have look at the [list of all available style props](https://chakra-ui.com/docs/features/style-props) in Chakra.
+In addition to all known CSS properties, ChakraUI gives you some abbreviations which map to CSS properties in order to increase readability of your code (as soon as you know what they stand for). For example `w` maps to `width`, `m` maps to `margin`, `pos` maps to `position` and so on. Have look at the [list of all available style props](https://chakra-ui.com/docs/features/style-props) in Chakra.
 
 # Approachable CSS-in-JS
 
-To be honest I never felt comfortable with existing CSS-in-JS solutions and always ended writing `less` files which held the styles for the corresponding components. I wouldn't give the other solutions the fault, because I also was lazy diving deep into those solutions and seeing the benefits. Nevertheless: Chakra changed this.
+To be honest I never felt comfortable with existing CSS-in-JS solutions and always ended writing `less` files which held the styles for the corresponding components. I don't think that it's only the fault of those solutions as I also was lazy diving deep into them and seeing the benefits. Nevertheless: Chakra changed this.
 
-With it’s composable nature it’s a breeze to either just style single elements in your component, or just create a new component which extends the styles of another one. Your freedom is endless.
+With it’s composable nature it’s a breeze to either just style single elements in your component, or creating new components which extend the styles of another one. Your freedom is endless.
 
 # Pseudo Styling
 
@@ -53,7 +53,7 @@ In addition Chakra even provides you basic features for using pseudo styling in 
 
 # Responsive Styles
 
-In the past years the "mobile first" approach got a lot of attentation. Legitimately, as many users are surfing on the web with different device sizes. So how does Chakra helps us with this?
+In the past years the "mobile first" approach got a lot of attentation. Legitimately as many users are surfing on the web with different device sizes. So how does Chakra helps us with this?
 
 ```jsx
 <Box m={{ base: 2, sm: 4, md: 6, lg: 8 }}>Hello World!</Box>
@@ -63,7 +63,7 @@ On most of the styling props you're able to specify values for different device 
 
 Chakra comes with its [default defined breakpoints](https://chakra-ui.com/docs/features/responsive-styles), but you can adjust them to fulfill your needs.
 
-As a shorthand method, you can also pass it as an array with ascending values. This may reduce code, but also can decrease readablity and removes the possibility to leave out breakpoints in between.
+As a shorthand method, you can also pass it as an array with ascending values. This may reduce code, but also can decrease readablity and removes the possibility to leave out breakpoints in between. Here is an example:
 
 ```jsx
 <Box m={[2, 4, 6, 8]}>Hello World!</Box>
@@ -71,7 +71,7 @@ As a shorthand method, you can also pass it as an array with ascending values. T
 
 # Flexible Theming
 
-As we've just talked about adjusted default breakpoints, let's also talk about adjusting other stuff. Every component library has the problem, that as it grows in popularity, it's design gets worn out. I guess everyone of us remembers when every third webapp has the bootstrap look. Luckily you can adjust the look and feel of Chakra heavily with it's flexible theming approach.
+As we've just talked about adjusted breakpoints, let's also talk about adjusting other stuff. Every component library has the problem, that as it grows in popularity, it's design gets worn out. I guess everyone of us remembers when every third webapp had the standard bootstrap look. Luckily you can adjust the look and feel of Chakra heavily with it's flexible theming approach.
 
 Here is the code snippet how I am adjusting the default Chakra theme for this blog:
 
@@ -175,7 +175,7 @@ import Image from 'next/image';
 <Image src="yourimage.png" width={200} height={100} style={{ margin: '20px' borderRadius: '10px' }} />
 ```
 
-But that's not the way we like it mh? We want to style it with Chakra, because maybe you want to define different margins depending on the device size. Let's have a look the the `sx` property of Chakra, another powerful tool.
+But that's not the way we like it mh? We want to style it with Chakra, because e.g. you want to define different margins depending on the device size. Let's have a look the the `sx` property of Chakra, another powerful tool.
 
 ```jsx
 import Image from 'next/image';
@@ -187,6 +187,8 @@ import { Box } from '@chakra-ui/react';
 ```
 
 With the `sx` property you can basically style any nested element. Just apply the correct css selector. Even a selector like `div > img.className` is possible here, just pass it as a string literal.
+
+It also helps with css properties which aren't yet supported natively by ChakraUI. Here you can see an example for [styling scrollbars](https://trueq.io/q/42#answer-42) and [specific WebKit properties](https://trueq.io/q/41#answer-41).
 
 # Accessibility
 
@@ -202,8 +204,28 @@ For more information of Framer Motion checkout the [official docs](https://www.f
 
 # Deeply integrated support for Dark Mode
 
+Dark mode is getting adopted more and more. Not only in the web but also in several operating systems. If you also want to support dark mode in your webapp you'll be happy to know that Chakra has a deeply integrated support for it.
+
+Chakra also takes care of saving the user's decision, either in the local storage or as a cookie which is helpful for server side rendering. It also can detect the users OS setting.
+
+There are several utilities to style or adjust your app depending on the current color mode.
+
 # Helpful Hooks
+
+Chakra also has some hooks which come in handy. For example I see myself using `useColorModeValue` very often to provide a value depending on the current color mode.
+
+There are also hooks like `useClipboard` and `useMediaQuery` which could make some of the other dependencies in your project obsolete.
 
 # Awesome Community
 
+The community is a big part of a framework / library and I can say that the community around Chakra is just awesome. The people are friendly and want to help you. Checkout the [Chakra GitHub Discussions](https://github.com/chakra-ui/chakra-ui/discussions) if you have any questions.
+
+I also want to mention that my Twitter friend [Achim](https://twitter.com/hauptrolle_) created a new project called [Chakra Templates](https://chakra-templates.dev/). A growing collection of responsive Chakra UI Templates ready to drop into your project.
+
 # What if I don’t use React?
+
+At least I am happy to tell you that there's also an official [Chakra version for Vue](https://vue.chakra-ui.com/).
+
+# Summary
+
+Hopefully you find this short overview about ChakraUI helpful. I wanted to show how it complements existing approaches in web development and extends them with nice paradigms and helpful utilities.

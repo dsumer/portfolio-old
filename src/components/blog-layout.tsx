@@ -47,21 +47,14 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
           <Avatar size={220} m="auto" mr={['auto', 'auto', 16]} mb={[16, 16, 'auto']} border="3px solid #ededed" />
           <Flex maxW={500} m="auto" ml={['auto', 'auto', 0]} justify="center" direction="column">
             <Box as="h2" fontSize="2xl" fontWeight="400">
-              My name is{' '}
+              Hey, my name is{' '}
               <Box as="strong" fontWeight="600">
                 Dominik
               </Box>{' '}
-              and I&apos;m a{' '}
-              <Box as="span" whiteSpace="nowrap">
-                Web Developer
-              </Box>{' '}
-              from{' '}
-              <Box as="span" whiteSpace="nowrap">
-                Austria 🇦🇹
-              </Box>
+              👋
             </Box>
-            <Box as="h2" fontSize="2xl" fontWeight="400" mt={10}>
-              I regularly post stuff about Web Development on
+            <Box as="h2" fontSize="2xl" fontWeight="400" mt={5}>
+              If you liked this blog post, be sure to follow me on
               <Link
                 href="https://twitter.com/dominiksumer"
                 ml={2}
@@ -75,7 +68,7 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
                   Twitter
                 </Box>
               </Link>{' '}
-              so make sure to follow me if you&apos;re interested. 😊
+              for future content. 😄
             </Box>
           </Flex>
         </Flex>
