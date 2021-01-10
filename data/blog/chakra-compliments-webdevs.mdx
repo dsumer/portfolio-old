@@ -25,7 +25,7 @@ const YourComponent = () => (
 
 As you’re applying those properties to your components, ChakraUI takes care of generating CSS classes containing those styles. Chakra provides you different components and you're able to apply those styles to basically all of them. Of course some are restricted to specific types (e.g. flexbox attributes to the Flex component).
 
-In addition to all known CSS properties, ChakraUI gives you some abbreviations which map to CSS properties in order to increase readability of your code. For example `w` maps to `width`, `m` maps to `margin`, `pos` maps to `position` and so on. [Here](https://chakra-ui.com/docs/features/style-props) you can find a list of all available style props in Chakra.
+In addition to all known CSS properties, ChakraUI gives you some abbreviations which map to CSS properties in order to increase readability of your code. For example `w` maps to `width`, `m` maps to `margin`, `pos` maps to `position` and so on. Have look at the [list of all available style props](https://chakra-ui.com/docs/features/style-props) in Chakra.
 
 # Approachable CSS-in-JS
 
@@ -59,9 +59,9 @@ In the past years the "mobile first" approach got a lot of attentation. Legitima
 <Box m={{ base: 2, sm: 4, md: 6, lg: 8 }}>Hello World!</Box>
 ```
 
-On most of the styling props you're able to specify values for different device sizes. Here Chakra also follows the mobe first approach, because the style for the smallest specified breakpoint will also apply to all breakpoints above.
+On most of the styling props you're able to specify values for different device sizes. Chakra also follows the mobe first approach, because the style for the smallest specified breakpoint will also apply to all breakpoints above.
 
-Chakra comes with its default defined breakpoints which are described [here](https://chakra-ui.com/docs/features/responsive-styles), but you can adjust them to fulfill your needs.
+Chakra comes with its [default defined breakpoints](https://chakra-ui.com/docs/features/responsive-styles), but you can adjust them to fulfill your needs.
 
 As a shorthand method, you can also pass it as an array with ascending values. This may reduce code, but also can decrease readablity and removes the possibility to leave out breakpoints in between.
 
