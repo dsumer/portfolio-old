@@ -6,7 +6,7 @@ const Paragraph = ({ children, ...props }: PropsWithChildren<BoxProps>) => (
     as="p"
     mt={0}
     mb={6}
-    fontSize="1.35em"
+    fontSize="1.4em"
     lineHeight={1.5}
     fontWeight="400"
     textAlign={['left', 'left', 'justify']}
