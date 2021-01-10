@@ -32,9 +32,11 @@ const MDXComponents = {
   p: Paragraph,
   h1: function H1({ children, id }: PropsWithChildren<any>) {
     return (
-      <Box id={id} as="h2" fontSize={['1.9rem', '2.1rem']} mt={14} mb={4}>
-        {children}
-      </Box>
+      <Link href={`#${id}`}>
+        <Box id={id} as="h2" fontSize={['1.9rem', '2.1rem']} mt={14} mb={4}>
+          {children}
+        </Box>
+      </Link>
     );
   },
 };
