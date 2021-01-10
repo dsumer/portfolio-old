@@ -6,12 +6,13 @@ import { Link, Box, Text, useColorModeValue } from '@chakra-ui/react';
 interface Props {
   slug: string;
   banner: string;
+  bannerBg: string;
   title: string;
   summary: string;
   publishedAt: string;
   readingTime: any;
 }
-const BlogCard = ({ slug, banner, title, summary, publishedAt, readingTime }: Props) => (
+const BlogCard = ({ slug, banner, bannerBg, title, summary, publishedAt, readingTime }: Props) => (
   <Box
     as="article"
     w="100%"
@@ -24,6 +25,7 @@ const BlogCard = ({ slug, banner, title, summary, publishedAt, readingTime }: Pr
           '> div': { display: 'inline-block' },
           img: {
             borderRadius: '10px',
+            bg: bannerBg,
           },
         }}
         mb={3}

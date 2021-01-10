@@ -34,6 +34,7 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
               '> div': { display: 'inline-block' },
               img: {
                 borderRadius: '10px',
+                bg: frontMatter.bannerBg,
               },
             }}
             mb={16}
