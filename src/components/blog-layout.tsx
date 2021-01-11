@@ -72,7 +72,7 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
                   Twitter
                 </Box>
               </Link>{' '}
-              in order to fill the gaps between my blog posts. 😄
+              for future content. 😄
             </Box>
           </Flex>
         </Flex>
