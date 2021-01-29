@@ -1,0 +1,294 @@
+---
+title: 'A guide to make your Stripe Checkout EU VAT compliant'
+publishedAt: '2021-01-30'
+summary: In this blog post I am covering the different scenarios which need to be considered when selling digital goods inside the EU and how to implement them with Stripe Checkout.
+banner: '/images/blog/stripe_eu_vat.png'
+bannerBg: '#003399'
+---
+
+You’re located in the EU, want to bring your SaaS (or any other digital product) to customers over the whole world and are not sure what you exactly need to do? You’re implementing your payment process with Stripe Checkout but don’t know what exactly you have to do to be EU VAT compliant? I’ve gone through this and with this blog post I want to give you a step-by-step guide to make your SaaS payment process EU VAT compliant.
+
+> I want to state that I am no accountant, financial advisor or anything like that. I can’t guarantee you to keep this information up-to-date or that it really applies to your specific situation in your country. Please check back with your accountant before going live with a payment process to be sure everything works as expected and you don’t need to worry about illegal activities or large payments to the tax office.
+
+# What is the EU VAT
+
+The term VAT stands for Value Added Tax which is applied to basically all goods and services that are bought and sold for use or consumption in the European Union. So it also applies to digital productions and you have to ensure to correctly collect and pay the VAT. Every EU country has its own VAT percentage and [you can find them here](https://ec.europa.eu/taxation_customs/business/vat/telecommunications-broadcasting-electronic-services/vat-rates_en).
+
+# When and how much VAT do you need to collect
+
+I assume you have a business registered in the EU and you want to sell your product to customers all over the world. There are four different scenarios depending on your country, the country of the customer and if you sell to a business or private customer.
+
+## 1. Selling to customers outside the EU 🪶
+
+If your customer is located outside the EU, independent if it’s a business or private customer, no VAT has to be charged.
+
+## 2. Selling to customers in your home country 🤝
+
+If your customer is located in your home country, you have to charge the corresponding VAT percentage of your home country and pay it to the tax office.
+
+## 3. Selling to EU businesses outside your home country ✌️
+
+If it is a business customer located outside your home country you don’t have to collect a VAT, as reverse charge applies.
+
+But you definitely have to make sure to collect the VAT number of the business and its billing address. You also have to validate the VAT number and ensure that the business is valid and really exists.
+
+## 4. Selling to private EU customers outside your home country 🤔
+
+Last and least, the most cumbersome case. For private EU customers outside your home country you have to collect the corresponding VAT of the customers country. You also need to pay it to the corresponding tax office.
+
+You also need to save/verify the location of the customer with the billing and IP address for future proof.
+
+Hint: it can be easier based on your yearly turnover with [MOSS](https://ec.europa.eu/taxation_customs/business/vat/telecommunications-broadcasting-electronic-services/content/declare-and-pay-vat-moss_en). But I didn’t dive into this topic.
+
+# Stripe Checkout
+
+Ok now that we covered the different cases, let’s move on with the Stripe Integration and make sure to handle everything correctly in our Stripe Checkout Session.
+
+## Prerequisites
+
+I assume you already have the Stripe Checkout set up correctly as I won't go through the process itself in detail. If not I can recommend the official guide directly from the [Stripe Docs](https://stripe.com/docs/billing/subscriptions/checkout).
+
+## Manage a list of countries
+
+As I am currently writing this blog post, Stripe doesn’t automatically take care of managing available countries and their VAT percentage. So you have to do it on your own.
+
+As list of countries I can recommend you [this public json file](https://gist.github.com/keeguon/2310008) which includes basically all countries over the world. Then you can extend all the EU countries with two fields: isEU and vatPercentage, which tells us that the country is a member of the EU and how much the corresponding VAT percentage is.
+
+Here an example list:
+
+```typescript:countries.ts
+export const COUNTRIES = [
+  { name: 'United States', code: 'US' },
+  ...
+  // WARNING these values are not being maintained
+  { name: 'Austria', code: 'AT', isEU: true, vatPercentage: 20 },
+  { name: 'Belgium', code: 'BE', isEU: true, vatPercentage: 21 },
+  { name: 'Bulgaria', code: 'BG', isEU: true, vatPercentage: 20 },
+  { name: 'Croatia', code: 'HR', isEU: true, vatPercentage: 25 },
+  { name: 'Cyprus', code: 'CY', isEU: true, vatPercentage: 19 },
+  ...
+];
+```
+
+## Update the VAT taxes via the Stripe API
+
+As we now have a list of all EU countries and their corresponding VAT percentage, we need to keep them up-to-date in our Stripe account. Stripe doesn't take care of managing those values, we have to do it on our own and the most straight forward way to do this is via the [Stripe Tax Rates API](https://stripe.com/docs/api/tax_rates).
+
+Before I show you the logic I'm using for keeping those taxes up-to-date I want to explain the process a bit. Basically I store all EU tax rate in a table in the DB of my application. The DB Model looks like this:
+
+```typescript
+import { Model } from 'objection';
+
+export default class TaxRateModel extends Model {
+  countryCode!: string;
+  stripeId!: string;
+  vatPercentage!: number;
+
+  static tableName = 'tax_rate';
+
+  static get idColumn() {
+    return 'countryCode';
+  }
+}
+```
+
+So when my application boots up, I am loop through all EU countries from the list, and if they don't exist, I send them to Stripe via the API and save them in the DB. If they already exist in the DB, I know that I've already sent them to Stripe and just check if the VAT percentage differs. If it differs, I tell Stripe that the old Tax Rate is deprecated and create a new one. (Updating the VAT percentage is not possible, to keep history of older payments intact)
+
+With this we can use the country list to manage the VAT percentages of all EU countries and keep them automatically updated in Stripe. 🎉
+
+```typescript
+export async function createOrUpdateVatTaxRates() {
+  const EU_COUNTRIES = COUNTRIES.filter((c) => !!c.isEU);
+  for (const country of EU_COUNTRIES) {
+    const existingTaxRate = await TaxRateModel.query().findOne({ countryCode: country.code });
+    if (!existingTaxRate || existingTaxRate.vatPercentage !== country.vatPercentage) {
+      getLogger().info({}, 'TaxRate changed for country: ' + country.code);
+
+      const taxRate = await stripe.taxRates.create({
+        display_name: 'VAT ' + country.name,
+        inclusive: false,
+        percentage: country.vatPercentage,
+      });
+
+      if (existingTaxRate) {
+        await stripe.taxRates.update(existingTaxRate.stripeId, { active: false });
+        await existingTaxRate.$query().patch({ stripeId: taxRate.id, vatPercentage: country.vatPercentage });
+      } else {
+        await TaxRateModel.query()
+          .insert({
+            countryCode: country.code,
+            stripeId: taxRate.id,
+            vatPercentage: country.vatPercentage,
+          })
+          .returning('*');
+      }
+    }
+  }
+}
+```
+
+## Collect the customers billing address
+
+Now that we have all tax rates available in Stripe, let's move on with the first step in our payment process to ensure we charge the correct VAT rate.
+
+The form I am using to collect the customers billing address looks like this:
+
+<Box
+  sx={{ div: { mx: 'auto', my: 8 }, img: { border: '1px solid black', borderColor: 'gray.600', borderRadius: '5px' } }}
+>
+  <Image src="/images/blog/billing_address_form.png" width="900" height="659" />
+</Box>
+
+Here we collect all necessary data in order to check if the user is
+
+- located in our home country
+- located in the EU
+- is a business customer or not (and collect the VAT number of the country)
+
+So before we start the Stripe Checkout session, we upsert the customer via the Stripe API and can already tell if the customer has to pay the VAT normally, if reverse charge applies or if we don't have to charge any VAT because the customer is not located in the EU. Here is the corresponding code for upserting the customer:
+
+```typescript
+function mapUserToStripeCustomer(user: UserModel, isEUCustomer: boolean): Stripe.CustomerUpdateParams {
+  // our business is located in Austria, so we have to check if the customer is also from Austria
+  const HOME_COUNTRY_CODE = 'AT';
+  let taxExempt: Stripe.CustomerUpdateParams.TaxExempt;
+  if (isEUCustomer) {
+    if (user.billingVatNumber && user.billingCountryCode !== HOME_COUNTRY_CODE) {
+      // if it is a country in the EU and not from austria, reverse charge applies
+      taxExempt = 'reverse';
+    } else {
+      // b2c in EU or business from our home country, VAT applies normally
+      taxExempt = 'none';
+    }
+  } else {
+    // customer from outside the EU, no VAT applies
+    taxExempt = 'exempt';
+  }
+
+  return {
+    email: user.billingEmail,
+    name: user.billingName,
+    address: {
+      city: user.billingCity,
+      country: user.billingCountryCode,
+      line1: user.billingStreet,
+      postal_code: user.billingZip,
+    },
+    tax_exempt: taxExempt,
+  };
+}
+
+export async function upsertStripeCustomer(user: UserModel, updatedVatNumber: boolean) {
+  const userCountry = COUNTRIES.find((c) => c.code === user.billingCountryCode);
+  const isEUCustomer = !!userCountry?.isEU;
+  const baseData = mapUserToStripeCustomer(user, isEUCustomer);
+
+  if (user.stripeCustomerId) {
+    if (isEUCustomer && updatedVatNumber && user.billingVatNumber) {
+      await stripe.customers.createTaxId(user.stripeCustomerId, { type: 'eu_vat', value: user.billingVatNumber });
+    }
+
+    await stripe.customers.update(user.stripeCustomerId, baseData);
+
+    return user.stripeCustomerId;
+  } else {
+    const customer = await stripe.customers.create({
+      ...baseData,
+      tax_id_data:
+        isEUCustomer && user.billingVatNumber ? [{ type: 'eu_vat', value: user.billingVatNumber }] : undefined,
+      metadata: {
+        trueqId: user.id,
+      },
+    });
+
+    const success = (await user.$query().patch({ stripeCustomerId: customer.id })) > 0;
+    if (!success) {
+      throw new Error(`Error updating the stripe customer id (${customer.id}) of the user with id ${user.id}`);
+    }
+
+    return customer.id;
+  }
+}
+```
+
+As you can see we're also telling Stripe the VAT number of the customer. Stripe will automatically check if the VAT number is in a correct format, if not it will immediately throw an error with the code `tax_id_invalid`.
+
+Stripe will also check in the background, if it is a valid VAT number (or if e.g. the company doesn't exist anymore). You will receive an event from stripe called `customer.tax_id.updated` so you can manually check if your customer has provided a valid VAT number and if it matches his billing address.
+
+Be aware! Stripe only validates the VAT number initially. If you have recurring payments you actually need to check on your own if the VAT number is still valid for future invoices.
+
+## Pass the correct tax rate to the Stripe Checkout Session
+
+As we have the billing data collected from our customer and told Stripe about the tax situation of the customer, let's move on with the creation of the Stripe Checkout session and specify _which_ VAT rate the customer has to pay.
+
+For this we only need to get the country of the customers billing address, fetch the corresponding tax rate from our database and get its Stripe ID. This can then be passed to the Stripe Checkout API Call and everything should work as expected. 🥳
+
+> Hint: you don't have to check if the customer is a business customer, because we set the `tax_exempt` property of the customer to `reverse`, so Stripe makes sure that he isn't charged with VAT
+
+```typescript
+export async function createStripeCheckoutSession(stripePriceId: string, user: UserModel) {
+  const userCountry = COUNTRIES.find((c) => c.code === user.billingCountryCode);
+  const isEUCustomer = !!userCountry.isEU;
+  let taxRate: TaxRateModel;
+  if (isEUCustomer) {
+    taxRate = await TaxRateModel.query().findOne({ countryCode: userCountry.code });
+  }
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      customer: user.stripeCustomerId,
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price: stripePriceId,
+          quantity: 1,
+          tax_rates: taxRate ? [taxRate.stripeId] : undefined,
+        },
+      ],
+      allow_promotion_codes: true,
+      // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
+      // the actual Session ID is returned in the query parameter when your customer
+      // is redirected to the success page.
+      success_url: `${applicationUrl}stripe/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${applicationUrl}profile/${user.userName}/billing`,
+    });
+
+    return session.id;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
+```
+
+When the customer proceeds to the Stripe Checkout (and is going to be charged with VAT), he will already see how much VAT is going to be charged.
+
+The invoices you're obtaining from Stripe will now of course also contain the corresponding VAT you've charged.
+
+# Summary
+
+We're finished! 🎉
+
+Let's recap what we've done:
+
+- managing a list of EU countries and there VAT percentage
+- make sure to keep the Tax Rates up-to-date via the Stripe API
+- collect the billing address of the customer, validate the VAT number of a company and tell Stripe if VAT, reverse charge or nothing should be applied
+- pass the correct tax rate to the Stripe Checkout API
+
+---
+
+What you still should take care of:
+
+- check if the VAT number of a company is valid and matches with the billing address
+- verify the VAT number also for recurring payments
+
+---
+
+I hope you enjoyed this guide and you could get some helpful insights!
+
+## Stripe is working on an easier solution
+
+The Stripe support team contacted me and said that they're working on a better solution for this. Chances are that they calculate the taxes based on our home country and we don't have to do this on our own anymore.
+
+I am excited and looking forward to future changes by Stripe, until then I hope some of you can find some value in this blog post. ✌️
