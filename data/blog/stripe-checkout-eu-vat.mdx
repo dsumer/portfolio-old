@@ -6,9 +6,9 @@ banner: '/images/blog/stripe_eu_vat.png'
 bannerBg: '#003399'
 ---
 
-You’re located in the EU, want to bring your SaaS (or any other digital product) to customers over the whole world and are not sure what you exactly need to do? You’re implementing your payment process with Stripe Checkout but don’t know what exactly you have to do to be EU VAT compliant? I’ve gone through this and with this blog post I want to give you a step-by-step guide to make your SaaS payment process EU VAT compliant.
+You’re located in the EU, want to bring your SaaS (or any other digital product) to customers over the whole world and are not sure what you exactly need to do? You’re implementing the payment process with Stripe Checkout but don’t know what exactly needs to be done in order to be EU VAT compliant? I’ve gone through the same and with this blog post I want to give you a step-by-step guide to make your Stripe payment process EU VAT compliant.
 
-> I want to state that I am no accountant, financial advisor or anything like that. I can’t guarantee you to keep this information up-to-date or that it really applies to your specific situation in your country. Please check back with your accountant before going live with a payment process to be sure everything works as expected and you don’t need to worry about illegal activities or large payments to the tax office.
+> I want to state that I am no accountant, financial advisor or anything like that. I can’t guarantee to keep this information up-to-date or that it really applies to your specific situation in your country. Please check back with your accountant before going live with a payment process to be sure everything works as expected and you don’t need to worry about illegal activities or large payments to the tax office.
 
 # What is the EU VAT
 
@@ -92,7 +92,7 @@ export default class TaxRateModel extends Model {
 }
 ```
 
-So when my application boots up, I am loop through all EU countries from the list, and if they don't exist, I send them to Stripe via the API and save them in the DB. If they already exist in the DB, I know that I've already sent them to Stripe and just check if the VAT percentage differs. If it differs, I tell Stripe that the old Tax Rate is deprecated and create a new one. (Updating the VAT percentage is not possible, to keep history of older payments intact)
+So when my application boots up, I am looping through all EU countries from the list, and if they don't exist, I send them to Stripe via the API and save them in the DB. If they already exist in the DB, I know that I've already sent them to Stripe and just check if the VAT percentage differs. If it differs, I tell Stripe that the old Tax Rate is deprecated and create a new one. (Updating the VAT percentage is not possible, to keep history of older payments intact)
 
 With this we can use the country list to manage the VAT percentages of all EU countries and keep them automatically updated in Stripe. 🎉
 
@@ -101,9 +101,11 @@ export async function createOrUpdateVatTaxRates() {
   const EU_COUNTRIES = COUNTRIES.filter((c) => !!c.isEU);
   for (const country of EU_COUNTRIES) {
     const existingTaxRate = await TaxRateModel.query().findOne({ countryCode: country.code });
+    // we only move on if no taxRate exists yet in our DB or the vatPercentage differs
     if (!existingTaxRate || existingTaxRate.vatPercentage !== country.vatPercentage) {
       getLogger().info({}, 'TaxRate changed for country: ' + country.code);
 
+      // either way we're creating a new taxRate via the Stripe API
       const taxRate = await stripe.taxRates.create({
         display_name: 'VAT ' + country.name,
         inclusive: false,
@@ -111,7 +113,9 @@ export async function createOrUpdateVatTaxRates() {
       });
 
       if (existingTaxRate) {
+        // if there is already an existing tax rate, we set the old one to inactive via the Stripe API
         await stripe.taxRates.update(existingTaxRate.stripeId, { active: false });
+        // and we update the tax rate in our DB with the new vatPercentage and stripeId
         await existingTaxRate.$query().patch({ stripeId: taxRate.id, vatPercentage: country.vatPercentage });
       } else {
         await TaxRateModel.query()
@@ -143,9 +147,9 @@ Here we collect all necessary data in order to check if the user is
 
 - located in our home country
 - located in the EU
-- is a business customer or not (and collect the VAT number of the country)
+- is a business customer or not (and collect the VAT number of the company)
 
-So before we start the Stripe Checkout session, we upsert the customer via the Stripe API and can already tell if the customer has to pay the VAT normally, if reverse charge applies or if we don't have to charge any VAT because the customer is not located in the EU. Here is the corresponding code for upserting the customer:
+So before we start the Stripe Checkout session, we upsert the customer via the Stripe API and can already tell if the customer has to pay the VAT normally, if reverse charge applies or if we don't have to charge any VAT, because the customer is not located in the EU. Here is the corresponding code for upserting the customer:
 
 ```typescript
 function mapUserToStripeCustomer(user: UserModel, isEUCustomer: boolean): Stripe.CustomerUpdateParams {
@@ -184,14 +188,19 @@ export async function upsertStripeCustomer(user: UserModel, updatedVatNumber: bo
   const baseData = mapUserToStripeCustomer(user, isEUCustomer);
 
   if (user.stripeCustomerId) {
+    // if our user is already existing in Stripe, we update his record
+
     if (isEUCustomer && updatedVatNumber && user.billingVatNumber) {
+      // we create a new tax id (VAT number) for the customer if he changed it
       await stripe.customers.createTaxId(user.stripeCustomerId, { type: 'eu_vat', value: user.billingVatNumber });
     }
 
+    // update the record via the Stripe API
     await stripe.customers.update(user.stripeCustomerId, baseData);
 
     return user.stripeCustomerId;
   } else {
+    // create a new customer record via the Stripe API
     const customer = await stripe.customers.create({
       ...baseData,
       tax_id_data:
@@ -201,6 +210,7 @@ export async function upsertStripeCustomer(user: UserModel, updatedVatNumber: bo
       },
     });
 
+    // assign the stripeCustomerId to our user
     const success = (await user.$query().patch({ stripeCustomerId: customer.id })) > 0;
     if (!success) {
       throw new Error(`Error updating the stripe customer id (${customer.id}) of the user with id ${user.id}`);
@@ -243,13 +253,11 @@ export async function createStripeCheckoutSession(stripePriceId: string, user: U
         {
           price: stripePriceId,
           quantity: 1,
+          // here we pass the VAT rate if one applies
           tax_rates: taxRate ? [taxRate.stripeId] : undefined,
         },
       ],
       allow_promotion_codes: true,
-      // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
-      // the actual Session ID is returned in the query parameter when your customer
-      // is redirected to the success page.
       success_url: `${applicationUrl}stripe/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${applicationUrl}profile/${user.userName}/billing`,
     });
@@ -287,8 +295,10 @@ What you still should take care of:
 
 I hope you enjoyed this guide and you could get some helpful insights!
 
+I've spent some time over the last weeks to get more insights into Stripe which aren't covered in this blog post. If you have any further questions, I am happy to help out. I would suggest to [ask a question](https://trueq.io/t/stripe) in the corresponding section of our developer community TrueQ, where I'm subscribed and get notified about new questions. ✌️
+
 ## Stripe is working on an easier solution
 
-The Stripe support team contacted me and said that they're working on a better solution for this. Chances are that they calculate the taxes based on our home country and we don't have to do this on our own anymore.
+The Stripe support team contacted me and said that they're working on a better solution for this. Chances are high that they calculate the taxes based on our home country and we don't have to do this on our own anymore.
 
-I am excited and looking forward to future changes by Stripe, until then I hope some of you can find some value in this blog post. ✌️
+I am excited and looking forward to future changes by Stripe, until then I hope some of you can find some value in this blog post.
