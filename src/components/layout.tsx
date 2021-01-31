@@ -8,7 +8,7 @@ import { websiteUrl } from '../utils/consts';
 const Wrapper = chakra(Flex, {
   baseStyle: {
     w: ['90%', '85%', '80%'],
-    maxW: 1000,
+    maxW: 900,
     mx: 'auto',
   },
 });
