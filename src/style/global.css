@@ -8,7 +8,7 @@ p code {
 pre[class*='language-'],
 code[class*='language-'] {
   color: #d4d4d4;
-  font-size: 1.05em;
+  font-size: 1em;
   text-shadow: none;
   font-family: Menlo, Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', 'Courier New', monospace;
   direction: ltr;
