@@ -1,18 +1,19 @@
 import NextLink from 'next/link';
-import Image from 'next/image';
 import { format, parseISO } from 'date-fns';
 import { Link, Box, Text, useColorModeValue } from '@chakra-ui/react';
+import BlogBanner, { BannerComponent } from './blog-banner';
 
 interface Props {
   slug: string;
   banner: string;
   bannerBg: string;
+  bannerComponent: BannerComponent;
   title: string;
   summary: string;
   publishedAt: string;
   readingTime: any;
 }
-const BlogCard = ({ slug, banner, bannerBg, title, summary, publishedAt, readingTime }: Props) => (
+const BlogCard = ({ slug, banner, bannerBg, bannerComponent, title, summary, publishedAt, readingTime }: Props) => (
   <Box
     as="article"
     w="100%"
@@ -20,22 +21,7 @@ const BlogCard = ({ slug, banner, bannerBg, title, summary, publishedAt, reading
     _hover={{ bg: useColorModeValue('blackAlpha.100', 'whiteAlpha.100'), borderRadius: '10px' }}
   >
     <Box pointerEvents="none" p={[0, 2, 4]} borderRadius="5px">
-      <Box
-        sx={{
-          '> div': { display: 'inline-block' },
-          img: {
-            borderRadius: '10px',
-          },
-        }}
-        m="auto"
-        mb={3}
-        borderRadius="10px"
-        bg={bannerBg}
-        maxW="800px"
-        maxH="300px"
-      >
-        <Image src={banner} width="800" height="300" />
-      </Box>
+      <BlogBanner mb="3" alt={title} banner={banner} bannerBg={bannerBg} bannerComponent={bannerComponent} />
       <Text as="h2" fontSize="1.8rem">
         {title}
       </Text>

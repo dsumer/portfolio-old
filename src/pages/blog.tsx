@@ -21,7 +21,7 @@ const BlogOverview = ({ groups }: { groups: GroupedBlogPosts[] }) => {
         Hey, glad you&apos;re stopping by! 🙇‍♂️
       </Text>
       <Box>
-        {groups.map((g, groupIndex) => (
+        {groups.map((g) => (
           <Box key={g.month} m="auto" w={['100%', '100%', '85%']} mb={14}>
             <Text
               fontSize="3xl"
@@ -30,7 +30,7 @@ const BlogOverview = ({ groups }: { groups: GroupedBlogPosts[] }) => {
               mb={4}
               ml={[0, 2, 4]}
               borderBottom="6px solid"
-              borderColor={colors[groupIndex % colors.length]}
+              borderColor={colors[g.monthNumber % colors.length]}
             >
               {g.month}
             </Text>
@@ -51,6 +51,7 @@ export default BlogOverview;
 
 interface GroupedBlogPosts {
   month: string;
+  monthNumber: number;
   blogPosts: any[];
 }
 
@@ -66,7 +67,7 @@ export const getStaticProps: GetStaticProps = async () => {
       group.blogPosts.push(blogPost);
       return groups;
     } else {
-      return [...groups, { month, blogPosts: [blogPost] }];
+      return [...groups, { month, monthNumber: parseISO(blogPost.publishedAt).getMonth(), blogPosts: [blogPost] }];
     }
   }, [] as GroupedBlogPosts[]);
 

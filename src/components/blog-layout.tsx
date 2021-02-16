@@ -1,5 +1,4 @@
 import BlogSeo from './blog-seo';
-import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 import { format, parseISO } from 'date-fns';
 import { Box, Text, Flex, Link } from '@chakra-ui/react';
@@ -7,6 +6,7 @@ import { websiteUrl } from '../utils/consts';
 import NewsletterForm from './newsletter-form';
 import Avatar from './avatar';
 import { FaTwitter } from 'react-icons/fa';
+import BlogBanner from './blog-banner';
 
 export default function BlogLayout({ frontMatter, children }: PropsWithChildren<any>) {
   const date = format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy');
@@ -28,22 +28,12 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
           </Box>
         </Box>
         <section>
-          <Box
-            sx={{
-              '> div': { display: 'inline-block' },
-              img: {
-                borderRadius: '10px',
-              },
-            }}
-            m="auto"
-            mb={16}
-            borderRadius="10px"
-            bg={frontMatter.bannerBg}
-            maxW="800px"
-            maxH="300px"
-          >
-            <Image src={frontMatter.banner} width="800" height="300" alt={frontMatter.title} />
-          </Box>
+          <BlogBanner
+            alt={frontMatter.title}
+            banner={frontMatter.banner}
+            bannerBg={frontMatter.bannerBg}
+            bannerComponent={frontMatter.bannerComponent}
+          />
           {children}
         </section>
         <NewsletterForm my={[20, 28]} />
