@@ -47,9 +47,10 @@ const Layout = (props: PropsWithChildren<unknown>) => {
       </Box>
       <Wrapper pt={8}>{props.children}</Wrapper>
       <Box mt={16} mb={[8, 8, 6]} textAlign="center">
-        Website built with{' '}
+        Website built with
         <Box
           as="span"
+          mx="2"
           _before={{
             cursor: 'default',
             content: '"❤️"',
@@ -59,8 +60,8 @@ const Layout = (props: PropsWithChildren<unknown>) => {
               content: '"☕️"',
             },
           }}
-        />{' '}
-        and nextjs
+        />
+        in Austria{'  '}🇦🇹
       </Box>
     </>
   );
