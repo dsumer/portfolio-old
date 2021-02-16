@@ -7,6 +7,7 @@ import NewsletterForm from './newsletter-form';
 import Avatar from './avatar';
 import { FaTwitter } from 'react-icons/fa';
 import BlogBanner from './blog-banner';
+import ScrollProgressbar from './scroll-progessbar';
 
 export default function BlogLayout({ frontMatter, children }: PropsWithChildren<any>) {
   const date = format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy');
@@ -14,6 +15,7 @@ export default function BlogLayout({ frontMatter, children }: PropsWithChildren<
   return (
     <>
       <BlogSeo url={`${websiteUrl}blog/${frontMatter.slug}`} date={date} {...frontMatter} />
+      <ScrollProgressbar />
       <Box as="article" maxW="100%">
         <Box as="header" mb={10}>
           <Text as="h1" fontSize={['2rem', '2.3rem', '2.8rem']}>
