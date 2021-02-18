@@ -14,7 +14,7 @@ import Avatar from '../components/avatar';
 import NewsletterForm from '../components/newsletter-form';
 import { MotionBox, MotionFlex } from '../components/motion';
 
-const ANIMATION_DURATION = 0.6;
+const ANIMATION_DURATION = 0.4;
 
 const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
@@ -33,7 +33,7 @@ export default function Home() {
         <MotionBox
           opacity="0"
           initial={{
-            translateX: -300,
+            translateX: -120,
             opacity: 0,
           }}
           animate={{
@@ -56,7 +56,7 @@ export default function Home() {
           direction="column"
           initial={{
             opacity: 0,
-            translateX: 400,
+            translateX: 120,
           }}
           animate={{
             opacity: 1,
@@ -106,14 +106,14 @@ export default function Home() {
         w="100%"
         opacity="0"
         initial={{
-          translateY: 300,
+          translateY: 80,
         }}
         animate={{
           translateY: 0,
           opacity: 1,
           transition: {
-            delay: 0.4,
-            duration: 0.5,
+            delay: 0.3,
+            duration: ANIMATION_DURATION,
           },
         }}
       >
@@ -128,7 +128,7 @@ export default function Home() {
         animate={{
           opacity: 1,
           transition: {
-            delay: 0.8,
+            delay: 0.6,
             duration: ANIMATION_DURATION,
           },
         }}
