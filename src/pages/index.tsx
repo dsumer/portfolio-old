@@ -40,7 +40,6 @@ export default function Home() {
             translateX: 0,
             opacity: 1,
             transition: {
-              delay: 0.4,
               duration: ANIMATION_DURATION,
             },
           }}
@@ -63,7 +62,6 @@ export default function Home() {
             opacity: 1,
             translateX: 0,
             transition: {
-              delay: 0.4,
               duration: ANIMATION_DURATION,
             },
           }}
@@ -114,7 +112,7 @@ export default function Home() {
           translateY: 0,
           opacity: 1,
           transition: {
-            delay: 0.8,
+            delay: 0.4,
             duration: 0.5,
           },
         }}
