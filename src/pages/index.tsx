@@ -12,6 +12,9 @@ import CatalystsLogo from '../style/logos/catalysts-logo';
 import HtlLogo from '../style/logos/htl-logo';
 import Avatar from '../components/avatar';
 import NewsletterForm from '../components/newsletter-form';
+import { MotionBox, MotionFlex } from '../components/motion';
+
+const ANIMATION_DURATION = 0.6;
 
 const ORANGE = '#ff9400';
 const PURPLE = '#ff007a';
@@ -27,8 +30,44 @@ export default function Home() {
   return (
     <Flex w="100%" direction="column" align="center">
       <Flex direction={['column', 'column', 'row']}>
-        <Avatar size={220} m="auto" mr={['auto', 'auto', 16]} mb={[16, 16, 'auto']} border="3px solid #ededed" />
-        <Flex maxW={500} justify="center" direction="column">
+        <MotionBox
+          opacity="0"
+          initial={{
+            translateX: -300,
+            opacity: 0,
+          }}
+          animate={{
+            translateX: 0,
+            opacity: 1,
+            transition: {
+              delay: 0.4,
+              duration: ANIMATION_DURATION,
+            },
+          }}
+          m="auto"
+          mb={[16, 16, 'auto']}
+        >
+          <Avatar size={220} border="3px solid #ededed" />
+        </MotionBox>
+        <MotionFlex
+          ml={['auto', 'auto', 16]}
+          maxW="500px"
+          opacity="0"
+          justify="center"
+          direction="column"
+          initial={{
+            opacity: 0,
+            translateX: 400,
+          }}
+          animate={{
+            opacity: 1,
+            translateX: 0,
+            transition: {
+              delay: 0.4,
+              duration: ANIMATION_DURATION,
+            },
+          }}
+        >
           <Header underlineColor={ORANGE} emoji="🙌" mt={0}>
             Hey!
           </Header>
@@ -63,10 +102,39 @@ export default function Home() {
             </Link>{' '}
             so make sure to follow me if you&apos;re interested. 😊
           </Box>
-        </Flex>
+        </MotionFlex>
       </Flex>
-      <NewsletterForm mt={16} />
-      <Flex mt={[6, 12]} w="100%" align="left" direction="column">
+      <MotionBox
+        w="100%"
+        opacity="0"
+        initial={{
+          translateY: 300,
+        }}
+        animate={{
+          translateY: 0,
+          opacity: 1,
+          transition: {
+            delay: 0.8,
+            duration: 0.5,
+          },
+        }}
+      >
+        <NewsletterForm mt={16} />
+      </MotionBox>
+      <MotionFlex
+        mt={[6, 12]}
+        w="100%"
+        align="left"
+        direction="column"
+        opacity="0"
+        animate={{
+          opacity: 1,
+          transition: {
+            delay: 0.8,
+            duration: ANIMATION_DURATION,
+          },
+        }}
+      >
         <Header id="projects" underlineColor={PURPLE} emoji="🥐">
           Projects
         </Header>
@@ -170,7 +238,7 @@ export default function Home() {
           />
           <Divider my={10} />
         </Box>
-      </Flex>
+      </MotionFlex>
       <Flex mt={20} w="100%" align="left" direction="column">
         <Header id="cv" underlineColor={TURQUOISE} emoji="✌️">
           <Box as="span" onMouseEnter={() => setShowCV(true)} onMouseLeave={() => setShowCV(false)}>
