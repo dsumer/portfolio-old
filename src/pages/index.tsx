@@ -252,12 +252,26 @@ export default function Home() {
           <Divider my={10} />
           <CVDescription
             linkColor={linkColor}
+            url="https://seriouscode.io"
+            logo={
+              <Flex fontSize="3xl" minW="228px" minH="180px" align="center" justify="center">
+                <strong>seriouscode</strong>
+              </Flex>
+            }
+            name="seriouscode GmbH"
+            status="ongoing"
+            fromTo="since April 2021"
+            summary="After 7 years of being employed as a software developer it was time to make a dream come true. I am soon going to launch a blog post with more detailed informations. Until then you can check out our website."
+          />
+          <Divider my={10} />
+          <CVDescription
+            linkColor={linkColor}
             url="https://untis.at"
             logo={<UntisLogo />}
             name="Untis GmbH"
-            status="ongoing"
-            fromTo="since April 2019"
-            summary="I am employed at Untis as a senior software developer. My responsibilities are the managment of our web-frontend, I do several coordinative tasks and I also find myself implementing stuff in the backend. 😄"
+            status="past"
+            fromTo="April 2019 - March 2021"
+            summary="I was employed at Untis as a senior software developer. My responsibilities were the managment of the web-frontend, I did several coordinative tasks and I also found myself implementing stuff in the backend."
           />
           <Divider my={10} />
           <CVDescription
