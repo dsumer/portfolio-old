@@ -10,7 +10,7 @@ interface Props {
   status: 'ongoing' | 'on hold' | 'finished 🎉';
   badges: ReactElement;
   summary: string | ReactElement;
-  content: ReactElement;
+  content?: ReactElement;
 }
 const ProjectDescription = (props: Props) => (
   <Box py={[2, 6]}>

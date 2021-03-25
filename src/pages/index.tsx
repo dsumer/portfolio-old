@@ -1,4 +1,14 @@
-import { Badge, Box, Divider, Flex, Link, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import {
+  Badge,
+  Box,
+  Divider,
+  Flex,
+  Link,
+  useColorMode,
+  useColorModeValue,
+  Text,
+  Image as ChakraImage,
+} from '@chakra-ui/react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
@@ -146,6 +156,37 @@ export default function Home() {
           <Divider my={10} />
           <ProjectDescription
             linkColor={linkColor}
+            url="https://snappify.io/"
+            logo={
+              <Flex align="center" justify="center">
+                <ChakraImage
+                  src="/images/snappify_logo.png"
+                  h="90px"
+                  w="auto"
+                  maxW="none"
+                  mr={6}
+                  display="inline-block"
+                />
+                <Text fontSize="4xl" fontWeight="bold">
+                  snappify
+                </Text>
+              </Flex>
+            }
+            status="ongoing"
+            badges={
+              <>
+                <Badge colorScheme="blue">TypeScript</Badge>
+                <Badge colorScheme="teal" mx={2}>
+                  React
+                </Badge>
+                <Badge ml={2}>nextjs</Badge>
+              </>
+            }
+            summary="snappify helps you to create beautiful code snippets with ease."
+          />
+          <Divider my={10} />
+          <ProjectDescription
+            linkColor={linkColor}
             url="https://trueq.io"
             logo={<TrueQLogo />}
             status="ongoing"
@@ -203,34 +244,6 @@ export default function Home() {
                 With Rising Farms Online I started my programming journey back in 2010. It was a dream to develop my own
                 game and build up a community for it. I learned so many things with RFO and I am insanely thankful for
                 the experience. Sadly I had to put it on hold in 2019 because of a priority shift.
-              </Paragraph>
-            }
-          />
-          <Divider my={10} />
-          <ProjectDescription
-            linkColor={linkColor}
-            url="https://lenzcutsquad.com/"
-            logo={
-              <Box maxW={[300, 300, 250]} sx={{ img: { borderRadius: '5px' } }}>
-                <Image src="/images/lenzcutsquad.png" width={500} height={96} alt="LenzCutSquad" />
-              </Box>
-            }
-            status="finished 🎉"
-            badges={
-              <>
-                <Badge colorScheme="purple">PHP</Badge>
-                <Badge colorScheme="red" mx={2}>
-                  Laravel
-                </Badge>
-                <Badge colorScheme="yellow">jQuery</Badge>
-              </>
-            }
-            summary="A portfolio website for my barber with possibilities for managing a simple online shop."
-            content={
-              <Paragraph mb={0}>
-                In summer of 2019 my barber approached me if I have time for a simple portfolio website of himself. I
-                took the chance and made my first footsteps with Laravel. It&apos;s deployed on a private vServer and
-                directly fetched via a GitHub repo.
               </Paragraph>
             }
           />
