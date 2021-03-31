@@ -50,7 +50,9 @@ bannerComponent:
   }
 ---
 
-It was in March 2020 when [Anki](https://twitter.com/AnkiCodes) and I decided to tackle a new project together. After years of abandoning projects in our free time, we were dedicated to spend some time and get this done. I won’t dive deep into this journey, we‘ve already described it in [this blog post](https://trueq.io/our-journey) if you’re interested. 😄 But we did it: we created a new SaaS which is called [TrueQ](https://trueq.io/) and also managed to deploy it productively. In this blog post I want to talk about the tech stack we used, decisions we made and what we regret or would do differently nowadays.
+It was in March 2020 when [Anki](https://twitter.com/AnkiCodes) and I decided to tackle a new project together. After years of abandoning projects in our free time, we were dedicated to spend some time and get this done. I won’t dive deep into this journey, as we‘ve already described it in [this blog post](https://trueq.io/our-journey) if you’re interested. 😄
+
+But we did it: we created a new SaaS which is called [TrueQ](https://trueq.io/) and also managed to deploy it productively. In this blog post I want to talk about the tech stack we used, decisions we made and what we regret or would do differently nowadays.
 
 # Our Background
 
@@ -60,7 +62,7 @@ Before choosing the tech stack in detail, it was clear to us that it will be loc
 
 # Requirements for our product
 
-We knew that for our product idea SEO is essential. TrueQ is all about finding solutions to your day-to-day problems. So these solutions have to be found easily. Therefore we knew that even though we want to build a rich web application, our server still needs to serve the content of our pages in plain HTML to make search engine’s life easier - Server Side Rendering was a requirement for us.
+We knew that for our product SEO is essential. TrueQ is all about finding solutions to your day-to-day problems. So these solutions have to be found easily. Therefore we knew that even though we want to build a rich web application, our server still needs to serve the content of our pages in plain HTML to make search engine’s life easier - server side rendering was a requirement for us.
 
 We read about [Max Stoibers regrets when he built spectrum](https://mxstbr.com/thoughts/tech-choice-regrets-at-spectrum/), and we were sure that we don’t want to implement SSR on our own. 😅 As we were following Vercel and the development of Next.js, it was the first thing we took a closer look at.
 
@@ -76,39 +78,39 @@ We definitely don’t regret the decision of using Next.js. It is a great framew
 
 Just our solution of how we connected the backend to Next.js and the decision to host it on a private vServer and deploy it via Ansible wasn’t the best choice for us, but more to this in the later sections.
 
-# Using a custom express server
+# Using a custom Express.js server
 
-So dived more into the topic of how Next.js works and learned from the official docs that there is the possibility to [use a custom express server](https://Next.js.org/docs/advanced-features/custom-server) with Next.js where you have the whole freedom of leveraging the power as you would write a standalone ExpressJS application with Next.js. It just wraps around Next.js so that you can specify own routes with express and all other routes are handled normally by Next.js.
+So we dived deeper into the topic of how Next.js works and learned from the official docs that there is the possibility to [use a custom Express.js server](https://Next.js.org/docs/advanced-features/custom-server) with Next.js where you have the whole freedom of leveraging the power as you would write a standalone Express.js application. It just wraps around Next.js so that you can specify own routes and implement all other sorts of logic with Express.js and all other routes are handled normally by Next.js.
 
-It seems like the best decision back then. We could move on quickly, using ExpressJS a technology we already were familiar with and didn’t have to spin up a separate service for our backend. Maybe it even was the best choice to begin with in order to let us move quickly. But for us there are some big cons to this approach which led us to the decision that we wouldn’t go this way any more in the future.
+It seemed like the best decision back then. We could move quickly, using Express.js a technology we already were familiar with and didn’t have to spin up a separate service for our backend. But for us there are some big cons to this approach which led us to the decision that we wouldn’t go this way anymore in the future.
 
-## Cons of the custom express server
+## Cons of the custom Express.js server
 
-With Next.js we were used to fast HMR which allowed us to develop quickly. We also wanted our backend to reload automatically when we do changes to our code so we used nodemon together with ts-node (because all the backend code is written in TypeScript too). The problem here: it wasn't fast anymore. Everytime we changed code in the backend the whole express server rebooted and took while to be running again. This also influence some parts of our frontend as it included shared files which were also detected by nodemon. We couldn't find a solution for this yet and it's actually pretty cumbersome.
+With Next.js we were used to fast HMR which allowed us to develop quickly. We also wanted our backend to reload automatically when we do changes to our code so we used nodemon together with ts-node (because all the backend code is written in TypeScript too). The problem here: it wasn't fast anymore. Everytime we changed code in the backend the whole Express.js server rebooted and took while to be running again. This also influenced some parts of our frontend, as it included shared files which were also detected by nodemon. We couldn't find a solution for this and it's actually pretty cumbersome.
 
-Additionally you're not able to deploy your Next.js application to Vercel anymore as they only provide deployments for plain Next.js. This also led us to custom deployment with Docker + Ansible on a vServer hosted by [netcup](https://netcup.de). But more to deployment and hosting in a later section.
+Additionally you're not able to deploy your Next.js application to Vercel anymore as they only provide deployments for plain Next.js applications. This also led us to custom deployment with Docker + Ansible on a vServer hosted by [netcup](https://netcup.de) which we’re going into detail soon.
 
 ## Session handling and authentication
 
-Nevertheless, it is how TrueQ is currently built. That means that the session handling and authentication is also completely handled by express. For authentication we use Passport.js which handles our normal E-Mail / Password but also third party logins via Google, GitHub and Twitter.
+Nevertheless it is how TrueQ is currently built. That means that the session handling and authentication is also completely handled by Express.js. For authentication we use Passport.js which handles our normal E-Mail & Password login, but also third party logins via Google, GitHub and Twitter.
 
 In production we're using a Redis server to persist the sessions (which also keeps them alive after the deployment of new versions).
 
 # GraphQL with Apollo
 
-Until then we were used to write REST APIs. We already heard about GraphQL here and then but never ever got in touch with it. We got curious and got our hands dirty to spin up an API and see how we like it.
+Until then we were used to write REST APIs. We already heard about GraphQL here and then, but never got in touch with it. We got curious and got our hands dirty to spin up an API and see how we like it.
 
 We actually got hooked pretty fast. We love the flexibility to reuse DTOs, but at the same time only serve the fields you need for a specific usecase / view.
 
-We're using Apollo both for the server but also on the client to query the API. Additionally we use [graphql-codegen](https://www.graphql-code-generator.com/) to generate TypeScript models of our DTOs and the React hooks for Apollo. We're very happy with that setup.
+We're using Apollo both on the backend as server, but also on the frontend to query the API. Additionally we use [graphql-codegen](https://www.graphql-code-generator.com/) to generate TypeScript models of our DTOs and the React hooks for Apollo. We're very happy with that setup.
 
 ## Problem with calling the API logic directly when rendering on the serverside
 
-Now that we had an API in place we also needed to make sure that it's callable isomorphically. It should be reachable via the Browser, when the Next.js application is in "SPA mode", but also on the server side when the HTML is being built for first render.
+Now that we had an API in place we also needed to make sure that it's callable isomorphically. It should be reachable via the browser, when the Next.js application is in "SPA mode", but also on the server side when the HTML is being built for the first render.
 
-For the browser it was pretty straight forward, it just calls the `/api/graphql` endpoint to execute queries and mutations. But on the serverside we thought that we somehow directly could execute the Apollo server logic, but we didn't get it up and running. Because of that we need to do a seperate network request to `https://localhost:3000/api/graphql` on the serverside, to also be able to make API calls there. All of this is wrapped in an Helper HoC which takes care of making the API calls isomorphic.
+For the browser it is pretty straight forward. It just calls the `/api/graphql` endpoint to execute queries and mutations. But on the serverside we thought that we somehow directly could execute the Apollo server logic. We didn't managed to get it running like this and that's why we need to do a seperate network request to `https://localhost:3000/api/graphql` on the serverside, to also be able to make API calls there.
 
-Here's the code snippet of how we create the isomorphic Apollo link:
+All of this is wrapped in an Helper HoC which takes care of making the API calls isomorphic. Here's the code snippet of how we create the isomorphic Apollo link:
 
 ```ts
 function createIsomorphLink(ctx) {
@@ -136,11 +138,11 @@ function createIsomorphLink(ctx) {
 
 # Knex.js + Objection.js in connection with Postgres
 
-So we had our API running and implemented the first CRUD operations. But where should they end? 😄
+So we had our API running and implemented the first CRUD operations. But where should the data be stored and be retrieved from? 😄
 
-As I said we already had some experience with Node.js applications back then, but we mostly worked with MongoDB + mongoose for accessing the database. But in the last years being employed as software developer we enjoyed more to work with relational databases and also thought that it would be a better fit for TrueQ. So we decided for PostgreSQL and searched for solutions how we could easily query our DB.
+As I said we already had some experience with Node.js applications back then, but we mostly worked with MongoDB + mongoose for accessing the database. In the last years being employed as software developer we enjoyed to work with relational databases and also thought that it would be a better fit for TrueQ. So we decided for PostgreSQL and searched for solutions how we could easily query our DB.
 
-Pretty soon we stumbled upon Knex.js, a SQL query builder for Node.js. It takes care of the db connection (also has support for pooling) and gives you the possibility to write SQL queries with a query builder pattern like this:
+Pretty soon we stumbled upon [Knex.js](http://knexjs.org/), a SQL query builder for Node.js. It takes care of the db connection (it also has support for pooling) and gives you the possibility to write SQL queries with a query builder pattern like this:
 
 ```js
 knex.select('title', 'author', 'year').from('books');
@@ -170,8 +172,6 @@ console.log(topic.name);
 console.log(topic instanceof Topic); // --> true
 ```
 
-For more details I'd recommend reading through their docs. 😄
-
 ## Running migrations and seeds
 
 Now when you're running an application productively there are also going to be database changes over the time. Therefore we also needed a solution to create migrations and run them in production.
@@ -199,33 +199,33 @@ Additionally Knex also supports [Seeds](http://knexjs.org/#Seeds-CLI) for applyi
 
 ## Look out for Prisma
 
-As already mentioned we actually were pretty happy with the Knex.js + Objection.js solution, but in the meanwhile we also found out about [Prima](https://www.prisma.io/). As it recently gained stable support for migrations we really consider to use it in our future applications, as it seems even more straight forward.
+As already mentioned we actually were pretty happy with the Knex.js + Objection.js solution, but in the meanwhile we also found out about [Prima](https://www.prisma.io/). As it recently gained stable support for migrations we really consider to use it in our future applications, as it seems even more straight forward and better maintained.
 
 # Our Frontend
 
-After showing you the architecture of our backend, let's take a look at our frontend. As already mentioned we love React, we're writing React applications for a long time already and it is the frontend framework of our choice. Not sure if this still has to mentioned for React projects created in 2020, but just to cover it: very using React 17 and only make use of functional components with hooks. 😄
+After showing you the architecture of our backend, let's take a look at our frontend. As already mentioned we love React, we're writing React applications for a long time already and it is the frontend framework of our choice. Not sure if this still has to be mentioned for React projects created in 2020, but just to cover it: we’re using React 17 and only make use of functional components with hooks. 😄
 
-But as you might know in the world of React you can pull in different libraries to solve things in your webapp like routing or state management, there are also some more things to talk about here.
+But as you might know, in the world of React you can pull in different libraries to solve things like routing or state management in your webapp, there are also some more things to talk about here.
 
-## State Managment
+## State Management
 
-So we're using Apollo on the client side for fetching data from our GraphQL API. Apollo has a powerful caching mechanism built in which stores the results from your query and it also lets you update the cache manually for optimistic updates. That means for many cases the data is just stored in the Apollo cache.
+So we're using Apollo on the client side for fetching data from our GraphQL API. Apollo has a powerful caching mechanism built in which stores the results from your query and it also lets you update this cache manually for optimistic updates. That means for many cases the data is just stored in the Apollo cache.
 
-Additionally we also have quite some local logic, e.g. for our custom built editor. In those cases we're using MobX as a state managment library. We love the simplicity which MobX gives you when defining state with MobX somewhere in your component tree, but at the same time taking care of only rerendering affected components down the path. It creates performant webapps by purpose.
+Additionally we also have quite some local logic, e.g. for our custom built editor. In those cases we're using MobX as a state management library. We love the simplicity which MobX gives you when defining state somewhere in your component tree, but at the same time taking care of only rerendering affected components down the path. It creates performant webapps by purpose.
 
-Maybe I am doing a more indepth blog post about MobX in the future.
+Maybe I am doing a more in-depth blog post about MobX in the future.
 
 ## ChakraUI
 
-Of course we also needed a UI library because we didn't want to write all sort of components on our own. Thanks to the above mentioned blog post we stumbled upon [ChakraUI](https://chakra-ui.com/), an accessible and modular UI library for React.
+Of course we also needed a UI library, because we didn't want to write all sort of components on our own. Thanks to the above mentioned blog post we stumbled upon [ChakraUI](https://chakra-ui.com/), an accessible and modular UI library for React.
 
-For us ChakraUI is a bit different than other UI libraries. It simplified the way how we develop in the frontend and imho it complements the skills you've built up as a web developer in the last years, which I describe in [this blog post](https://dominik.sumer.dev/blog/chakra-complements-webdevs).
+For us ChakraUI is a bit different than other UI libraries. It simplified the way how we develop in the frontend and imho it complements the skills most web developers built up in the last years, which I describe more in detail with [this blog post](https://dominik.sumer.dev/blog/chakra-complements-webdevs).
 
 # Deployment
 
 In the summer of 2020 we came to the point that we already had quite a big part of TrueQ up and running. So we thought about how and where we're going to deploy our newly created webapp.
 
-Due to the custom express app, Vercel wasn't an option straight from the beginning. Back then we absolutely had no knowledge about services like AWS or DigitalOcean. I just had my own vServer running for the Browsergame I developed several years ago. That's why I thought it would be the best idea to also host TrueQ on our own vServer.
+Due to the custom Express.js app, Vercel wasn't an option straight from the beginning. Back then we absolutely had no knowledge about services like AWS or DigitalOcean. I just had my own vServer running for the Browsergame I developed several years ago. That's why I thought it would be the best idea to also host TrueQ on our own vServer.
 
 ## Docker
 
@@ -235,7 +235,7 @@ So when we're building TrueQ to deploy it to our test or production environment,
 
 As we said we're deploying everything on a vServer on our own. That includes installing all necessary dependencies on the Linux server, configuring NGINX as our webserver, setting up SSL certificates, setting up the database, ensuring backups, and so on.
 
-Because we don't want to do this by hand we chose Ansible as our operator here. With Ansible you can create playbooks which basically create the server setup for you automatically. You just tell Ansible what to do in it's own DSL written in yaml files. That means that if for whatever reason we need to setup a new server, we just need to execute the Ansible playbook there and the Server would be up and running with TrueQ.
+Because we didn’t just want to set this up by hand, we chose Ansible as our operator here. With Ansible you can create playbooks which basically create the server setup for you automatically. You just tell Ansible what to do in it's own DSL written in yaml files. That means that if for whatever reason we need to setup a new server, we just need to execute the Ansible playbook there and the Server would be up and running with TrueQ.
 
 With Ansible it's also much simpler to keep track of the changes you're doing on your server, as all of the playbook files are also versioned via git.
 
@@ -243,22 +243,56 @@ In retrospective we learned very much about this whole process. But one thing we
 
 ## Analytics with the ELK stack
 
-For the analytics we're using the ELK stack also hosted on those vServers. We're collecting logs via filebeat and metrics with metricbeat. Additionally we're having the Kibana APM in place to see real time insights into our Node.js backend application.
+For the analytics we're using the ELK stack also hosted on those vServers. We're collecting logs via filebeat and metrics with metricbeat. Additionally we're having the Kibana APM in place to get even more insights from our Node.js backend application.
 
 Also this was a very interesting step, but again too much hassle to maintain this on our own.
 
 ## GitLab CI/CD
 
-The process of building a docker image and deploying it with Ansible is all encapsulated in mostly automated steps in our GitLab pipelines.
+The process of building a docker image and deploying it with Ansible is all encapsulated in mostly automated steps via our GitLab pipelines.
+
+Everytime we’re merging changes into the master branch, our whole test suite is being executed and if everything succeeds, a new version of TrueQ is being built (the Docker image) und pushed to the image registry on GitLab.
+
+Every night we’re deploying the latest version of our Docker image to our test environment automatically and additionally there is a separate schedule for deploying the latest version to production which can only be executed manually.
+
+During this deployment, we’re executing an Ansible role, which connects to the Server, pulls the latest Docker image there and spins it up.
+
+Here you can see the GitLab stage configuration for deploying trueq:```yml
+deploy_trueq:
+  stage: deploy_trueq
+  script:
+    - ansible --version
+    - echo $ANSIBLE_VAULT_PASS >> .vault-pass
+    - ansible-playbook -i "inventory/$ANSIBLE_INVENTORY" main.yml --tags=trueq --vault-password-file=.vault-pass
+    - rm .vault-pass
+  only:
+    variables:
+      - $ANSIBLE_INVENTORY != null
+      - $DEPLOY_TRUEQ == "true"
+```
 
 # Test Setup
 
-We talked about the stack we developed our application with and talked about how we're deploying it. Now comes a topic which 
+So we now covered the stack we used for developing TrueQ and also how we're deploying it. Now comes a topic which we actually began with pretty soon: writing tests.
 
-TDD was an acronym we heard pretty often in our career before, but never came into an environment which .
+TDD is an acronym (standing for Test Driven Development) we heard pretty often in our career before, but never did it by our own. We wanted to give it a try, at least for our backend, and boy was this a good idea. 😄 Every time we began with new features, we created test cases for all the requirements and edge cases we could think of in [Jest](https://jestjs.io/). And before writing the actual implementation we started to write the failing tests including the assertions of how things should work. After the implementation was done those test should get executed successfully.
+
+It saved us many possible bugs and currently about 80% of our APIs are covered with tests (mostly integration tests) which give us the confidence for larger refactorings and other future changes. The [Testing Javascript](https://testingjavascript.com/) course by Kent C. Dodds definitely was a huge help with creating our test setup and learning some unknown things about Jest.
+
+In the future we also consider using [cypress](https://www.cypress.io/) for e2e tests to gain even more confidence.
 
 # What would you do differently nowadays?
 
-BlitzJS, AWS, Vercel, DigitalOcean, Supabase, Firebase
+Let’s come to an end. And in the end it’s always time for the most interesting question which probably is: what would we do differently in future products?
 
-We're very glad that the first MVP of our new product [snappify](https://snappify.io) comes with barely any backend logic and is completely hosted on Vercel, but soon we need a solution and I am going to inform you in the future how our updated tech stack is going look like. ✌️
+As already explained in the previous mentions the top things we’re complaining about are:- the custom Express.js server for Next.js
+- the deployment which don’t want to handle on our own anymore
+- maybe using Prism instead of Knex.js or, depending on our backend is going to be built, another solution for database access
+
+To be honest we’re not completely sure how our future tech stack is going to look like exactly. 
+
+For the frontend we’re already very happy and definitely going to stay with React, Next.js and Chakra. Maybe we’re going to switch the Apollo client with [React Query](https://react-query.tanstack.com/).
+
+In the backend there will probably be more changes and depending on what we go with, it will also affect database access and hosting. We’re looking closely at [Blitz.js](https://blitzjs.com/) and [Supabase](https://supabase.io/) and consider deploying on AWS, Vercel, [DigitalOcean](https://www.digitalocean.com/) or [Render](https://render.com/).
+
+We're very glad that the first MVP of our new product [snappify](https://snappify.io) comes with barely any backend logic and is completely hosted on Vercel, but soon we need a more sophisticated solution and I am going to inform you how our updated tech stack is going look like as soon as we’ve settled. ✌️
