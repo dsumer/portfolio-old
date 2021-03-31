@@ -221,10 +221,44 @@ Of course we also needed a UI library because we didn't want to write all sort o
 
 For us ChakraUI is a bit different than other UI libraries. It simplified the way how we develop in the frontend and imho it complements the skills you've built up as a web developer in the last years, which I describe in [this blog post](https://dominik.sumer.dev/blog/chakra-complements-webdevs).
 
-# Deployment with Ansible
+# Deployment
+
+In the summer of 2020 we came to the point that we already had quite a big part of TrueQ up and running. So we thought about how and where we're going to deploy our newly created webapp.
+
+Due to the custom express app, Vercel wasn't an option straight from the beginning. Back then we absolutely had no knowledge about services like AWS or DigitalOcean. I just had my own vServer running for the Browsergame I developed several years ago. That's why I thought it would be the best idea to also host TrueQ on our own vServer.
+
+## Docker
+
+So when we're building TrueQ to deploy it to our test or production environment, we're creating a docker container including the Next.js build output and all necessary files. This docker image is then pushed to our container registry on GitLab.
+
+## Ansible
+
+As we said we're deploying everything on a vServer on our own. That includes installing all necessary dependencies on the Linux server, configuring NGINX as our webserver, setting up SSL certificates, setting up the database, ensuring backups, and so on.
+
+Because we don't want to do this by hand we chose Ansible as our operator here. With Ansible you can create playbooks which basically create the server setup for you automatically. You just tell Ansible what to do in it's own DSL written in yaml files. That means that if for whatever reason we need to setup a new server, we just need to execute the Ansible playbook there and the Server would be up and running with TrueQ.
+
+With Ansible it's also much simpler to keep track of the changes you're doing on your server, as all of the playbook files are also versioned via git.
+
+In retrospective we learned very much about this whole process. But one thing we definitely learned is that we don't want to do this stuff on our own anymore. 😅 More about this in the last section of this blog post.
+
+## Analytics with the ELK stack
+
+For the analytics we're using the ELK stack also hosted on those vServers. We're collecting logs via filebeat and metrics with metricbeat. Additionally we're having the Kibana APM in place to see real time insights into our Node.js backend application.
+
+Also this was a very interesting step, but again too much hassle to maintain this on our own.
+
+## GitLab CI/CD
+
+The process of building a docker image and deploying it with Ansible is all encapsulated in mostly automated steps in our GitLab pipelines.
 
 # Test Setup
+
+We talked about the stack we developed our application with and talked about how we're deploying it. Now comes a topic which 
+
+TDD was an acronym we heard pretty often in our career before, but never came into an environment which .
 
 # What would you do differently nowadays?
 
 BlitzJS, AWS, Vercel, DigitalOcean, Supabase, Firebase
+
+We're very glad that the first MVP of our new product [snappify](https://snappify.io) comes with barely any backend logic and is completely hosted on Vercel, but soon we need a solution and I am going to inform you in the future how our updated tech stack is going look like. ✌️
