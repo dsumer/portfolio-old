@@ -1,0 +1,149 @@
+---
+title: 'How my first side project made me the developer I am today'
+publishedAt: '2021-04-21'
+summary: I am telling the story of my first real side project in software development and how it shaped my career as a software developer.
+bannerBg: 'linear-gradient(355deg, rgb(28, 94, 101), rgb(83, 197, 148))'
+bannerComponent:
+  {
+    props: { color: 'white' },
+    children:
+      [
+        {
+          content: 'My first side project',
+          props:
+            {
+              pos: 'absolute',
+              left: '10%',
+              top: '13%',
+              textShadow: '-1px 1px 1px rgb(0 0 0 / 50%)',
+              fontSize: { base: '5.5vw', md: '4.5vw', lg: '3em' },
+              fontWeight: 400,
+              transform: 'rotate(-2deg)',
+            },
+        },
+        {
+          content: 'and what I learned',
+          props:
+            {
+              pos: 'absolute',
+              left: '30%',
+              bottom: '12%',
+              textShadow: '-1px 1px 1px rgb(0 0 0 / 50%)',
+              fontSize: { base: '5.5vw', md: '4.5vw', lg: '3em' },
+              fontWeight: 400,
+              transform: 'rotate(3deg)',
+            },
+        },
+        {
+          content: '🏗',
+          props:
+            {
+              pos: 'absolute',
+              right: '10%',
+              top: '23%',
+              textShadow: '-1px 1px 2px rgb(0 0 0 / 30%)',
+              fontSize: { base: '8.5vw', md: '7vw', lg: '5em' },
+              transform: 'rotate(3deg)',
+            },
+        },
+      ],
+  }
+---
+
+It was in 2010 (at the time of writing this it’s already 11 years ago 😱) when I started my first side project in software development. I was 16 years old, still in technical high school, already a bit into programming and hungry for more.
+
+Some days ago [Felix started a thread about people’s first projects](https://twitter.com/scholz_felix/status/1380889066292588544) where I also answered with mine. Memories flashed back into my mind and whilst thinking more about it, I thought it could be interesting to share how this project made me the developer I am today. Let me take you with me on this journey. 🗺
+
+# I wanted to make a game, but it should be online!
+
+Since I was a little boy I had a faible for gaming. It started with the Gameboy Color and the good old Pokemon series and continued with playing multiplayer games like World of Warcraft (which actually led me to repeat one year in school, but that’s another story 😅). So if you mix a strong interest for gaming with a dedication to learn more about programming, it was pretty clear that I wanted to build a game, a multiplayer game to be more precise.
+
+In 2009 I played around with the [RPG Maker XP](https://www.rpgmakerweb.com/products/rpg-maker-xp). I enjoyed to create my little RPGs by clicking around in the editor and always looked up to the cool other creators who created custom scripts with Ruby. I also wanted to create more sophisticated solutions with those scripts, but couldn’t wind my head around it.
+
+But as I learned more in school I also got a better understanding of those scripts. And I began to google how I can extend my single player RPG Maker game to a multiplayer game with a server. After quite some searching I found that the RPG Maker isn’t the right platform for multiplayer games. It was somehow possible, but people suggested to use other solutions which are built on top of „real“ client-server structures. That’s when I stumbled upon [Eclipse](https://forum.eclipseorigins.com/), not the IDE, but a 2D multiplayer game engine written in VB6 (which was already quite old back then lol).
+
+# I learned the most by playing around with existing solutions
+
+Yes you read correctly, VB6. If you research [Visual Basic 6](https://de.wikipedia.org/wiki/Visual_Basic_Classic) you can see that it was first released in 1998. So it was already quite old back then, in fact so old that Microsoft killed the support for it some years later with Windows 8. So why did I even start with this? Why did I spend time on that if there could’ve been more state of the art things out there? Because it was completely open source and ready to be studied and modified to my needs.
+
+It maybe sounds a bit stubborn that I just choose this as my first solution, but I fell in love with the possibilities it offered and even more with the fact that I could tweak it to my needs. It was such an incredible feeling when I changed something in the existing codebase and saw that my changes did what I wanted them to do. This is when the real passion for software development started to sparkle inside of me. As I am writing this I can feel again how it was back then and it also makes me aware of why I am still having such a big passion: typing in some code and seeing it actually does what I want - magic.
+
+Whilst exploring this game engine I had so many Aha! moments. It was the first time I used something like a client-server architecture and the first time hearing the word “Socket”. I learned so many things by exploring the source code, engaging with the communities and googling different solutions for the tweaks I would like to do. I started to understand that Google is the tool I need in order to learn new things and find solutions for my problems. And I learned that you could solve almost every problem if you just search thoroughly and, more important, search with the right keywords.
+
+# Finding out what sort of game I wanted to build
+
+I definitely spend 6-12 months with this VB6 engine. After some time I had an idea what I wanted to build: a farming game. I loved [Harvest Moon](<https://de.wikipedia.org/wiki/Harvest_Moon_(Spieleserie,_2007)>) and I wasn’t aware of an online game with the same gaming principles as Harvest Moon. The more I thought about it, the more I liked the idea of building a farming game where players can interact with each other.
+
+So I explained my idea in different forums and got quite some feedback! The most engaging community was a forum called “Harvest Moon Heaven” where the people loved the idea of having a Harvest Moon like game with online functionalities. I got so many positive feedback which increased the motivation to move on with the game even more. It was also the place where I made a poll with how I should name the game and that’s when [Rising Farms Online](http://www.risingfarms-online.com/) was born. ☺️
+
+# Setting up my own forum / website
+
+The community around Rising Farms grew further. We had an own sub-forum at Harvest Moon Heaven with already quite some people engaging and it was time to create an own place for the game. I bought the `risingfarms-online.com` domain and installed a [Woltlab Burning Board](https://www.woltlab.com/de/) there. The Rising Farms community was born. 🥳
+
+I also created a landing page. Back then I worked much with Photoshop. I designed the whole Website in PS and sliced the pieces into images which I then imported in my website. Good. old. times. Although the asset size and the source code of the website was terrible 😅.
+
+Sadly [the earliest version of the website](https://web.archive.org/web/20130618043718/http://www.risingfarms-online.com/) I could find on Wayback Machine is from 2013, but it gives you a nice impression 😄
+
+# In 2011 we’ve built a small team around Rising Farms
+
+The community grew further and in 2011 we even built a small team of about 6 people who handled different tasks. All of those people were volunteers who thought that Rising Farms would be a great game and offered their time and skills for free. Some of them were story tellers and built the background story of the game and its characters. Others were graphic artists who created ingame pixel art.
+
+It was such a great feeling to work with other people on my own project, we even had weekly meetings where we discussed upcoming tasks. I learned many things at this time and even a bit of project management and team coordination.
+
+# Next Stop: C# with XNA
+
+As the game developed further it got clear to me, that VB6 isn’t a sustainable base for Rising Farms. At the end of 2010 I already had a prototype available and some people tested it, but every time it was a huge pain to get the game running on different machines, due to different dependencies which had to be installed. And when Microsoft announced that they are going to drop the support with their next Windows version it was clear to me that I have to find another way to develop Rising Farms.
+
+In school we played a bit with XNA, a game framework for C#, and so I thought it could be a nice framework to develop Rising Farms. I spent **much** time with rewriting existing logic in XNA with C#. Also the Server was rewritten in C# and at the end of 2011 I again had a new version up and running. You can get an overview about how the game looked like in that time with this [Trailer on Youtube](https://www.youtube.com/watch?v=aB1j0G4NdMg).
+
+In the beginning of 2012 I even played around with a Web based UI inside the map editor of Rising Farms which you can see in [this video](https://www.youtube.com/watch?v=F5dNJQGDYAI). Maybe you can remember those jQuery UI Accordion elements. 😅
+
+And then followed a long break. I was busy with finishing school and having fun with my friends.
+
+# Could Rising Farms run in the Browser?
+
+The long break lasted until the mid of 2013. Although I made that break, I never stopped thinking about Rising Farms. I still wanted to push it further and when I finished school in June 2013, I had enough time to pick it up again.
+
+In school I learned about HTML5. It was the new kid on the block and there were even possibilities like drawing on a canvas or even using WebGL for rendering graphics with quite a good performance. I didn’t want Rising Farms to be a typical browser game where you can just play around with data via the user interface. It should be a game where players can interact with the world and other players around them. But I thought: if that’s possible in a browser, why not?
+
+Additionally I still had a problem with the C# client back then: bringing updates to the users. Of course there were also solutions for this out there, but I tried to write my own updater application as you know it from WoW or League of Legends. It also kinda worked but I was never 100% happy with the solution. If the game would be running in the browser, I just needed to serve the latest assets and voilà: the user is running on the latest version, no outdated clients anymore.
+
+# Let’s bet on JavaScript
+
+So I got hooked on that idea of running the game in the browser. Therefore I needed to learn more about JavaScript, what the possibilities are and what I could do with it. Soo many new things to learn: WebGL, WebSockets, playing sounds, capturing keyboard and mouse events, studying the DOM. A whole new world opened up: the world of web development, and I loved it as much as I still do today.
+
+I had so much fun doing all of this I can’t even express it into words right now. Back then I used [Google Closure](https://en.wikipedia.org/wiki/Google_Closure_Tools) for building the client. Frameworks like React or Angular didn’t exist yet, but Closure already offered a big set of opportunities. It came with dependency injection and the possibility to write UI components, I was quite happy with it especially as I didn’t knew of anything else 😅.
+
+For rendering the game itself I used [pixi.js](https://www.pixijs.com/), a 2D rendering engine which used WebGL if the browser supported it, or even had a fallback for “normal” canvas rendering. It is a great framework and made my life so much easier, I would even recommend it today as it is still maintained!
+
+# Let’s completely bet on JavaScript
+
+Ok, so it was clear to me: I wanted to write the client in JavaScript and it should be executable in the browser. I didn’t want to write a typical browser game but the changes which came with HTML5 gave me the possibilities to create a nice game which could be experienced in modern browsers without any drawbacks.
+
+Now the question came up: what about the server? The VB6 and C# solutions all had the benefit that I only had to write my DTOs once and then they could be used both on the client and on the server. Initially my plan was to reuse my existing C# server where the WebSocket on the JavaScript client could connect to. Then I would either need to find a way to create JavaScript DTOs out of my C# DTOs, or just write them twice.
+
+But then I heard about Node.js and that JavaScript can be executed on the server 😱. I thought: that could be exactly what I need. I digged more into it and also fell in love pretty quickly. Again I could reuse the same DTOs on the client and the server and also reuse some of the logic.
+
+# I had so much fun
+
+Now followed a great time. From June 2013 to February 2014 I spent very much time with Rising Farms. School was finished and at military service (which started in September 2013) I had the luck to also have much free time I could use for developing my dream game. It wasn’t only the client and the server of the game, I even built a separate editor application where all of the game data could be managed including a fully fletched map editor.
+
+Sorry, I don’t want to brag here. I am just re-experiencing all of this again while writing this blog post and want to emphasize what a strong passion can sparkle inside of you when you’re working on something you truly thrive for.
+
+Additionally the community also supported me genuinely. If there are people which cheer you up and wait for the next update, it’s definitely a huge motivation boost. I remember release days where 20 people moved around in-game and played together with each other. Great times!
+
+# It ended in 2014 when I started with my first full-time job
+
+You see, I could write endlessly about my first side project. It was the project of my dreams and I still think of it here and then. But there came a point where I had to stop developing on it. It was the time when I started to work full-time as a software developer.
+
+Additionally me and my wife (back then we weren’t married yet) moved into our first flat and many new responsibilities popped up why I had to stop the development of Rising Farms. Actually the real “stop” was 1-2 years afterwards, because before I could never really finish with it completely. I did refactorings, e.g. from JavaScript to CoffeScript - never finished. Then from JavaScript to TypeScript, moving away from Google Closure and using React as UserInterface - never finished. And at a specific time I just had to put it to an end. But to be honest I didn’t completely finish with it until today, as the domains and server, including the website, forum and the game itself are still running. And I think I still can’t shut it off completely because maybe … someday … I have time again - I don’t know. 😅
+
+But even if I never ever find time for it, or instead move on with another, similar project, it’s cool that the website is still online and I can refer to it.
+
+# Summary
+
+Ooh this was a nice journey through the past, thanks for reading it until the end as this story means very much to me. While writing this blog post I again got aware of how many things I learned in that time and how it really made me the developer I am today. I am so grateful for that time and that I found my passion with this project. In the end, it led me to web development which I still love doing today.
+
+So I can’t stress this enough: if you have a passion for something, just get started with it and you will get better and better. Everyone is different. Some learn better with audio, some with visuals. For me I just learn the most by doing. By experimenting with existing things, look at them from different angles and try to understand how they work. And if you additionally can create something you’re also connected with, beautiful things emerge.
+
+Currently I am experiencing such a thrive again. I am pursuing my dream of creating a product which brings great value to its users and is financially profitable so that me and my family can live from it. I do this together with my friend Anki and we are active in the makers community of Twitter, which is so helpful and inspiring - feel free to join us there! 🙌

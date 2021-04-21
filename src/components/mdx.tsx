@@ -22,7 +22,11 @@ const CustomLink = (props: { href: string }) => {
     );
   }
 
-  return <Link isExternal {...linkProps} />;
+  const trackExternalLink = () => {
+    (window as any).splitbee.track('externalLink', { url: href });
+  };
+
+  return <Link isExternal onClick={trackExternalLink} {...linkProps} />;
 };
 
 const MDXComponents = {
