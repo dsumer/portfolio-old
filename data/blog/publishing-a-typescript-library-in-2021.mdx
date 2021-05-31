@@ -58,25 +58,25 @@ Great that we’re now fast forwarded to 2021. There’s a new player in the tow
 
 # The zero-config CLI for TypeScript package development
 
-The goal of the TSDX is to get rid of all the pain points I’ve mentioned above and just let you focus on developing your next library, instead of “waste another afternoon on the configuration”. And oh boy, they did an excellent job with this. Actually I couldn’t find the meaning of the TSDX acronym, but I would assume that it stands for TypeScript Developer Experience - which it definitely enhances a lot.
+The goal of TSDX is to get rid of all the pain points I’ve mentioned above and just let you focus on developing your next library, instead of “waste another afternoon on the configuration”. And oh boy, they did an excellent job with this. Actually I couldn’t find the meaning of the TSDX acronym, but I would assume that it stands for TypeScript Developer Experience - which it definitely enhances a lot.
 
 TSDX comes with Rollup under the hood and serves you best-practices for developing and bundling modern NPM packages. It is well tested and the team behind TSDX is [formium](https://formium.io/), who are also developing the popular React forms library [formik](https://github.com/formium/formik), which also leverages the power of TSDX.
 
-The best practices which come with TSDX are working perfectly out of the box and should be perfect for the most projects. And even if you need to do adjustments, the process is pretty straight forward. For example for [our library](https://github.com/snappify-io/integration) we wanted to use less instead of writing plain css and I show you later how you can adjust the TSDX config to your needs.
+The best practices which come with TSDX are should be perfect for the most projects. And even if you need to do adjustments, the process is pretty straight forward. For example for [our library](https://github.com/snappify-io/integration) we wanted to use less instead of writing plain css and I show you later how you can adjust the TSDX config to your needs.
 
 # Create a new TSDX project
 
 Creating a new TypeScript library with TSDX is as easy as typing `npx tsdx create mylib`. The command will guide you through the setup process and afterwards you will be presented with a packed folder where you can just start to develop your new library.
 
-TSDX has three different project types where you have to choose one from:
+TSDX has three different project types which you have to choose one from:
 
-- `basic` - a plain TypeScript project (we went for this because we didn’t want to include any external libraries or were depending on React)
-- `react` - choose this if you want to create a React library. TSDX takes care of all the things that have to be done to create the perfect React library out of the box
-- `react-with-storybook` - same as the option before but including a Storybook setup
+- `basic` - a plain TypeScript project (we went for this because we didn’t want to include any external libraries and weren’t depending on React)
+- `react` - choose this if you want to create a React library. TSDX takes care of all the things that have to be done to create a React library out of the box
+- `react-with-storybook` - same as the option before, but including a Storybook setup
 
 ## Get started
 
-TSDX makes developing your library super easy. You can just type `npm start` and your project will be started in watch mode. The entry point for your library is the `index.ts` (or `index.tsx` for React project). So when ever you will make changes in one of your corresponding files, TSDX will detect it and rebuild the library for you for super smooth development process.
+TSDX makes developing your library super easy. You can just type `npm start` and your project will be started in watch mode. The entry point for your library is the `index.ts` (or `index.tsx` for a React project). So when ever you will make changes in one of your corresponding files, TSDX will detect it and rebuild the library for you, leading to a super smooth development process.
 
 ## Running tests
 
@@ -101,7 +101,7 @@ If you want to adjust the build config, you have to create a `tsdx.config.js` fi
 
 Here you can see our config where we added the possibility to write less instead of css:
 
-```Less
+```js
 const less = require('rollup-plugin-less');
 
 module.exports = {
@@ -110,7 +110,7 @@ module.exports = {
       less({
         insert: true,
         output: false,
-      })
+      }),
     );
     return config;
   },
@@ -125,7 +125,7 @@ Fell free to take a look at [our GitHub workflows](https://github.com/snappify-i
 
 # Publish your library
 
-So you know have everything adjusted to your needs, had enough time to develop your library and try it out local. You’re convinced: your library is read to be consumed by the public! So what’s next?
+So you know have everything adjusted to your needs, had enough time to develop your library and try it out locally. You’re convinced: your library is ready to be consumed by the public! So what’s next?
 
 During the installation process TSDX made sure to add a proper `prepare` script in your `package.json`. The prepare script is executed automatically every time you execute `npm publish` - so every time you want to publish a new version of your package.
 
@@ -133,8 +133,8 @@ And what TSDX does before publishing is creating a new TSDX build, which also ma
 
 # Summary
 
-When we wanted to create a npm package for our product [snappify](https://snappify.io/) I was a bit scared because I remembered all the pain points of creating such a library some years ago. I knew of [react-hot-toast](https://react-hot-toast.com/) by [Timo Lins](https://timo.sh/) and asked him if he had some tips to get started with create a TypeScript npm package.
+When we wanted to create a npm package for our product [snappify](https://snappify.io/) I was a bit scared because I remembered all the pain points of creating such a library some years ago. I knew of [react-hot-toast](https://react-hot-toast.com/) by [Timo Lins](https://timo.sh/) and asked him if he had some tips to get started with creating a TypeScript npm package.
 
-He pointed me to TSDX and I started to play around with it and got hooked pretty fast. The default best practices built in are just working and as the website states: you can focus on your library instead of trying to figuring out the right configurations.
+He pointed me to TSDX and I started to play around with it and got hooked pretty quickly. The default best practices are just working and as the website states: you can focus on developing your library instead of trying to figuring out the right configurations.
 
 I want to thank the whole team behind TSDX for creating this awesome tool and take a great pain away from creating TypeScript libraries. 🎉
