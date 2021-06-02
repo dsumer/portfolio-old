@@ -66,7 +66,14 @@ const MDXComponents = {
   },
   ul: function UL({ children }: PropsWithChildren<unknown>) {
     return (
-      <Paragraph as="ul" sx={{ li: { my: 2 } }} mt={-3} pl={6}>
+      <Paragraph as="ul" sx={{ li: { my: 2 } }} mt={6} mb={10} pl={6}>
+        {children}
+      </Paragraph>
+    );
+  },
+  ol: function OL({ children }: PropsWithChildren<unknown>) {
+    return (
+      <Paragraph as="ol" sx={{ li: { my: 2 } }} mt={6} mb={10} pl={6}>
         {children}
       </Paragraph>
     );

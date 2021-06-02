@@ -1,5 +1,6 @@
-p code {
-  color: #ce9178;
+p code,
+li code {
+  color: #ff966b;
   padding: 4px 7px;
   border-radius: 7px;
   font-size: 0.9em;
@@ -63,13 +64,15 @@ pre[class*='language-'] {
 
 pre[class*='language-'],
 .remark-code-title,
-p code {
-  background: rgba(0, 0, 0, 0.65);
+p code,
+li code {
+  background: rgb(255 255 255 / 13%);
   white-space: nowrap;
 }
 .chakra-ui-light pre[class*='language-'],
 .chakra-ui-light .remark-code-title,
-.chakra-ui-light p code {
+.chakra-ui-light p code,
+.chakra-ui-light li code {
   background: rgba(0, 0, 0, 0.9);
 }
 
