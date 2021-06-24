@@ -24,7 +24,10 @@ export const remarkPlugin: Plugin = (options) => async (tree) => {
     const splittedLang = (node.lang as any).split(':');
     node.value = (options?.highlighter as any)
       .codeToHtml(node.value, splittedLang[0])
-      .replace('<code>', `<code data-value="${node.value}" data-filename="${splittedLang[1] || ''}">`);
+      .replace(
+        '<code>',
+        `<code data-value="${encodeURI(node.value as string)}" data-filename="${splittedLang[1] || ''}">`,
+      );
   });
 };
 

@@ -48,7 +48,7 @@ const MDXComponents = {
   Tweet,
   code: function Code(props: PropsWithChildren<any>) {
     const fileName = props['data-filename'];
-    const value = props['data-value'];
+    const value = decodeURI(props['data-value']);
     const { hasCopied, onCopy } = useClipboard(value);
 
     return (
