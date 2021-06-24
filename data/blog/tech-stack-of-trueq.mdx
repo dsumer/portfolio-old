@@ -258,7 +258,8 @@ Every night we’re deploying the latest version of our Docker image to our test
 During this deployment, we’re executing an Ansible role, which connects to the Server, pulls the latest Docker image there and spins it up.
 
 Here you can see the GitLab stage configuration for deploying trueq:
-```yml
+
+```yaml
 deploy_trueq:
   stage: deploy_trueq
   script:
@@ -287,11 +288,12 @@ In the future we also consider using [cypress](https://www.cypress.io/) for e2e 
 Let’s come to an end. And in the end it’s always time for the most interesting question which probably is: what would we do differently in future products?
 
 As already explained in the previous sections the top things we’re complaining about are:
+
 - the custom Express.js server for Next.js
 - the deployment which we don’t want to handle on our own anymore
 - maybe using Prism instead of Knex.js or another solution for accessing the database
 
-To be honest we’re not completely sure how our future tech stack is going to look like exactly. 
+To be honest we’re not completely sure how our future tech stack is going to look like exactly.
 
 For the frontend we’re already very happy and definitely going to stay with React, Next.js and Chakra. Maybe we’re going to switch the Apollo client with [React Query](https://react-query.tanstack.com/).
 

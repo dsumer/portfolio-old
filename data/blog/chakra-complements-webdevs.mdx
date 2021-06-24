@@ -14,7 +14,7 @@ Chakra brings new paradigms on the plate and at the same time complements the sk
 
 Do you know CSS? Oh well, then you already know how to develop with ChakraUI. When you’re styling components you’re able to style them with props which map 1:1 to existing CSS properties as you know them.
 
-```jsx
+```tsx
 import { Box } from '@chakra-ui/react';
 
 const YourComponent = () => (
@@ -38,7 +38,7 @@ With it’s composable nature it’s a breeze to either just style single elemen
 
 Ok now you maybe think: what's with pseudo styles? You want to style the hover or focused state of your desired element, so what? Chakra of course also backs you up on this one.
 
-```jsx
+```tsx
 <Box _hover={{ bg: 'red.500' }}>Hello World!</Box>
 ```
 
@@ -46,7 +46,7 @@ With properties like `_hover` or `_focus` you can style the corresponding state 
 
 In addition Chakra even provides you basic features for using pseudo styling in the case of grouped elements. It doesn't cover all usecases (e.g. nested groups) but is a great companion most of the time and keeps your code clean and simple.
 
-```jsx
+```tsx
 <Box role="group">
   <Box _hover={{ fontWeight: 'semibold' }} _groupHover={{ color: 'tomato' }}></Box>
 </Box>
@@ -56,7 +56,7 @@ In addition Chakra even provides you basic features for using pseudo styling in 
 
 In the past years the "mobile first" approach got a lot of attentation. Legitimately as many users are surfing the web with different device sizes. So how does Chakra helps us with this?
 
-```jsx
+```tsx
 <Box m={{ base: 2, sm: 4, md: 6, lg: 8 }}>Hello World!</Box>
 ```
 
@@ -66,7 +66,7 @@ Chakra comes with its [default defined breakpoints](https://chakra-ui.com/docs/f
 
 As a shorthand method, you can also pass it as an array with ascending values. This may reduce code, but also can decrease readablity and removes the possibility to leave out breakpoints in between. Here is the same code as above, written with the shorthand method:
 
-```jsx
+```tsx
 <Box m={[2, 4, 6, 8]}>Hello World!</Box>
 ```
 
@@ -132,7 +132,7 @@ Ok so it's cool to change the default look of a Chakra component, but what if yo
 
 Here comes the Chakra factory to the rescue, a very powerful tool!
 
-```jsx
+```tsx
 import { chakra, Box } from '@chakra-ui/react';
 
 const MyBox = chakra(Box, {
@@ -150,7 +150,7 @@ As you see in the example you can just pass existing Chakra components to the fa
 
 The cool thing is, you're not only able to adjust existing Chakra components, but also standard HTML elements like `div`, `input`, `span`, etc. And if you're styling those elements with the Chakra factory, they also have the superpower to be adjusted with style props afterwards. This is really awesome 🎉
 
-```jsx
+```tsx
 import { chakra } from '@chakra-ui/react';
 
 const MyDiv = chakra('div', {
@@ -170,7 +170,7 @@ Let's also cover a special usecase, where you have to style nested elements whic
 
 Consider you have the following way of styling the component:
 
-```jsx
+```tsx
 import Image from 'next/image';
 
 <Image src="yourimage.png" width={200} height={100} style={{ margin: '20px' borderRadius: '10px' }} />
@@ -178,7 +178,7 @@ import Image from 'next/image';
 
 But that's not the way we like it mh? We want to style it with Chakra, because e.g. you want to define different margins depending on the device size. Let's have a look the the `sx` property of Chakra, another powerful tool.
 
-```jsx
+```tsx
 import Image from 'next/image';
 import { Box } from '@chakra-ui/react';
 

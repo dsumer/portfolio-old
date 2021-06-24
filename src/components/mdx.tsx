@@ -1,9 +1,13 @@
 import NextLink from 'next/link';
 import Image from 'next/image';
 import Tweet from 'react-tweet-embed';
-import { Box, Divider, Link, useColorModeValue } from '@chakra-ui/react';
+import { Button, Box, Divider, Link, useColorModeValue, DarkMode, useClipboard } from '@chakra-ui/react';
 import Paragraph from './paragraph';
 import { PropsWithChildren } from 'react';
+import { CodeWindowHeader } from './code-window-header';
+
+const DEFAULT_FONT_FAMILY =
+  '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"';
 
 const CustomLink = (props: { href: string }) => {
   const href = props.href;
@@ -42,6 +46,51 @@ const MDXComponents = {
     );
   },
   Tweet,
+  code: function Code(props: PropsWithChildren<any>) {
+    const fileName = props['data-filename'];
+    const value = props['data-value'];
+    const { hasCopied, onCopy } = useClipboard(value);
+
+    return (
+      <Box pos="relative">
+        <Box fontFamily={DEFAULT_FONT_FAMILY}>
+          <CodeWindowHeader fileName={fileName} bgColor="rgb(34, 34, 34)">
+            <DarkMode>
+              <Button onClick={onCopy} color="white" mr="6px" mb="1px" py={0} px={3} size="sm" colorScheme="gray">
+                {hasCopied ? 'Copied!' : 'Copy'}
+              </Button>
+            </DarkMode>
+          </CodeWindowHeader>
+        </Box>
+        <Box
+          p={6}
+          pb={8}
+          overflow="auto"
+          sx={{
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+            scrollbarWidth: 'none',
+          }}
+        >
+          <Box as="code">{props.children}</Box>
+        </Box>
+        <Box
+          pos="absolute"
+          target="_black"
+          tabIndex={-1}
+          color="white"
+          fontFamily={DEFAULT_FONT_FAMILY}
+          right="6px"
+          bottom="4px"
+          fontWeight="bold"
+          fontSize="15px"
+        >
+          snappify.io
+        </Box>
+      </Box>
+    );
+  },
   p: Paragraph,
   hr: function HR({ children }: PropsWithChildren<unknown>) {
     return <Divider my={8}>{children}</Divider>;
