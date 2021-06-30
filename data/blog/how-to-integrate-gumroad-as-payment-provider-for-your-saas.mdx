@@ -1,0 +1,149 @@
+---
+title: 'How to integrate Gumroad as a payment provider for your SaaS'
+publishedAt: '2021-06-30'
+summary: You want to concentrate on getting the MVP up and running instead of spending hours integrating a payment provider? Check out this blog post ✌️
+bannerBg: 'linear-gradient(15deg, #13547a 0%, #80d0c7 100%)'
+bannerComponent:
+  {
+    props: { color: 'white' },
+    children:
+      [
+        {
+          content: 'Can Gumroad be your',
+          props:
+            {
+              pos: 'absolute',
+              left: '10%',
+              top: '13%',
+              textShadow: '-1px 1px 1px rgb(0 0 0 / 50%)',
+              fontSize: { base: '5.5vw', md: '4.5vw', lg: '3em' },
+              fontWeight: 400,
+              transform: 'rotate(-2deg)',
+            },
+        },
+        {
+          content: 'next payment provider?',
+          props:
+            {
+              pos: 'absolute',
+              left: '30%',
+              bottom: '12%',
+              textShadow: '-1px 1px 1px rgb(0 0 0 / 50%)',
+              fontSize: { base: '5.5vw', md: '4.5vw', lg: '3em' },
+              fontWeight: 400,
+              transform: 'rotate(3deg)',
+            },
+        },
+        {
+          content: '🤑',
+          props:
+            {
+              pos: 'absolute',
+              right: '10%',
+              top: '23%',
+              textShadow: '-1px 1px 2px rgb(0 0 0 / 30%)',
+              fontSize: { base: '8.5vw', md: '7vw', lg: '5em' },
+              transform: 'rotate(3deg)',
+            },
+        },
+      ],
+  }
+---
+
+Maybe you’ve read my article about [Stripe and EU VAT](https://dominik.sumer.dev/blog/stripe-checkout-eu-vat) (which thankfully is deprecated because of the release of [Stripe Tax](https://stripe.com/at/tax)) if you wanted to integrate a payment provider for your SaaS. And maybe you also thought: why does it have to be so complicated?
+
+Most of the payment providers managed to make the process of selling digital products and taxes much easier for us over the last months. But do you know what’s even better than making the process easier? If you don’t have to deal with it at all 🙌
+
+Today I want to introduce you to another way to integrate payments into your SaaS. A way that is super simple and causes you no headaches - which is crucial if you’re currently building an MVP for your SaaS and want to validate if your idea is worth pushing further.
+
+# What is Gumroad and how does it work?
+
+Gumroad is a digital marketplace for selling your products. It’s not even bound to only sell digital products, but today we’re going to focus on this part. Gumroad handles many things for you. You only need to connect your PayPal account (or in some countries you can also connect your bank account directly) to your Gumroad account and that’s it.
+
+But why is it so easy when it comes to handling invoices and the collection of taxes? Because you are not selling the digital products to your customers directly, but on the behalf of Gumroad and they take care of all the bureaucracies.
+
+That means that Gumroad is responsible for charging the VAT from your customers and invoice them correctly. And every two weeks Gumroad pays you all the income of your products onto your PayPal account.
+
+If you now still need to invoice Gumroad, because it is needed for your company, then you probably just need a reverse-charge invoice to have everything documented, but make sure to double check this with your accountant.
+
+This of course doesn’t come for free. Gumroad charges you a fee for every sale, but especially when you’re at the beginning and don’t want to spend too much time on bureaucracies, it can definitely be worth it. [This table](https://help.gumroad.com/article/66-gumroads-fees#TheAllInclusiveGumro) includes all different use-cases and how much fees you’d have to pay in each case.
+
+# How can Gumroad be included in your payment process?
+
+There are two ways how you can include Gumroad in your payment process. Let’s split them up into two sections and look at each of them on their own.
+
+## Redirect your customer to Gumroad
+
+The first approach is to just redirect the user to your product page in Gumroad where they’re able to purchase it directly. This is the approach we went for because it is straightforward to implement and we had problems with the other solution (more on this later).
+
+So you lead the user to the URL of your Gumroad product which looks like this: [https://gum.co/snappify](https://gum.co/snappify)
+
+In most cases you describe your product very well on the website of your SaaS, so you probably don’t need to show him the description page on Gumroad, but directly lead him to the checkout page. This can be achieved by appending `?wanted=true` as request parameter of the URL.
+
+So for example if you have your own pricing form, where you describe everything to the user and then lead him to the Gumroad URL of the product including the `wanted` parameter, he will directly land at the checkout and can purchase your product - Gumroad is taking care of the rest. 🙌
+
+### Custom form fields and how to prefill them
+
+Sometimes you also have other form fields than just the email address of the user. In our case we need the Twitter Username so we can identify which user has purchased our product.
+
+Those form fields can be specified directly in Gumroad. You can also specify if they are mandatory or not.
+
+Sometimes you already have that information from the user and want to save him time by prefilling it in the Gumroad checkout form. This can also be achieved by just appending the values via request parameters.
+
+In our case, we named the field “Twitter Username”. So to prefill it with a value we need to append the following parameter: `&Twitter%20Username=dominiksumer`
+
+That’s it, you probably saved your user time which is definitely great in a checkout process. 😄
+
+### Get notified about successful purchases
+
+After your user successfully purchased your product, he will be redirected to an URL you can specify in Gumroad. We for example made a separate page where we thank the user and tell him how he can further continue.
+
+But like this, you still don’t know which user purchased and you would also probably need to mark this user as a customer in your database to give him access to features he paid for. This is where [“Gumroad Ping”](https://gumroad.com/ping) comes into play.
+
+Gumroad Ping is a service that calls your application if a successful purchase was made. Perfect for our use case! So how does such a call look like and how can you react to it?
+
+Gumroad Ping sends a POST request to your specified URL with all information you need about the purchase. Here is an example of how we implemented our REST endpoint to handle the Gumroad Ping call:
+
+```ts:gumroad-ping.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { addPro, isPro } from '../../utils/auth-util';
+
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+  const { product_id: productId, test } = req.body;
+
+  if (!test && req.method.toUpperCase() === 'POST' && productId === 'YOUR_PRODUCT_ID') {
+    const userName = req.body['Twitter Username'];
+    if (!(await isPro(userName))) {
+      await addPro(userName);
+    }
+  }
+
+  res.status(200).send('');
+}
+```
+
+So you can see we first check that the boolean `test` is false (would be true if you’re testing a purchase on your own) and if the productId is matching the id of your product. Like this, you also secure the endpoint against someone just calling it and therefore you should keep the product id a secret.
+
+Afterward, you can read other information from the user and move on with your logic of persisting the user as a customer. Also, make sure to return the status code 200 if everything worked out well to tell Gumroad that the operation was performed successfully. If you return another status code, Gumroad will assume that there was a failure and going to retry the Gumroad Ping call up to three times.
+
+> Hint: When Gumroad is redirecting the user to your website after a purchase, it can be the case that Gumroad Ping didn’t notify your application about it yet. So make sure to deal with this asynchrony.
+
+## Embed Gumroad Widgets into your SaaS
+
+The second approach is to embed one of the [Gumroad widgets](https://gumroad.com/widgets) into your website. It aims for an even better user experience as the user doesn’t have to leave your website for purchasing your product.
+
+I had some weird issues in the frontend and didn’t want to waste too much time with problem-solving. That’s why I chose the first method with redirecting the user to Gumroad directly. I would suggest you give it a try and see if it works and fits your needs!
+
+# Recurring payments
+
+For our product [snappify](https://snappify.io) we wanted to keep things simple in the beginning and only offer a yearly subscription without recurring payments. This yearly subscription is just a normal Gumroad product and when we get notified via Gumroad Ping that someone purchased the product, we add him as “Pro user” to our database including the date of the purchase and that’s it.
+
+But you maybe want to including a monthly subscription too and want to charge your customers on a monthly basis. Gumroad also got you covered on this! They call it [Memberships](https://gumroad.com/gumroad/p/introducing-gumroad-memberships) and together with the [Gumroad API](https://gumroad.com/api) you have powerful tools at your hand to offer monthly subscriptions to your customers with ease.
+
+# Summary
+
+You’re currently bootstrapping your SaaS. You want to find out if your idea is worth pushing further. You want to concentrate on getting the MVP up and running instead of spending hours integrating a payment provider.
+
+If you find yourself in those words, you should consider giving Gumroad a try. They take their fair share, but also take care of all the bureaucracies and the integration itself should be done in some hours.
+
+I’ve put this blog post out there because I have the feeling that only providers like [Stripe](https://stripe.com/) or [Paddle](https://paddle.com/) are being mentioned when integrating a payment provider for your SaaS. But why not keep it even simpler in the beginning? Cheers!

@@ -113,6 +113,15 @@ const MDXComponents = {
       </Link>
     );
   },
+  h3: function H3({ children, id }: PropsWithChildren<any>) {
+    return (
+      <Link href={`#${id}`}>
+        <Box id={id} as="h4" fontSize={['1.52rem', '1.72rem']} mt={12} mb={4}>
+          {children}
+        </Box>
+      </Link>
+    );
+  },
   ul: function UL({ children }: PropsWithChildren<unknown>) {
     return (
       <Paragraph as="ul" sx={{ li: { my: 2 } }} mt={6} mb={10} pl={6}>

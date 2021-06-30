@@ -11,8 +11,9 @@ const PURPLE = '#ff007a70';
 const TURQUOISE = '#00e0ff70';
 const GREEN = '#38ff0070';
 const BLUE = '#0060ff70';
+const RED = '#ff00008f';
 
-const colors = [BLUE, GREEN, PURPLE, ORANGE, TURQUOISE];
+const colors = [BLUE, GREEN, PURPLE, ORANGE, TURQUOISE, RED];
 
 const BlogOverview = ({ groups }: { groups: GroupedBlogPosts[] }) => {
   return (
