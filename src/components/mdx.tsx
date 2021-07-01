@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import Image from 'next/image';
 import Tweet from 'react-tweet-embed';
-import { Button, Box, Divider, Link, useColorModeValue, DarkMode, useClipboard } from '@chakra-ui/react';
+import { Button, Box, Flex, Divider, Link, useColorModeValue, DarkMode, useClipboard } from '@chakra-ui/react';
 import Paragraph from './paragraph';
 import { PropsWithChildren } from 'react';
 import { CodeWindowHeader } from './code-window-header';
@@ -62,10 +62,8 @@ const MDXComponents = {
             </DarkMode>
           </CodeWindowHeader>
         </Box>
-        <Box
-          p={6}
-          pb={8}
-          overflow="auto"
+        <Flex
+          overflowX="auto"
           sx={{
             '&::-webkit-scrollbar': {
               display: 'none',
@@ -73,8 +71,10 @@ const MDXComponents = {
             scrollbarWidth: 'none',
           }}
         >
-          <Box as="code">{props.children}</Box>
-        </Box>
+          <Box as="code" p={6} pb={8}>
+            {props.children}
+          </Box>
+        </Flex>
         <Box
           pos="absolute"
           target="_black"
