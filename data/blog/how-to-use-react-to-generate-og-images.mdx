@@ -1,0 +1,183 @@
+---
+title: 'How to use React to generate your own OpenGraph images'
+publishedAt: '2021-07-31'
+summary: Let's use the power of React together with Puppeteer / Playwright to style and generate dynamic images on the fly.
+bannerBg: 'linear-gradient(to right, #f2709c, #ff9472);'
+bannerComponent:
+  {
+    props: { color: 'white' },
+    children:
+      [
+        {
+          content: 'Use React to generate',
+          props:
+            {
+              pos: 'absolute',
+              left: '10%',
+              top: '13%',
+              textShadow: '-1px 1px 1px rgb(0 0 0 / 50%)',
+              fontSize: { base: '5.5vw', md: '4.5vw', lg: '3em' },
+              fontWeight: 400,
+              transform: 'rotate(-2deg)',
+            },
+        },
+        {
+          content: 'dynamic OG images!',
+          props:
+            {
+              pos: 'absolute',
+              left: '30%',
+              bottom: '12%',
+              textShadow: '-1px 1px 1px rgb(0 0 0 / 50%)',
+              fontSize: { base: '5.5vw', md: '4.5vw', lg: '3em' },
+              fontWeight: 400,
+              transform: 'rotate(3deg)',
+            },
+        },
+        {
+          content: '🏞',
+          props:
+            {
+              pos: 'absolute',
+              right: '10%',
+              top: '23%',
+              textShadow: '-1px 1px 2px rgb(0 0 0 / 30%)',
+              fontSize: { base: '8.5vw', md: '7vw', lg: '5em' },
+              transform: 'rotate(3deg)',
+            },
+        },
+      ],
+  }
+---
+
+In this blog post, I want to show you how you can generate an OpenGraph image out of your React component. Personally, I love this approach, because I can leverage my frontend development skills to generate dynamic images (actually not only OpenGraph images).
+
+As already stated in the title, I am going to use React to generate the image, but the approach can probably be easily transferred to other Frontend Frameworks too, so I hope you also find it helpful although you're not into React!
+
+# Using Puppeteer / Playwright
+
+The first building stone for this approach is to use a browser automation framework like Puppeteer or Playwright. Both are very similar feature-wise and also API-wise so there shouldn't be many differences between them. Today I am going to use Playwright.
+
+Both of the mentioned frameworks can be used to automate a (headless) browser. You can write scripts to navigate to specific websites and scrape them or do other fancy stuff. And for the generation of our OG images, we're leveraging the power to take screenshots of websites. 🙌
+
+Check out the following snippet:
+
+```ts
+import * as playwright from 'playwright-aws-lambda';
+
+const width = 1200;
+const height = 630;
+
+const browser = await playwright.launchChromium({ headless: true });
+const page = await browser.newPage({
+  viewport: {
+    width,
+    height,
+  },
+});
+
+const imageBuffer = await page.screenshot({
+  type: 'jpeg',
+  clip: {
+    x: 0,
+    y: 0,
+    width,
+    height,
+  },
+});
+
+await browser.close();
+```
+
+With these few lines we:
+
+1. Fire up a headless chrome browser
+2. Open a new tab with the given viewport (I chose 1200x630 because it is the most common og image size)
+3. Take a screenshot of it - you can choose between PNG or JPEG and with JPEG you can even specify the quality of the image
+4. Close the browser
+
+That's pretty neat, isn't it? But yeah, we're now just generating a plain white og image - so how can we use React to design a dynamic image of our desire? 😄
+
+# Leverage the power of React
+
+Imagine we have the following component which we want to use to render our og image:
+
+```tsx
+interface Props {
+  title: string;
+}
+
+export const OgImage = ({ title }: Props) => {
+  return <div style={{ color: 'red', fontSize: '60px' }}>{title}</div>;
+};
+```
+
+It's a very simple component, perfect for our example. It takes a title as a prop and renders it as a red text. Let's tell playwright that we want to render it onto our page.
+
+First we're creating an instance of our React Component passing our desired title as prop:
+
+```ts
+const el = createElement(OgImage, {
+  title: 'This is a test title',
+});
+```
+
+And then we're leveraging the power of React server side rendering. We're rendering it as static HTML markup:
+
+```ts
+const body = renderToStaticMarkup(el);
+```
+
+Additionally we add a utility function to render our basic HTML structure:
+
+```ts
+const baseCSS = `*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif}`;
+
+const getHtmlData = ({ body }: { body: string }) => {
+  const html = `<!DOCTYPE html>
+    <head>
+    <meta charset="utf-8"><style>${baseCSS}</style>
+    </head>
+    <body style="display:inline-block">
+    ${body}
+    </body>
+  </html>`;
+  return html;
+};
+```
+
+And now we tell playwright, right after opening the new page in the browser, that our generated HTML should be set as the content of the page:
+
+```ts
+const html = getHtmlData({
+  body,
+});
+
+await page.setContent(html);
+```
+
+Voilá now we're rendering our own React component with playwright and taking a screenshot of it. 🥳 From here your imagination knows no boundaries. Just style your og image like you're used to style your frontend applications and use as many dynamic parameters as you need.
+
+## Using ChakraUI
+
+I love to use ChakraUI to style my web applications. Since I switched to ChakraUI I would never want to style my React applications differently. Therefore I also wanted to use ChakraUI to generate my og images.
+
+To achieve this you also need to include the `<ChakraProvider>` into your OgImage component so that you can access all of the functionality.
+
+# Deploying it as a serverless function
+
+Basically, you could use this technique to generate images of your React component however you want. E.g. as a Node.js script that generates some images with the given arguments. But with this blog post, I am specifically mentioning og images, which are being fetched when a bot crawls your website.
+
+I am using [Next.js](https://nextjs.org/) to write my React applications and my plan was to actually generate those og images while building my project. Next.js creates static sites for my blog posts and I wanted to create the static og image once the static site is created and then just serve it as static asset. But I didn't get this working on [Vercel](https://vercel.com/) as I ran into memory limits during the build process.
+
+So then I went for the second-best approach which came into my mind: deploy it as a serverless function (in my case a Next.js API route) which is called with dynamic parameters.
+
+It's basically just a GET call that takes my dynamic parameters, renders the og image with playwright, and returns it as response. That's how I am rendering the og images for my blog posts here. 😄
+
+You can find the source of this og image generation [right here](https://github.com/dsumer/portfolio/blob/master/src/pages/api/og-image.ts).
+
+And [this is the API](https://dominik.sumer.dev/api/og-image?title=How%20to%20integrate%20Gumroad%20as%20a%20payment%20provider%20for%20your%20SaaS&slug=/blog/how-to-integrate-gumroad-as-payment-provider-for-your-saas&date=June%2030%2C%202021&rt=8%20min%20read) where those og images are located / being generated on the fly.
+
+# Conclusion
+
+I hope this blog post was somehow helpful to and maybe it could spark some ideas about how you can use this technique to generate some awesome images. If you have further questions, please don't hesitate to [shoot me a DM on Twitter](https://twitter.com/messages/compose?recipient_id=798465058061881344), cheers!
