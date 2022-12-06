@@ -3,26 +3,26 @@ import {
   Box,
   Divider,
   Flex,
+  Image as ChakraImage,
   Link,
+  Text,
   useColorMode,
   useColorModeValue,
-  Text,
-  Image as ChakraImage,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
-import Header from '../components/header';
-import Paragraph from '../components/paragraph';
-import TrueQLogo from '../style/logos/trueq-logo';
-import ProjectDescription from '../components/project-description';
+import Avatar from '../components/avatar';
 import CVDescription from '../components/cv-description';
-import UntisLogo from '../style/logos/untis-logo';
+import Header from '../components/header';
+import { MotionBox, MotionFlex } from '../components/motion';
+import NewsletterForm from '../components/newsletter-form';
+import Paragraph from '../components/paragraph';
+import ProjectDescription from '../components/project-description';
 import CatalystsLogo from '../style/logos/catalysts-logo';
 import HtlLogo from '../style/logos/htl-logo';
-import Avatar from '../components/avatar';
-import NewsletterForm from '../components/newsletter-form';
-import { MotionBox, MotionFlex } from '../components/motion';
+import TrueQLogo from '../style/logos/trueq-logo';
+import UntisLogo from '../style/logos/untis-logo';
 
 const ANIMATION_DURATION = 0.5;
 
@@ -156,7 +156,7 @@ export default function Home() {
           <Divider my={10} />
           <ProjectDescription
             linkColor={linkColor}
-            url="https://snappify.io/"
+            url="https://snappify.com/"
             logo={
               <Flex align="center" justify="center">
                 <ChakraImage
@@ -182,7 +182,7 @@ export default function Home() {
                 <Badge ml={2}>nextjs</Badge>
               </>
             }
-            summary="snappify helps you to create beautiful code snippets with ease."
+            summary="snappify is a powerful design tool for developers. Explain and share your code snippets with the rest of the world."
           />
           <Divider my={10} />
           <ProjectDescription

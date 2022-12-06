@@ -1,10 +1,10 @@
-import NextLink from 'next/link';
+import { Box, Button, DarkMode, Divider, Flex, Link, useClipboard, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
-import Tweet from 'react-tweet-embed';
-import { Button, Box, Flex, Divider, Link, useColorModeValue, DarkMode, useClipboard } from '@chakra-ui/react';
-import Paragraph from './paragraph';
+import NextLink from 'next/link';
 import { PropsWithChildren } from 'react';
+import Tweet from 'react-tweet-embed';
 import { CodeWindowHeader } from './code-window-header';
+import Paragraph from './paragraph';
 
 const DEFAULT_FONT_FAMILY =
   '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"';
@@ -86,7 +86,7 @@ const MDXComponents = {
           fontWeight="bold"
           fontSize="15px"
         >
-          snappify.io
+          snappify.com
         </Box>
       </Box>
     );
